@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "../template/hospital/header/header";
 
 export default props => 
-    <div>teste</div>
+    <Header/>

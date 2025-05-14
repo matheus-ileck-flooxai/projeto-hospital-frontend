@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import './auth.css'
 import { hashHistory } from 'react-router'
-import Logo from './logo.png'
+import Logo from '../template/assets/img/logo.png'
 
 export default class Auth extends Component {
 
@@ -25,9 +25,8 @@ export default class Auth extends Component {
         axios.post('http://localhost:3003/api/login', { email, senha })
             .then(resp => {
 
-                console.log(resp.data.user._id);
-                localStorage.setItem('userId', userId)
-
+                const id = resp.data.user._id;
+                localStorage.setItem('userId', resp.data.user._id)
                 hashHistory.push('/hospital')
             })
             .catch(err => {
