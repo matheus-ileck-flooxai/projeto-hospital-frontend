@@ -1,0 +1,22 @@
+.sidebar-menu{
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+    overflow: hidden;
+    color: white;
+}
+
+.menu-item{
+    padding: 2rem;
+}
+
+.menu-item:hover{
+    background-color: rgb(255, 231, 231);
+    color: black;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+

@@ -1,7 +1,4 @@
 import React from "react";
 
 export default props =>
-
-    <ul className="sidebar-menu">
-    
-    </ul>
+    <h1>pontuacao</h1>

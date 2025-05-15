@@ -20,11 +20,10 @@
 
 }
 
-a {
+.nav a {
     color: white;
     text-decoration: none;
     text-transform: uppercase;
-    letter-spacing: 3px;
     margin-left: 32px;
     padding: 2vh;
 }

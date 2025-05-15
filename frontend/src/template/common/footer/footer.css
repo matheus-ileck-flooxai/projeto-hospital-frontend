@@ -1,0 +1,9 @@
+.main-footer{
+     background-color: #f2f2f2;
+     color: #666;
+     height: 4vh;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     text-align: center;
+}
