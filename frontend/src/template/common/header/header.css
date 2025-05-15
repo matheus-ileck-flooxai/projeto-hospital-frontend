@@ -1,5 +1,5 @@
 .main-header {
-    background: red;
+    background: #fd0d03;
     width: 100vw;
     top: 0;
     padding-left: 2rem;
@@ -28,8 +28,8 @@
     padding: 2vh;
 }
 
-ul li a:hover {
-    transition: 0.5s;
-    background: white;
-    color: black;
+.navbar-list a:hover {
+    border-bottom: 4px solid white;
+
 }
+

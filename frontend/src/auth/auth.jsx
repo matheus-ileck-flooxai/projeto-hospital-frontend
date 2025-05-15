@@ -37,7 +37,7 @@ export default class Auth extends Component {
     }
 
     render() {
-        const { email, senha } = this.state
+        const { email, password } = this.state
 
         return (
             <div className="login-container">
@@ -52,7 +52,7 @@ export default class Auth extends Component {
                         </div>
                         <div className="grupo-inputs">
                             <label htmlFor="senha" className="label">Senha:</label>
-                            <input type="password" name="senha" value={senha} placeholder="Digite sua senha" onChange={(e) => this.setState({ senha: e.target.value })} required />
+                            <input type="password" name="senha" value={password} placeholder="Digite sua senha" onChange={(e) => this.setState({ password: e.target.value })} required />
 
                         </div>
                         <div className="grupo-inputs button">

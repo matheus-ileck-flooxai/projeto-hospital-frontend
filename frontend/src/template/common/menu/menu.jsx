@@ -5,8 +5,8 @@ import { Link } from 'react-router';
 export default props =>
 
     <ul className="sidebar-menu">
-        <li className="menu-item"><Link to="/Hospital/usuarios">Usuarios</Link></li>
-        <li className="menu-item"><Link to="/Hospital/vagas">Vagas</Link></li>
-        <li className="menu-item"><Link to="/Hospital/voluntarios">Voluntarios</Link></li>
-        <li className="menu-item"><Link to="/Hospital/pontuacao">Pontuação</Link></li>
-    </ul>
+        <Link to="/Hospital/usuarios"><li className="menu-item">Usuarios</li></Link>
+        <Link to="/Hospital/vagas" > <li className="menu-item">Vagas</li></Link>
+        <Link to="/Hospital/voluntarios" > <li className="menu-item">Voluntarios</li></Link>
+        <Link to="/Hospital/pontuacao" > <li className="menu-item">Pontuação</li></Link>
+    </ul >

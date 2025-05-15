@@ -1,4 +1,53 @@
-import React from "react";
+import React, { Component, use } from "react";
+import Axios from "axios";
+import './usuarios.css'
 
-export default props =>
-    <h1>usuarios</h1>
+class usuarios extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            users: []
+        };
+    }
+    componentDidMount() {
+        Axios.get('http://localhost:3003/api/user')
+            .then(resp => {
+                this.setState({ users: resp.data })
+            })
+            .catch(err => {
+                console.log(err.message);
+
+            })
+    }
+
+
+
+    render() {
+        let users = this.state.users
+        return (
+
+            <div className="content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {users.map(user =>
+                            <tr key={user._id}>
+                                <td>{user.name} </td>
+                                <td>{user.email}</td>
+                            </tr>
+                        )
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        );
+    }
+}
+
+export default usuarios

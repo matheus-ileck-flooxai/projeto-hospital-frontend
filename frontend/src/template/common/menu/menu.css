@@ -7,10 +7,18 @@
     overflow: hidden;
     color: white;
 }
+.sidebar-menu a{
+    text-decoration: none;
+    color: white;
+
+}
 
 .menu-item{
     padding: 2rem;
+
 }
+
+
 
 .menu-item:hover{
     background-color: rgb(255, 231, 231);
