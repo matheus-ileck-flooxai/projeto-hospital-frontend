@@ -1,22 +1,36 @@
 .main-header {
     background: red;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    height: 5rem;
-    position: fixed;
-    top:0;
+    width: 100vw;
+    top: 0;
     padding-left: 2rem;
     padding-right: 2rem;
-    justify-content: space-around;
 
 }
-.navbar-nav{
+
+.nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 8vh;
+}
+
+.navbar-list {
     list-style: none;
     display: flex;
-    gap: 2rem;
+
 }
+
 a {
     color: white;
     text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-left: 32px;
+    padding: 2vh;
+}
+
+ul li a:hover {
+    transition: 0.5s;
+    background: white;
+    color: black;
 }

@@ -1,0 +1,30 @@
+.layout {
+  display: grid;
+  height: 100vh;
+
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header header"
+    "aside content"
+    "footer footer";
+}
+
+
+.main-header {
+  grid-area: header;
+}
+
+.main-aside {
+  grid-area: aside;
+}
+
+.main-content {
+  grid-area: content;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+.main-footer {
+  grid-area: footer;
+}
