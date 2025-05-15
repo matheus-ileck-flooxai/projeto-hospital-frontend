@@ -4,7 +4,6 @@ import './footer.css'
 export default props =>
     <footer className="main-footer">
         <strong>
-            Copyright &copy; 2017
-            <a href="#"></a>
+            Copyright &copy; 2025
         </strong>
     </footer>

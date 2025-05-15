@@ -27,18 +27,26 @@ class usuarios extends Component {
         return (
 
             <div className="content">
-                <table>
+                <table className="users-table">
                     <thead>
                         <tr>
+                            <th>Id</th>
                             <th>Nome</th>
                             <th>Email</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map(user =>
+                        {users.map((user, index) =>
                             <tr key={user._id}>
+                                <td>{index}</td>
                                 <td>{user.name} </td>
                                 <td>{user.email}</td>
+                                <td className="table-buttons">
+                                    <button>Editar</button>
+                                    <button>Excluir</button>
+                                </td>
+
                             </tr>
                         )
                         }
