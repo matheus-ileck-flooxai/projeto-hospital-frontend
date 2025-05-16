@@ -44,7 +44,7 @@ class usuarios extends Component {
                     <tbody>
                         {vacancies.map((vacancy, index) =>
                             <tr key={vacancy.id}>
-                                <td>{index +1} </td>
+                                <td>{index + 1} </td>
                                 <td>{vacancy.title} </td>
                                 <td>{vacancy.description}</td>
                                 <td>{new Date(vacancy.schedule).toLocaleDateString('pt-BR')}</td>
