@@ -86,5 +86,6 @@ input:focus {
     border: 0;
     background-color: red;
     color: white;
+    cursor: pointer;
 
 }

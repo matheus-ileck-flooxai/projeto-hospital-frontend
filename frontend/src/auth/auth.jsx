@@ -18,15 +18,14 @@ export default class Auth extends Component {
 
 
     onSubmit(e) {
-        const { email, senha } = this.state
+        const { email, password } = this.state
 
         e.preventDefault();
 
-        axios.post('http://localhost:3003/api/login', { email, senha })
+        axios.post('http://localhost:3003/api/login', { email, password })
             .then(resp => {
-
-                const id = resp.data.user._id;
-                localStorage.setItem('userId', resp.data.user._id)
+                
+                localStorage.setItem('token', resp.data.token)
                 hashHistory.push('/hospital')
             })
             .catch(err => {

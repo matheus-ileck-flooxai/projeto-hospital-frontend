@@ -8,5 +8,4 @@ export default props =>
         <Link to="/Hospital/usuarios"><li className="menu-item">Usuarios</li></Link>
         <Link to="/Hospital/vagas" > <li className="menu-item">Vagas</li></Link>
         <Link to="/Hospital/voluntarios" > <li className="menu-item">Voluntarios</li></Link>
-        <Link to="/Hospital/pontuacao" > <li className="menu-item">Pontuação</li></Link>
     </ul >
