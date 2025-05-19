@@ -5,12 +5,13 @@ module.exports = {
 
     entry: './src/index.jsx',
     output: {
-        path: __dirname + '/build',
+        //path: __dirname + '/build',
+        path: './build',
         filename: './app.js'
     },
     devServer: {
         port: 8080,
-        contentBase: './build',
+        contentBase: './public',
     },
     resolve: {
         extensions: ['', '.js', '.jsx'],
