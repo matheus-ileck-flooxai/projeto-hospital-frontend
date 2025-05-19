@@ -1,6 +1,6 @@
 import React from "react";
 import Menu from "../menu/menu";
-import './aside.css'
+import './Aside.css'
 
 export default props =>
     <aside className="main-aside">
