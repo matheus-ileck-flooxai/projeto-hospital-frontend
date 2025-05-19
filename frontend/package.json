@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --progress --colors --inline --hot",
-    "production": "webpack --progress -p"
+    "start": "webpack serve --mode development --progress --colors --hot --open",
+    "build": "webpack --mode production --progress"
   },
   "keywords": [],
   "author": "Matheus Ileck Farias",
@@ -29,5 +29,4 @@
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"
   }
-  
 }
