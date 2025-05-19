@@ -7,9 +7,10 @@ class usuarios extends Component {
         this.state = {
             volunteers: []
         };
+        
     }
     componentDidMount() {
-        Axios.get('http://localhost:3003/api/hospital/volunteers')
+        Axios.get(`${process.env.URL_BASE}/api/users`)
             .then(resp => {
                 this.setState({ volunteers: resp.data })
             })

@@ -9,7 +9,7 @@ class usuarios extends Component {
         };
     }
     componentDidMount() {
-        Axios.get('http://localhost:3003/api/vacancies')
+        Axios.get(`${process.env.URL_BASE}/api/vacancies`)
             .then(resp => {
                 this.setState({ vacancies: resp.data })
 

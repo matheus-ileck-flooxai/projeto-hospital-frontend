@@ -10,7 +10,7 @@ class usuarios extends Component {
         };
     }
     componentDidMount() {
-        Axios.get('http://localhost:3003/api/users')
+        Axios.get(`${process.env.URL_BASE}/api/users`)
             .then(resp => {
                 this.setState({ users: resp.data })
             })
