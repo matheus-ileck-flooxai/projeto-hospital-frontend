@@ -10,7 +10,7 @@ class usuarios extends Component {
         };
     }
     componentDidMount() {
-        Axios.get(`${process.env.URL_BASE}/api/users`)
+        Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/users`)
             .then(resp => {
                 this.setState({ users: resp.data })
             })

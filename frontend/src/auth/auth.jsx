@@ -22,7 +22,7 @@ export default class Auth extends Component {
 
         e.preventDefault();
 
-        axios.post('http://localhost:3003/api/login', { email, password })
+        axios.post(`https://projeto-hospital-backend-production.up.railway.app/api/login`, { email, password })
             .then(resp => {
                 
                 localStorage.setItem('token', resp.data.token)

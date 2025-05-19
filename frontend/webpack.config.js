@@ -1,12 +1,11 @@
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-
+require('dotenv').config()
 module.exports = {
 
-    entry: './src/index.jsx',
+    entry: __dirname + '/src/index.jsx',
     output: {
-        //path: __dirname + '/build',
-        path: './build',
+        path: __dirname + '/public',
         filename: './app.js'
     },
     devServer: {
@@ -20,7 +19,11 @@ module.exports = {
         }
     },
     plugins: [
-        new ExtractTextPlugin('app.css')
+        new ExtractTextPlugin('app.css'),
+        new webpack.DefinePlugin({
+            'process.env.API_URL': JSON.stringify(process.env.API_URL)
+        })
+
     ],
     module: {
         loaders: [{
