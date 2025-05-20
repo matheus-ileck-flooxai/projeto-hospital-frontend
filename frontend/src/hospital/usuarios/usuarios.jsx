@@ -68,7 +68,6 @@ class usuarios extends Component {
         Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/users/${id}`, {
 
         });
-        window.location.reload();
 
     }
 
