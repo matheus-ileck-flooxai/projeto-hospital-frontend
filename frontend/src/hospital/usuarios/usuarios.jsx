@@ -65,7 +65,7 @@ class usuarios extends Component {
             });
     };
     onDelete(id) {
-        Axios.delete(`http://localhost:3306/api/users/${id}`, {
+        Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/users/${id}`, {
 
         });
         window.location.reload();
