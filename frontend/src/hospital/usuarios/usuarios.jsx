@@ -31,7 +31,7 @@ class usuarios extends Component {
             })
     }
 
-    onSubmit(e)  {
+    onSubmit(e) {
 
         const token = localStorage.getItem('token');
         const decodedToken = jwtDecode(token);
@@ -64,6 +64,13 @@ class usuarios extends Component {
                 console.error(err);
             });
     };
+    onDelete(id) {
+        Axios.delete(`http://localhost:3306/api/users/${id}`, {
+
+        });
+        window.location.reload();
+
+    }
 
 
 
@@ -90,7 +97,7 @@ class usuarios extends Component {
                                 <td>{user.email}</td>
                                 <td className="table-buttons">
                                     <button>Editar</button>
-                                    <button>Excluir</button>
+                                    <button onClick={() => this.onDelete(user.id)}>Excluir</button>
                                 </td>
 
                             </tr>
