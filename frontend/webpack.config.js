@@ -1,5 +1,7 @@
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 require('dotenv').config()
 module.exports = {
 
@@ -22,8 +24,12 @@ module.exports = {
         new ExtractTextPlugin('app.css'),
         new webpack.DefinePlugin({
             'process.env.API_URL': JSON.stringify(process.env.API_URL)
+        }),
+        new HtmlWebpackPlugin({
+            template: './public/index.html',
+            filename: 'index.html',
+            inject: 'body'
         })
-
     ],
     module: {
         loaders: [{
