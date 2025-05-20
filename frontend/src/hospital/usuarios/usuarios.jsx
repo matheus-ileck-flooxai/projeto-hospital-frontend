@@ -2,6 +2,7 @@ import React, { Component, use } from "react";
 import Axios from "axios";
 import './usuarios.css'
 import showForm from "../../utils/utils";
+import { jwtDecode } from "jwt-decode";
 
 class usuarios extends Component {
     constructor(props) {
@@ -15,13 +16,14 @@ class usuarios extends Component {
     componentDidMount() {
         const token = localStorage.getItem('token')
 
-        Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/Hospital/users`, {
+        Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/hospital/users`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         })
             .then(resp => {
-                this.setState({ users: resp.data })
+                this.setState({ users: resp.data });
+
             })
             .catch(err => {
                 console.log(err.message);
@@ -29,7 +31,40 @@ class usuarios extends Component {
             })
     }
 
-   
+    onSubmit(e)  {
+
+        const token = localStorage.getItem('token');
+        const decodedToken = jwtDecode(token);
+        const hospitalid = decodedToken.hospitalId;
+
+        const formData = new FormData(e.target);
+
+        const newUser = {
+            name: formData.get('name'),
+            phone_number: formData.get('phone'),
+            email: formData.get('email'),
+            password: formData.get('password'),
+            age: new Date(formData.get('age')),
+            role: 'Admin',
+            hospitalId: hospitalid
+        };
+
+        Axios.post('https://projeto-hospital-backend-production.up.railway.app/api/users', newUser, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then(resp => {
+                console.log(resp.data);
+                this.setState(state => ({
+                    users: [...state.users, resp.data]
+                }));
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    };
+
 
 
 
@@ -49,7 +84,7 @@ class usuarios extends Component {
                     </thead>
                     <tbody>
                         {users.map((user, index) =>
-                            <tr key={user._id}>
+                            <tr key={user.id}>
                                 <td>{index}</td>
                                 <td>{user.name} </td>
                                 <td>{user.email}</td>
@@ -63,19 +98,19 @@ class usuarios extends Component {
                         }
                     </tbody>
                 </table>
-                <form className="form" onSubmit={this.onSubmit}>
+                <form className="form" onSubmit={this.onSubmit} >
                     <h2>Insira os dados do novo usuário</h2>
 
 
                     <div className="form-row">
                         <div className="form-group">
                             <label>Nome</label>
-                            <input type="text" name="name"/>
+                            <input type="text" name="name" />
                         </div>
 
                         <div className="form-group">
                             <label>Telefone</label>
-                            <input type="tel"  name="phone"/>
+                            <input type="tel" name="phone" />
                         </div>
                         <div className="form-group">
                             <label>Data de nascimento</label>
@@ -90,7 +125,7 @@ class usuarios extends Component {
 
                         <div className="form-group">
                             <label>Senha</label>
-                            <input type="password" name="password"/>
+                            <input type="password" name="password" />
                         </div>
                     </div>
                     <div className="form-row">
