@@ -15750,8 +15750,15 @@
 	            });
 	        }
 	    }, {
+	        key: "onDelete",
+	        value: function onDelete(id) {
+	            _axios2.default.delete("https://projeto-hospital-backend-production.up.railway.app/api/users/" + id, {});
+	        }
+	    }, {
 	        key: "render",
 	        value: function render() {
+	            var _this4 = this;
+	
 	            var users = this.state.users;
 	            return _react2.default.createElement(
 	                "div",
@@ -15825,7 +15832,9 @@
 	                                    ),
 	                                    _react2.default.createElement(
 	                                        "button",
-	                                        null,
+	                                        { onClick: function onClick() {
+	                                                return _this4.onDelete(user.id);
+	                                            } },
 	                                        "Excluir"
 	                                    )
 	                                )
