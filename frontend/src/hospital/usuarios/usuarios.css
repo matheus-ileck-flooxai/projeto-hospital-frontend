@@ -23,7 +23,7 @@
 }
 
 .form {
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
     background: #1e3a5f;
