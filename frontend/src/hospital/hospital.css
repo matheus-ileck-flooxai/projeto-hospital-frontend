@@ -24,6 +24,7 @@
   overflow-y: auto;
   box-shadow: 1px 1px 29px -2px rgba(0, 0, 0, 0.35) inset;
   padding: 18px;
+  background-color: #FAFAFA;
 }
 
 .main-footer {
@@ -33,7 +34,7 @@
 .users-table {
   border-collapse: collapse;
   width: 100%;
-  
+
 }
 
 .users-table td,
@@ -53,16 +54,109 @@
 }
 
 .users-table th {
-  border:none;
+  border: none;
   margin: 2px;
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color: #1e3a5f;
+  background-color: rgb(3, 148, 3);
   color: white;
 }
 
 .table-buttons button {
   padding: 8px;
   margin-left: 10px;
+}
+
+.new-data-button {
+  display: flex;
+  place-self: end;
+  padding: 1rem;
+  width: 10%;
+  place-content: center;
+  margin: 0.5rem;
+  background: green;
+  color: white;
+  cursor: pointer;
+  border: none;
+  margin-top: 10px;
+}
+
+.new-data-button:hover {
+  background-color: #28661c;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #2e7d32;
+  color: white;
+  padding: 2rem 3rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  max-width: 800px;
+  margin: 2rem auto;
+}
+
+.form h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.form-row:last-child {
+  justify-content: center;
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0;
+  border: none;
+  background-color: #f1f1f1;
+}
+
+
+
+table button,.form-row button {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+}
+
+table button:first-of-type {
+  background-color: #FFA726;
+}
+
+table button:last-of-type {
+  background-color: #EF5350;
+}
+.submit-button{
+  background-color: #388E3C;
+}
+.cancel-button{
+ background-color: #BDBDBD;
+}
+
+
+.content.forms {
+  align-content: center;
 }

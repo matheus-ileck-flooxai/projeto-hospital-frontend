@@ -1,15 +1,14 @@
-import React, { Component, use } from "react";
+import React, { Component } from "react";
 import Axios from "axios";
 import './usuarios.css'
 import { jwtDecode } from "jwt-decode";
 
-class usuarios extends Component {
+class users extends Component {
     constructor(props) {
         super(props);
         this.state = {
             users: [],
             showForm: false,
-            showFormEdit: false,
             User: {}
         };
         this.onSubmit = this.onSubmit.bind(this);
@@ -27,6 +26,7 @@ class usuarios extends Component {
         })
             .then(resp => {
                 this.setState({ users: resp.data });
+                
 
             })
             .catch(err => {
@@ -101,7 +101,6 @@ class usuarios extends Component {
             <div className="content">
                 {!this.state.showForm && (
                     <div>
-                        <button className="new-user-button" onClick={() => this.setState({ showForm: true })} >Novo usuario</button>
                         <table className="users-table">
                             <thead>
                                 <tr>
@@ -127,6 +126,8 @@ class usuarios extends Component {
                                 }
                             </tbody>
                         </table>
+                        <button className="new-data-button" onClick={() => this.setState({ showForm: true })} >Novo usuario</button>
+
                     </div>
                 )}
                 {this.state.showForm && (
@@ -194,8 +195,8 @@ class usuarios extends Component {
                         </div>
 
                         <div className="form-row">
-                            <button type="button" onClick={() => this.setState({ showForm: false, User: {} })}>Cancelar</button>
-                            <button type="submit">Enviar</button>
+                            <button type="button" className="cancel-button" onClick={() => this.setState({ showForm: false, User: {} })}>Cancelar</button>
+                            <button type="submit" className="submit-button">Enviar</button>
                         </div>
                     </form>
                 )}
@@ -205,4 +206,4 @@ class usuarios extends Component {
     }
 }
 
-export default usuarios
+export default users

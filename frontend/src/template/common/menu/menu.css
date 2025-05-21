@@ -1,4 +1,4 @@
-.sidebar-menu{
+.sidebar-menu {
     height: 100%;
     padding: 0;
     margin: 0;
@@ -7,24 +7,25 @@
     overflow: hidden;
     color: white;
 }
-.sidebar-menu a{
+
+.sidebar-menu a {
     text-decoration: none;
-    color: white;
+    color: #212121;
+
 
 }
 
-.menu-item{
+.menu-item {
+    margin-top: 1.5rem;
     padding: 2rem;
 
 }
 
 
 
-.menu-item:hover{
-    background-color: rgb(255, 231, 231);
-    color: black;
+.menu-item:hover {
+    background-color: #2e7d32;
+    color: #Fff;
     transition: 0.3s;
     cursor: pointer;
 }
-
-
