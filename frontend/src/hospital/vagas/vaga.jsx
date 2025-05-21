@@ -7,9 +7,10 @@ class vacancies extends Component {
         super(props);
         this.state = {
             vacancies: [],
-            vacancy: {},
+            Vacancy: {},
             showForm: false,
         };
+
         this.onSubmit = this.onSubmit.bind(this);
 
     }
@@ -17,7 +18,13 @@ class vacancies extends Component {
         this.getVacancies()
     }
     getVacancies() {
-        Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies`)
+        const token = localStorage.getItem('token');
+
+        Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/hospital/vacancies`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then(resp => {
                 this.setState({ vacancies: resp.data })
 
@@ -43,22 +50,49 @@ class vacancies extends Component {
             score: formData.get('score'),
             hospitalId: hospitalid
         }
-        Axios.post('http://localhost:3306/api/vacancies', vacancy, {
+
+        if (this.state.Vacancy.id) {
+            Axios.put(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies/${this.state.Vacancy.id}`, vacancy, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then(resp => {
+                this.getVacancies()
+                this.setState({
+                    showForm: false,
+                    Vacancy: {}
+                })
+            })
+        }
+        else {
+            Axios.post('https://projeto-hospital-backend-production.up.railway.app/api/vacancies', vacancy, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(resp => {
+                    this.setState(state => ({
+                        vacancies: [...state.vacancies, resp.data.newVacancy],
+                        showForm: false
+                    }));
+
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+
+        }
+
+    }
+
+    onDelete(id) {
+        const token = localStorage.getItem('token');
+
+        Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
-        })
-            .then(resp => {
-                this.setState(state => ({
-                    vacancies: [...state.vacancies, resp.data.newVacancy],
-                    showForm: false
-                }));
-                console.log(this.state.vacancies);
-
-            })
-            .catch(err => {
-                console.error(err);
-            });
+        }).then(() => this.getVacancies());
 
     }
 
@@ -95,8 +129,8 @@ class vacancies extends Component {
                                         <td>{vacancy.qtd_volunteer}</td>
                                         <td>{vacancy.score}</td>
                                         <td className="table-buttons">
-                                            <button>Editar</button>
-                                            <button>Excluir</button>
+                                            <button onClick={() => this.setState({ showForm: true, Vacancy: vacancy })}>Editar</button>
+                                            <button onClick={() => this.onDelete(vacancy.id)}>Excluir</button>
                                         </td>
 
                                     </tr>
@@ -115,6 +149,13 @@ class vacancies extends Component {
                         <div className="form-group">
                             <label>Titulo</label>
                             <input type="text" name="title" required
+                                value={this.state.Vacancy ? this.state.Vacancy.title : ''}
+                                onChange={e => this.setState({
+                                    Vacancy: {
+                                        ...this.state.Vacancy,
+                                        title: e.target.value
+                                    }
+                                })}
                             />
                         </div>
 
@@ -122,12 +163,26 @@ class vacancies extends Component {
                         <div className="form-group">
                             <label>Data</label>
                             <input type="date" name="schedule" required
+
+                                onChange={e => this.setState({
+                                    Vacancy: {
+                                        ...this.state.Vacancy,
+                                        schedule: e.target.value
+                                    }
+                                })}
                             />
                         </div>
 
                         <div className="form-group">
                             <label>Voluntarios necessarios</label>
                             <input type="number" name="qtd_volunteer" required min={1}
+                                value={this.state.Vacancy ? this.state.Vacancy.qtd_volunteer : ''}
+                                onChange={e => this.setState({
+                                    Vacancy: {
+                                        ...this.state.Vacancy,
+                                        qtd_volunteer: e.target.value
+                                    }
+                                })}
                             />
                         </div>
                     </div>
@@ -137,13 +192,25 @@ class vacancies extends Component {
                         <div className="form-group">
                             <label>Descrição</label>
                             <input type="text" name="description" required
-
+                                value={this.state.Vacancy ? this.state.Vacancy.description : ''}
+                                onChange={e => this.setState({
+                                    Vacancy: {
+                                        ...this.state.Vacancy,
+                                        description: e.target.value
+                                    }
+                                })}
                             />
                         </div>
                         <div className="form-group">
                             <label>Pontos</label>
                             <input type="number" name="score" required
-
+                                value={this.state.Vacancy ? this.state.Vacancy.score : ''}
+                                onChange={e => this.setState({
+                                    Vacancy: {
+                                        ...this.state.Vacancy,
+                                        score: e.target.value
+                                    }
+                                })}
                             />
                         </div>
                     </div>

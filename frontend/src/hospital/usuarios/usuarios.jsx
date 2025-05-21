@@ -26,7 +26,7 @@ class users extends Component {
         })
             .then(resp => {
                 this.setState({ users: resp.data });
-                
+
 
             })
             .catch(err => {
@@ -86,7 +86,7 @@ class users extends Component {
     };
     onDelete(id) {
         Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/users/${id}`, {
-
+            
         }).then(() => this.getusers());
 
     }
