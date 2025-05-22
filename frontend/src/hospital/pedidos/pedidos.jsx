@@ -22,13 +22,31 @@ class Pedidos extends Component {
         })
             .then(resp => {
                 this.setState({ applications: resp.data })
-                console.log(this.state.applications);
-                
-            })
-            .catch(err => {
-                console.log(err.message);
 
             })
+            .catch(err => {
+                ;
+
+            })
+    }
+    onDelete(applicationId) {
+        const token = localStorage.getItem('token');
+        Axios.delete(`http://localhost:3306/api/applications/${applicationId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(() => this.getApplications());
+    }
+    onUpdate(id) {
+        const token = localStorage.getItem('token');
+        id;
+
+
+        Axios.put(`http://localhost:3306/api/applications/${id}`, {}, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(() => this.getApplications());
     }
 
 
@@ -66,8 +84,10 @@ class Pedidos extends Component {
                                 <td>{application.status}</td>
 
                                 <td className="table-buttons">
-                                    <button>Recusar</button>
-                                    <button>Aprovar</button>
+                                    <div className="table-buttons-group">
+                                        <i className="fas fa-trash" onClick={() => this.onDelete(application.id)}></i>
+                                        <i className="fas fa-check" onClick={() => this.onUpdate(application.id)}></i>
+                                    </div>
                                 </td>
 
                             </tr>

@@ -60,14 +60,31 @@
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color: rgb(3, 148, 3);
+  background-color: rgb(46 125 50);
   color: white;
 }
 
-.table-buttons button {
+.th-buttons {
+  width: 9%;
+}
+
+.table-buttons i {
   padding: 8px;
   margin-left: 10px;
+  height: 100%;
+  border: 0;
   border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.table-buttons-group {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+
 }
 
 .new-data-button {
@@ -136,9 +153,17 @@
   background-color: #f1f1f1;
 }
 
+.table-buttons {
+  display: flex;
+  border: none;
+  padding: 8px 0;
+  gap: 8px;
+}
 
 
-table button,.form-row button {
+
+table button,
+.form-row button {
   padding: 0.5rem 1.5rem;
   border: none;
   cursor: pointer;
@@ -146,21 +171,24 @@ table button,.form-row button {
   color: white;
 }
 
-table button:first-of-type {
-  background-color: #FFA726;
+.table-buttons .fa-edit {
+  color: #FFA726;
 }
-table button:nth-child(2) {
+
+.table-buttons .fa-trash {
+  color: #388E3C;
+}
+
+.table-buttons .fa-check {
+  color: rgb(0, 156, 0);
+}
+
+.submit-button {
   background-color: #388E3C;
 }
 
-table button:last-of-type {
-  background-color: rgb(0, 156, 0);
-}
-.submit-button{
-  background-color: #388E3C;
-}
-.cancel-button{
- background-color: #BDBDBD;
+.cancel-button {
+  background-color: #BDBDBD;
 }
 
 

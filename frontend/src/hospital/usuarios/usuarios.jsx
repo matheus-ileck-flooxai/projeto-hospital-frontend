@@ -25,13 +25,13 @@ class users extends Component {
             }
         })
             .then(resp => {
-                
+
                 this.setState({ users: resp.data });
 
 
             })
             .catch(err => {
-                console.log(err.message);
+                ;
 
             })
     }
@@ -86,8 +86,12 @@ class users extends Component {
 
     };
     onDelete(id) {
+        const token = localStorage.getItem('token')
+
         Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/users/${id}`, {
-            
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         }).then(() => this.getusers());
 
     }
@@ -121,8 +125,11 @@ class users extends Component {
                                         <td>{user.email}</td>
                                         <td>{user.phone_number}</td>
                                         <td className="table-buttons">
-                                            <button onClick={() => this.setState({ showForm: true, User: user })}>Editar</button>
-                                            <button onClick={() => this.onDelete(user.id)}>Excluir</button>
+                                            <div className="table-buttons-group">
+
+                                                <i className="fas fa-edit" onClick={() => this.setState({ showForm: true, User: user })}></i>
+                                                <i className="fas fa-trash" onClick={() => this.onDelete(user.id)}></i>
+                                            </div>
                                         </td>
 
                                     </tr>

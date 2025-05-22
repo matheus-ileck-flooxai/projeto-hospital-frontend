@@ -52,7 +52,7 @@ export default class Auth extends Component {
                 hashHistory.push('/hospital')
             })
             .catch(err => {
-                console.log(err.message);
+                ;
             })
     }
 
@@ -68,7 +68,7 @@ export default class Auth extends Component {
                 this.setState({ showForm: false });
             })
             .catch(err => {
-                console.log(err.message);
+                ;
             })
     }
 

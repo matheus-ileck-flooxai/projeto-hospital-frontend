@@ -1,16 +1,18 @@
 import React from "react";
 import { Router, Route, Redirect, IndexRedirect,hashHistory } from 'react-router'
-import Auth from '../auth/auth'
+import Auth from '../auth/hospitalAuth'
 import Hospital from "../hospital/hospital";
 import Vaga from "../hospital/vagas/vaga";
 import Usuarios from "../hospital/usuarios/usuarios";
 import Pedidos from "../hospital/pedidos/pedidos";
 import Pontuacao from "../hospital/pontuacao/pontuacao";
+import userAuth from "../auth/userAuth";
 
 export default props => (
 
     <Router history={hashHistory}>
-        <Route path='/auth' component={Auth} />
+        <Route path='/hospital/auth' component={Auth} />
+        <Route path='/user/auth' component={userAuth} />
         <Route path='/hospital' component={Hospital}>
             <IndexRedirect to="usuarios" />
             <Route path='usuarios' component={Usuarios} />
@@ -19,6 +21,6 @@ export default props => (
             <Route path='pontuacao' component={Pontuacao} />
         </Route>
 
-        <Redirect from='*' to='/auth' />
+        <Redirect from='*' to='/user/auth' />
     </Router>
 )

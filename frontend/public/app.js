@@ -1440,7 +1440,7 @@
 	 *
 	 * ```js
 	 * var result = merge({foo: 123}, {foo: 456});
-	 * console.log(result.foo); // outputs 456
+	 * result.foo); // outputs 456
 	 * ```
 	 *
 	 * @param {Object} obj1 Object to merge
@@ -15492,7 +15492,7 @@
 	                localStorage.setItem('token', resp.data.token);
 	                _reactRouter.hashHistory.push('/hospital');
 	            }).catch(function (err) {
-	                console.log(err.message);
+	                ;
 	            });
 	        }
 	    }, {
@@ -15710,7 +15710,7 @@
 	            }).then(function (resp) {
 	                _this2.setState({ users: resp.data });
 	            }).catch(function (err) {
-	                console.log(err.message);
+	                ;
 	            });
 	        }
 	    }, {
@@ -15739,7 +15739,7 @@
 	                    'Authorization': "Bearer " + token
 	                }
 	            }).then(function (resp) {
-	                console.log(resp.data);
+	                resp.data);
 	                _this3.setState(function (state) {
 	                    return {
 	                        users: [].concat(_toConsumableArray(state.users), [resp.data])
@@ -15982,14 +15982,14 @@
 	            _axios2.default.get("https://projeto-hospital-backend-production.up.railway.app/api/vacancies").then(function (resp) {
 	                _this2.setState({ vacancies: resp.data });
 	            }).catch(function (err) {
-	                console.log(err.message);
+	                ;
 	            });
 	        }
 	    }, {
 	        key: "render",
 	        value: function render() {
 	            var vacancies = this.state.vacancies;
-	            console.log(vacancies);
+	            vacancies);
 	
 	            return _react2.default.createElement(
 	                "div",
@@ -16157,7 +16157,7 @@
 	            _axios2.default.get("https://projeto-hospital-backend-production.up.railway.app/api/hospital/volunteers").then(function (resp) {
 	                _this2.setState({ volunteers: resp.data });
 	            }).catch(function (err) {
-	                console.log(err.message);
+	                ;
 	            });
 	        }
 	    }, {
