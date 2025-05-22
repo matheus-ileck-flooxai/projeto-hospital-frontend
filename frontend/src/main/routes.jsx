@@ -4,7 +4,7 @@ import Auth from '../auth/auth'
 import Hospital from "../hospital/hospital";
 import Vaga from "../hospital/vagas/vaga";
 import Usuarios from "../hospital/usuarios/usuarios";
-import Voluntarios from "../hospital/voluntarios/voluntarios";
+import Pedidos from "../hospital/pedidos/pedidos";
 import Pontuacao from "../hospital/pontuacao/pontuacao";
 
 export default props => (
@@ -15,7 +15,7 @@ export default props => (
             <IndexRedirect to="usuarios" />
             <Route path='usuarios' component={Usuarios} />
             <Route path='vagas' component={Vaga} />
-            <Route path='voluntarios' component={Voluntarios} />
+            <Route path='pedidos' component={Pedidos} />
             <Route path='pontuacao' component={Pontuacao} />
         </Route>
 

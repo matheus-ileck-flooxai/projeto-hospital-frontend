@@ -123,7 +123,6 @@ class users extends Component {
                                         <td className="table-buttons">
                                             <button onClick={() => this.setState({ showForm: true, User: user })}>Editar</button>
                                             <button onClick={() => this.onDelete(user.id)}>Excluir</button>
-                                            <button onClick={() => this.onDelete(user.id)}>Concluir</button>
                                         </td>
 
                                     </tr>

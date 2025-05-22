@@ -131,6 +131,8 @@ class vacancies extends Component {
                                         <td className="table-buttons">
                                             <button onClick={() => this.setState({ showForm: true, Vacancy: vacancy })}>Editar</button>
                                             <button onClick={() => this.onDelete(vacancy.id)}>Excluir</button>
+                                            <button onClick={() => this.onDelete(vacancy.id)}>Concluir</button>
+
                                         </td>
 
                                     </tr>
