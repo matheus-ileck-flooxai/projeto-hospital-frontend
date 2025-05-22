@@ -19,12 +19,13 @@ class users extends Component {
     getusers() {
         const token = localStorage.getItem('token')
 
-        Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/hospital/users`, {
+        Axios.get(`http://localhost:3306/api/users`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         })
             .then(resp => {
+                
                 this.setState({ users: resp.data });
 
 
@@ -54,7 +55,7 @@ class users extends Component {
             hospitalId: hospitalid
         };
         if (this.state.User.id) {
-            Axios.put(`https://projeto-hospital-backend-production.up.railway.app/api/users/${this.state.User.id}`, User, {
+            Axios.put(`http://localhost:3306/api/users/${this.state.User.id}`, User, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -67,7 +68,7 @@ class users extends Component {
             })
         }
         else {
-            Axios.post('https://projeto-hospital-backend-production.up.railway.app/api/users', User, {
+            Axios.post('http://localhost:3306/api/users', User, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -107,7 +108,9 @@ class users extends Component {
                                     <th>Id</th>
                                     <th>Nome</th>
                                     <th>Email</th>
+                                    <th>Telefone</th>
                                     <th>Ações</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -116,9 +119,11 @@ class users extends Component {
                                         <td>{index}</td>
                                         <td>{user.name} </td>
                                         <td>{user.email}</td>
+                                        <td>{user.phone_number}</td>
                                         <td className="table-buttons">
                                             <button onClick={() => this.setState({ showForm: true, User: user })}>Editar</button>
                                             <button onClick={() => this.onDelete(user.id)}>Excluir</button>
+                                            <button onClick={() => this.onDelete(user.id)}>Concluir</button>
                                         </td>
 
                                     </tr>

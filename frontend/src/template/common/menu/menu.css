@@ -16,8 +16,11 @@
 }
 
 .menu-item {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
     margin-top: 1.5rem;
-    padding: 2rem;
+    padding: 1rem 1rem;
 
 }
 

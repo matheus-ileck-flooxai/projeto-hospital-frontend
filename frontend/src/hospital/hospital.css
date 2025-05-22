@@ -24,7 +24,6 @@
   overflow-y: auto;
   box-shadow: 1px 1px 29px -2px rgba(0, 0, 0, 0.35) inset;
   padding: 18px;
-  background-color: #FAFAFA;
 }
 
 .main-footer {
@@ -32,7 +31,7 @@
 }
 
 .users-table {
-  border-collapse: collapse;
+  border-collapse: separate;
   width: 100%;
 
 }
@@ -54,6 +53,8 @@
 }
 
 .users-table th {
+  border-radius: 4px;
+
   border: none;
   margin: 2px;
   padding-top: 12px;
@@ -66,6 +67,7 @@
 .table-buttons button {
   padding: 8px;
   margin-left: 10px;
+  border-radius: 5px;
 }
 
 .new-data-button {
@@ -80,6 +82,8 @@
   cursor: pointer;
   border: none;
   margin-top: 10px;
+  border-radius: 5px;
+
 }
 
 .new-data-button:hover {
@@ -145,9 +149,12 @@ table button,.form-row button {
 table button:first-of-type {
   background-color: #FFA726;
 }
+table button:nth-child(2) {
+  background-color: #388E3C;
+}
 
 table button:last-of-type {
-  background-color: #EF5350;
+  background-color: rgb(0, 156, 0);
 }
 .submit-button{
   background-color: #388E3C;

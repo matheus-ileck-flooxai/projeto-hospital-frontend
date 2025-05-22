@@ -3,14 +3,28 @@
     top: 0;
     padding-left: 2rem;
     padding-right: 2rem;
-    
+
 }
 
 .nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 8vh;
+    height: 6vh;
+}
+
+.logo-header {
+    display: flex;
+    color: white;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.2rem;
+}
+
+.img {
+    height: 40px;
 }
 
 .navbar-list {
@@ -22,13 +36,11 @@
 .nav a {
     color: white;
     text-decoration: none;
-    text-transform: uppercase;
     margin-left: 32px;
-    padding: 2vh;
+    padding: 1vh;
 }
 
 .navbar-list a:hover {
     border-bottom: 4px solid white;
 
 }
-
