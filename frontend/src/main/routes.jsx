@@ -7,6 +7,7 @@ import Usuarios from "../hospital/usuarios/usuarios";
 import Pedidos from "../hospital/pedidos/pedidos";
 import Pontuacao from "../hospital/pontuacao/pontuacao";
 import userAuth from "../auth/userAuth";
+import volunteer from "../volunteer/volunteer";
 
 export default props => (
 
@@ -20,6 +21,7 @@ export default props => (
             <Route path='pedidos' component={Pedidos} />
             <Route path='pontuacao' component={Pontuacao} />
         </Route>
+        <Route path='/volunteer' component={volunteer}/>
 
         <Redirect from='*' to='/user/auth' />
     </Router>

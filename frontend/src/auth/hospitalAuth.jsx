@@ -45,7 +45,7 @@ export default class Auth extends Component {
         e.preventDefault();
         const { email, password } = this.state;
 
-        const url = 'https://projeto-hospital-backend-production.up.railway.app/api/hospital/login';
+        const url = 'http://localhost:3306/api/hospital/login';
         axios.post(url, { email, password })
             .then(resp => {
                 localStorage.setItem('token', resp.data.token)
@@ -62,7 +62,7 @@ export default class Auth extends Component {
         const { name, address, email, password } = this.state;
         const newHospital = { name, address, email, password };
 
-        const url = 'https://projeto-hospital-backend-production.up.railway.app/api/hospital/register';
+        const url = 'http://localhost:3306/api/hospital/register';
         axios.post(url, newHospital)
             .then(resp => {
                 this.setState({ showForm: false });

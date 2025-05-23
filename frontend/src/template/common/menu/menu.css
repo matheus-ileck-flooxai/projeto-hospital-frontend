@@ -32,3 +32,9 @@
     transition: 0.3s;
     cursor: pointer;
 }
+
+.menu-item.active {
+    background-color: #2e7d32;
+    font-weight: bold;
+    color: #fff;
+}

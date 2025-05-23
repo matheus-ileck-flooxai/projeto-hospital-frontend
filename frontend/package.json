@@ -33,6 +33,7 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
+    "bootstrap": "^3.4.1",
     "jwt-decode": "^4.0.0"
   }
 }
