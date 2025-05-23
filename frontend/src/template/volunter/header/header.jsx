@@ -4,7 +4,7 @@ import Logo from '../../assets/img/logo2.png'
 
 export default props => (
 
-    <nav className="navbar navbar-default">
+    <nav className="navbar navbar-default " id="navbar">
         <div className="container-fluid">
             <div className="navbar-header">
                 <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -24,7 +24,7 @@ export default props => (
 
                     </div>
                 </form>
-                <ul className="nav navbar-nav navbar-right">
+                <ul className="nav navbar-nav navbar-right" id="nav-items">
                     <li><a href="#">Entrar</a></li>
                     <li><a href="#">Vagas</a></li>
                     <li><a href="#">Sobre</a></li>

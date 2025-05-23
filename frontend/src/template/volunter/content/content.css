@@ -1,9 +1,85 @@
+#navbar {
+    background-color: #f8f9fa;
+    margin: 0;
+}
+
+#nav-items li a {
+    color: black;
+    font-size: 1.4rem;
+}
+
+#row {
+    margin-left: 0;
+}
+
+.img-about {
+    width: 80%;
+    height: auto;
+}
+
 #inicio {
-    background-color: #2c2ceb78;
+    background-color: #4CAF50;
     color: white;
     text-align: center;
-    height: 400px;
+    height: 250px;
     align-content: center;
+    border-radius: 0;
 }
-.titulo-jumbotron{
+
+section {
+    padding: 2rem;
+    margin-bottom: 2rem;
+    min-height: 100vh;
+
+}
+
+.about {
+    text-align: center;
+    align-content: center;
+    border-bottom: 10px solid #4CAF50;
+    box-shadow: 0px 10px 67px -3px rgba(0, 0, 0, 0.1);
+
+
+}
+
+.vacancies {
+    background-color: fbfbfb;
+}
+
+.cols {
+    margin-bottom: 10rem;
+}
+
+.title {
+    text-align: center;
+    font-weight: bold;
+    color: #4CAF50;
+
+}
+
+.about-title {
+    text-align: start;
+
+}
+
+.about-title span {
+    border-bottom: 4px solid #4caf50;
+}
+
+.about-text {
+    text-align: justify;
+
+}
+
+.about-text h3 {
+    line-height: 1.5;
+
+}
+
+.thumbnail {
+    place-items: center;
+}
+
+.img-card {
+    width: 20%;
 }
