@@ -26,8 +26,6 @@ export default props => (
                 </form>
                 <ul className="nav navbar-nav navbar-right" id="nav-items">
                     <li><a href="#">Entrar</a></li>
-                    <li><a href="#">Vagas</a></li>
-                    <li><a href="#">Sobre</a></li>
 
 
                 </ul>

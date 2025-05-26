@@ -18,7 +18,7 @@ export default class Vagas extends Component {
     }
 
     componentDidMount() {
-        Axios.get(`http://localhost:3306/api/vacancies`, {
+        Axios.get(`https://projeto-hospital-backend-production.up.railway.appapi/vacancies`, {
 
         })
             .then(resp => {
