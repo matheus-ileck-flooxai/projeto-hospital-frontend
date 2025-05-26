@@ -15591,7 +15591,7 @@
 	                password = _state.password;
 	
 	
-	            var url = 'https://projeto-hospital-backend-production.up.railway.appapi/hospital/login';
+	            var url = 'https://projeto-hospital-backend-production.up.railway.app/api/hospital/login';
 	            _axios2.default.post(url, { email: email, password: password }).then(function (resp) {
 	                localStorage.setItem('token', resp.data.token);
 	                _reactRouter.hashHistory.push('/hospital');
@@ -15614,7 +15614,7 @@
 	
 	            var newHospital = { name: name, address: address, email: email, password: password };
 	
-	            var url = 'https://projeto-hospital-backend-production.up.railway.appapi/hospital/register';
+	            var url = 'https://projeto-hospital-backend-production.up.railway.app/api/hospital/register';
 	            _axios2.default.post(url, newHospital).then(function (resp) {
 	                _this2.setState({ showForm: false });
 	            }).catch(function (err) {
@@ -15857,7 +15857,7 @@
 	                password = _state.password;
 	
 	
-	            var url = 'https://projeto-hospital-backend-production.up.railway.appapi/user/login';
+	            var url = 'https://projeto-hospital-backend-production.up.railway.app/api/user/login';
 	            _axios2.default.post(url, { email: email, password: password }).then(function (resp) {
 	                localStorage.setItem('token', resp.data.token);
 	                _reactRouter.hashHistory.push('/hospital');
@@ -16038,7 +16038,7 @@
 	
 	            var token = localStorage.getItem('token');
 	
-	            _axios2.default.get("https://projeto-hospital-backend-production.up.railway.appapi/applications", {
+	            _axios2.default.get("https://projeto-hospital-backend-production.up.railway.app/api/applications", {
 	                headers: {
 	                    'Authorization': "Bearer " + token
 	                }
@@ -16054,7 +16054,7 @@
 	            var _this3 = this;
 	
 	            var token = localStorage.getItem('token');
-	            _axios2.default.delete("https://projeto-hospital-backend-production.up.railway.appapi/applications/" + applicationId, {
+	            _axios2.default.delete("https://projeto-hospital-backend-production.up.railway.app/api/applications/" + applicationId, {
 	                headers: {
 	                    'Authorization': "Bearer " + token
 	                }
@@ -16070,7 +16070,7 @@
 	            var token = localStorage.getItem('token');
 	            id;
 	
-	            _axios2.default.put("https://projeto-hospital-backend-production.up.railway.appapi/applications/" + id, {}, {
+	            _axios2.default.put("https://projeto-hospital-backend-production.up.railway.app/api/applications/" + id, {}, {
 	                headers: {
 	                    'Authorization': "Bearer " + token
 	                }
@@ -16307,7 +16307,7 @@
 	
 	            var token = localStorage.getItem('token');
 	
-	            _axios2.default.get("https://projeto-hospital-backend-production.up.railway.appapi/users", {
+	            _axios2.default.get("https://projeto-hospital-backend-production.up.railway.app/api/users", {
 	                headers: {
 	                    'Authorization': "Bearer " + token
 	                }
@@ -16340,7 +16340,7 @@
 	                hospitalId: hospitalid
 	            };
 	            if (this.state.User.id) {
-	                _axios2.default.put("https://projeto-hospital-backend-production.up.railway.appapi/users/" + this.state.User.id, User, {
+	                _axios2.default.put("https://projeto-hospital-backend-production.up.railway.app/api/users/" + this.state.User.id, User, {
 	                    headers: {
 	                        'Authorization': "Bearer " + token
 	                    }
@@ -16352,7 +16352,7 @@
 	                    });
 	                });
 	            } else {
-	                _axios2.default.post('https://projeto-hospital-backend-production.up.railway.appapi/users', User, {
+	                _axios2.default.post('https://projeto-hospital-backend-production.up.railway.app/api/users', User, {
 	                    headers: {
 	                        'Authorization': "Bearer " + token
 	                    }
@@ -16375,7 +16375,7 @@
 	
 	            var token = localStorage.getItem('token');
 	
-	            _axios2.default.delete("https://projeto-hospital-backend-production.up.railway.appapi/users/" + id, {
+	            _axios2.default.delete("https://projeto-hospital-backend-production.up.railway.app/api/users/" + id, {
 	                headers: {
 	                    'Authorization': "Bearer " + token
 	                }
@@ -16677,7 +16677,7 @@
 	
 	            var token = localStorage.getItem('token');
 	
-	            _axios2.default.get("https://projeto-hospital-backend-production.up.railway.appapi/vacancies", {
+	            _axios2.default.get("https://projeto-hospital-backend-production.up.railway.app/api/vacancies", {
 	                headers: {
 	                    'Authorization': "Bearer " + token
 	                }
@@ -16708,7 +16708,7 @@
 	            };
 	
 	            if (this.state.Vacancy.id) {
-	                _axios2.default.put("https://projeto-hospital-backend-production.up.railway.appapi/vacancies/" + this.state.Vacancy.id, vacancy, {
+	                _axios2.default.put("https://projeto-hospital-backend-production.up.railway.app/api/vacancies/" + this.state.Vacancy.id, vacancy, {
 	                    headers: {
 	                        'Authorization': "Bearer " + token
 	                    }
@@ -16720,7 +16720,7 @@
 	                    });
 	                });
 	            } else {
-	                _axios2.default.post('https://projeto-hospital-backend-production.up.railway.appapi/vacancies', vacancy, {
+	                _axios2.default.post('https://projeto-hospital-backend-production.up.railway.app/api/vacancies', vacancy, {
 	                    headers: {
 	                        'Authorization': "Bearer " + token
 	                    }
@@ -16743,7 +16743,7 @@
 	
 	            var token = localStorage.getItem('token');
 	
-	            _axios2.default.delete("https://projeto-hospital-backend-production.up.railway.appapi/vacancies/" + id, {
+	            _axios2.default.delete("https://projeto-hospital-backend-production.up.railway.app/api/vacancies/" + id, {
 	                headers: {
 	                    'Authorization': "Bearer " + token
 	                }
@@ -16759,7 +16759,7 @@
 	            var status = 'concluded';
 	            var token = localStorage.getItem('token');
 	
-	            _axios2.default.delete("https://projeto-hospital-backend-production.up.railway.appapi/vacancies/" + id, status, {
+	            _axios2.default.delete("https://projeto-hospital-backend-production.up.railway.app/api/vacancies/" + id, status, {
 	                headers: {
 	                    'Authorization': "Bearer " + token
 	                }

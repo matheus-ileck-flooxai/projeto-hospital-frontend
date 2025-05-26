@@ -18,7 +18,7 @@ export default class Vagas extends Component {
     }
 
     componentDidMount() {
-        Axios.get(`https://projeto-hospital-backend-production.up.railway.appapi/vacancies`, {
+        Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies`, {
 
         })
             .then(resp => {

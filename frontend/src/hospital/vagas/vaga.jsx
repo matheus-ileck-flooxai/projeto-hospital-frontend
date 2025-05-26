@@ -20,7 +20,7 @@ class vacancies extends Component {
     getVacancies() {
         const token = localStorage.getItem('token');
 
-        Axios.get(`https://projeto-hospital-backend-production.up.railway.appapi/hospital/vacancies`, {
+        Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/hospital/vacancies`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -53,7 +53,7 @@ class vacancies extends Component {
         }
 
         if (this.state.Vacancy.id) {
-            Axios.put(`https://projeto-hospital-backend-production.up.railway.appapi/vacancies/${this.state.Vacancy.id}`, vacancy, {
+            Axios.put(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies/${this.state.Vacancy.id}`, vacancy, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -66,7 +66,7 @@ class vacancies extends Component {
             })
         }
         else {
-            Axios.post('https://projeto-hospital-backend-production.up.railway.appapi/vacancies', vacancy, {
+            Axios.post('https://projeto-hospital-backend-production.up.railway.app/api/vacancies', vacancy, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -89,7 +89,7 @@ class vacancies extends Component {
     onDelete(id) {
         const token = localStorage.getItem('token');
 
-        Axios.delete(`https://projeto-hospital-backend-production.up.railway.appapi/vacancies/${id}`, {
+        Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -100,7 +100,7 @@ class vacancies extends Component {
         const status = 'concluded'
         const token = localStorage.getItem('token');
 
-        Axios.delete(`https://projeto-hospital-backend-production.up.railway.appapi/vacancies/${id}`, status,{
+        Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies/${id}`, status,{
             headers: {
                 'Authorization': `Bearer ${token}`
             }
