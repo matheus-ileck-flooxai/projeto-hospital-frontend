@@ -56,7 +56,7 @@ class Pedidos extends Component {
         return (
 
             <div className="content">
-                <table className="users-table">
+                <table className="users-table" id="users-table">
                     <thead>
                         <tr>
                             <th>Id</th>

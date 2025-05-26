@@ -7,11 +7,27 @@ import './hospital.css'
 
 export default props => (
     <div className="layout">
-        <Header />
-        <Aside />
-        <Content>
-            {props.children}
-        </Content>
-        <Footer />
+        <div className="row">
+            <Header />
+
+        </div>
+        <div className="row">
+            <div className="col-md-2" id="aside">
+                <Aside />
+            </div>
+            <div className="col-md-10" id="main-content">
+
+                <Content>
+                    {props.children}
+                </Content>
+            </div>
+
+        </div>
+        <div className="row">
+            <Footer />
+
+        </div>
+
+
     </div>
 )

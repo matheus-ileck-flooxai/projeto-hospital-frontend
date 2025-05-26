@@ -32,7 +32,7 @@
 
 .label {
     font-weight: bold;
-    color: #555;
+    color: #555 !important;
     margin-bottom: 4px;
 }
 
@@ -54,7 +54,7 @@ input::placeholder {
 }
 
 .btn-submit {
-    background: #e63946;
+    background: #54944e;
     color: #fff;
     padding: 10px;
     border: none;
@@ -65,7 +65,7 @@ input::placeholder {
 }
 
 .btn-submit:hover {
-    background: #d62839;
+    background: #376133;
 }
 
 .grupo-inputs.button {

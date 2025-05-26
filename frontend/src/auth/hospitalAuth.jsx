@@ -16,6 +16,7 @@ export default class Auth extends Component {
             password: '',
             name: '',
             address: '',
+            phone_number: '',
             showForm: false
         };
     }
@@ -45,7 +46,7 @@ export default class Auth extends Component {
         e.preventDefault();
         const { email, password } = this.state;
 
-        const url = 'https://projeto-hospital-backend-production.up.railway.app/api/hospital/login';
+        const url = 'http://localhost:3306/api/hospital/login';
         axios.post(url, { email, password })
             .then(resp => {
                 localStorage.setItem('token', resp.data.token)
@@ -59,10 +60,10 @@ export default class Auth extends Component {
     register(e) {
         e.preventDefault();
 
-        const { name, address, email, password } = this.state;
-        const newHospital = { name, address, email, password };
+        const { name, address, email, password,phone_number } = this.state;
+        const newHospital = { name, address, email, password, phone_number  };
 
-        const url = 'https://projeto-hospital-backend-production.up.railway.app/api/hospital/register';
+        const url = 'http://localhost:3306/api/hospital/register';
         axios.post(url, newHospital)
             .then(resp => {
                 this.setState({ showForm: false });
@@ -73,7 +74,7 @@ export default class Auth extends Component {
     }
 
     render() {
-        const { email, password, name, address, showForm } = this.state;
+        const { email, password, name, address,phone_number, showForm } = this.state;
 
         return (
             <div className="auth-container">
@@ -109,6 +110,10 @@ export default class Auth extends Component {
                             <div className="grupo-inputs">
                                 <label htmlFor="email" className="label">Email:</label>
                                 <input type="email" name="email" value={email} placeholder="Digite seu e-mail" onChange={(e) => this.setState({ email: e.target.value })} required />
+                            </div>
+                            <div className="grupo-inputs">
+                                <label htmlFor="phone_number" className="label">Telefone contato:</label>
+                                <input type="tel" name="phone_number" value={phone_number} placeholder="Digite o telefone" onChange={(e) => this.setState({ phone_number: e.target.value })} required />
                             </div>
                             <div className="grupo-inputs">
                                 <label htmlFor="password" className="label">Senha:</label>

@@ -5,6 +5,10 @@ import firstImage from '../../assets/img/img1.png'
 
 export default class content extends Component {
 
+    componentDidMount() {
+
+    }
+
     render() {
 
         return (

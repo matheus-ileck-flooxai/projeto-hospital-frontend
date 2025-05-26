@@ -16,16 +16,37 @@ export default props => {
 
     }
     return (
-        <header className='main-header'>
-            <nav className="nav">
-                <div className="logo-header">
-                    <img className="img" src={Logo}></img>
-                    <p className="hospital-name">{hospitalName}</p>
+        <header>
+            <nav className="navbar" id="navbar-admin">
+                <div className="container-fluid">
+                    <div className="navbar-header">
+                        <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span className="sr-only">Toggle navigation</span>
+                            <span className="icon-bar"></span>
+                            <span className="icon-bar"></span>
+                            <span className="icon-bar"></span>
+
+                        </button>
+
+                    </div>
+
+                    <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <form className="navbar-form navbar-left">
+                            <div className="form-group">
+                                <img alt="Brand" src={Logo} width={50} />
+                                <p>{hospitalName}</p>
+
+                            </div>
+
+                        </form>
+                        <ul className="nav navbar-nav navbar-right" >
+
+                            <li><a href="#">Sair</a></li>
+
+
+                        </ul>
+                    </div>
                 </div>
-                <ul className="navbar-list">
-                    <li><a href="#">Perfil</a></li>
-                    <li><a href="#">Sair</a></li>
-                </ul>
             </nav>
         </header>
     )
