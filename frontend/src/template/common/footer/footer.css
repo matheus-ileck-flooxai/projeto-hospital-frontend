@@ -1,9 +1,14 @@
 .main-footer{
-     background-color: #ffffff;
-     color: #666;
-     height: 4vh;
+     background-color:#4caf50;
+     color: #fff;
+     height: 8vh;
      display: flex;
      align-items: center;
      justify-content: center;
      text-align: center;
+     gap:1rem
+}
+.main-footer a{
+     margin-top: 0;
+     color: white;
 }

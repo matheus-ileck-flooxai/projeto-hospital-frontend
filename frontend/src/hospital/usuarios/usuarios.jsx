@@ -19,7 +19,7 @@ class users extends Component {
     getusers() {
         const token = localStorage.getItem('token')
 
-        Axios.get(`http://localhost:3306/api/users`, {
+        Axios.get(`http://localhost:3306/api/hospital/users`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

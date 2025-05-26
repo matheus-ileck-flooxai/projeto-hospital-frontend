@@ -20,7 +20,7 @@ class vacancies extends Component {
     getVacancies() {
         const token = localStorage.getItem('token');
 
-        Axios.get(`http://localhost:3306/api/vacancies`, {
+        Axios.get(`http://localhost:3306/api/hospital/vacancies`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

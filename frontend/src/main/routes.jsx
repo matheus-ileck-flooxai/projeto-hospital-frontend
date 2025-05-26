@@ -1,5 +1,5 @@
 import React from "react";
-import { Router, Route, Redirect, IndexRedirect,hashHistory } from 'react-router'
+import { Router, Route, Redirect, IndexRedirect, hashHistory } from 'react-router'
 import Auth from '../auth/hospitalAuth'
 import Hospital from "../hospital/hospital";
 import Vaga from "../hospital/vagas/vaga";
@@ -7,7 +7,8 @@ import Usuarios from "../hospital/usuarios/usuarios";
 import Pedidos from "../hospital/pedidos/pedidos";
 import Pontuacao from "../hospital/pontuacao/pontuacao";
 import userAuth from "../auth/userAuth";
-import volunteer from "../volunteer/volunteer";
+import voluntarios from "../voluntarios/voluntarios";
+import Vagas from "../voluntarios/vagas/vagas";
 
 export default props => (
 
@@ -21,8 +22,11 @@ export default props => (
             <Route path='pedidos' component={Pedidos} />
             <Route path='pontuacao' component={Pontuacao} />
         </Route>
-        <Route path='/volunteer' component={volunteer}/>
+        <Route path='/volunteer' component={voluntarios} >
+            <IndexRedirect to="vagas" />
+            <Route path='vagas' component={Vagas} />
+        </Route>
 
-        <Redirect from='*' to='/user/auth' />
+        <Redirect from='*' to='/volunteer' />
     </Router>
 )

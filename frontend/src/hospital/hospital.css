@@ -42,6 +42,10 @@ ol,ul,p {
   padding: 0;
   border:  1px solid black;
 }
+.main-content{
+  margin-bottom: 0;
+
+}
 #aside{
   height: 100%;
   margin: 0;
