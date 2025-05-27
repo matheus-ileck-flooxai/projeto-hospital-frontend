@@ -65,7 +65,7 @@ export default class HeaderVoluntario extends Component {
                                 ]
                             ) : (
                                 [
-                                    <li key="entrar"><a href="#">Entrar</a></li>,
+                                    <li key="entrar"><a href="#/user/auth">Entrar</a></li>,
                                     <li key="sobre"><a href="#about">Sobre</a></li>,
                                     <li key="vagas"><a href="#vagas">Vagas</a></li>,
                                     <li key="contato"><a href="#">Contato</a></li>
