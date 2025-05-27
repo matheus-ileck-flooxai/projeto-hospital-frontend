@@ -1,6 +1,5 @@
 import React from "react";
 import { Router, Route, Redirect, IndexRedirect, hashHistory } from 'react-router'
-import Auth from '../auth/hospitalAuth'
 import Hospital from "../hospital/hospital";
 import Vaga from "../hospital/vagas/vaga";
 import Usuarios from "../hospital/usuarios/usuarios";
@@ -9,6 +8,8 @@ import Pontuacao from "../hospital/pontuacao/pontuacao";
 import userAuth from "../auth/userAuth";
 import voluntarios from "../voluntarios/voluntarios";
 import Vagas from "../voluntarios/vagas/vagas";
+import hospitalAuth from "../auth/hospitalAuth";
+import volunteerAuth from "../auth/volunteerAuth";
 
 
 function requireAuth(nextState, replace) {
@@ -24,7 +25,8 @@ function requireAuth(nextState, replace) {
 export default props => (
 
     <Router history={hashHistory} >
-        <Route path='/hospital/auth' component={Auth} />
+        <Route path='/user/register' component={volunteerAuth} />
+        <Route path='/hospital/auth' component={hospitalAuth} />
         <Route path='/user/auth' component={userAuth} />
         <Route path='/hospital' component={Hospital} onEnter={requireAuth}>
             <IndexRedirect to="usuarios" />

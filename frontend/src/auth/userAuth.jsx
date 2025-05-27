@@ -56,13 +56,13 @@ export default class userAuth extends Component {
                 const token = localStorage.getItem('token')
                 const decoded = jwt_decode.jwtDecode(token)
                 if (token) {
-                    
+
                     const role = decoded.role
 
-                    if(role === 'Admin'){
+                    if (role === 'Admin') {
                         hashHistory.push('/hospital')
                     }
-                    else{
+                    else {
                         hashHistory.push('/volunteer')
                     }
                 }
@@ -100,8 +100,9 @@ export default class userAuth extends Component {
                         </div>
 
                         {this.state.message && (<p className="danger">Dados inválidos!</p>)}
-                        <div className="grupo-inputs button">
-                            <a href="#/hospital/auth">Cadastrar novo hospital</a>
+                        <a href="#/user/register">Não tem uma conta? Cadastre-se</a>
+
+                        <div className="grupo-inputs button-form">
 
                             <button type="submit" className="btn-submit">Entrar</button>
                         </div>

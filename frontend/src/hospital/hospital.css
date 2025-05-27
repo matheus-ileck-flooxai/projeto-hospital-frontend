@@ -13,35 +13,8 @@ p {
   display: grid;
   height: 100vh;
 
-  /*grid-template-columns: 200px 1fr;
-  grid-template-rows: auto 1fr auto;
-  grid-template-areas:
-    "header header"
-    "aside content"
-    "footer footer";
-    */
 }
 
-/*
-.main-header {
-  grid-area: header;
-}
-
-.main-aside {
-  grid-area: aside;
-}
-
-.main-content {
-  grid-area: content;
-  overflow-y: auto;
-  box-shadow: 1px 1px 29px -2px rgba(0, 0, 0, 0.35) inset;
-  padding: 18px;
-}
-
-.main-footer {
-  grid-area: footer;
-}
-*/
 #main-content {
   padding: 0;
   border: 1px solid black;
@@ -141,14 +114,14 @@ p {
   background-color: #28661c;
 }
 
-.form-user {
+.form-user,.form-vacancy {
   display: flex;
   flex-direction: column;
   width: 100%;
   gap: 12px;
   font-size: 1.5rem;
 }
-.form-user input:focus {
+.form-user input:focus ,.form-vacancy input:focus {
  border: 1px solid green;
 }
 
@@ -246,4 +219,7 @@ table button,
 
 .grupo-inputs button {
   padding: 1rem;
+}
+.grupo-inputs .button-form{
+    gap: 0;
 }

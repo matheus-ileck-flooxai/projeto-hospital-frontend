@@ -1,4 +1,5 @@
 import React, { Component, use } from "react";
+import './vaga.css'
 import Axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
@@ -97,10 +98,10 @@ class vacancies extends Component {
 
     }
     finishVacancy(id) {
-        const status = 'concluded'
         const token = localStorage.getItem('token');
+        
 
-        Axios.delete(`http://localhost:3306/api/vacancies/${id}`, status, {
+        Axios.delete(`http://localhost:3306/api/vacancies/${id}/conclude` , {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

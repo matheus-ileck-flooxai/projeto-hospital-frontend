@@ -33,6 +33,8 @@ export default class Vagas extends Component {
             Axios.get(`http://localhost:3306/api/vacancies?userId=${userId}`)
                 .then(resp => {
                     this.setState({ vacancies: resp.data });
+                    console.log(this.state.vacancies);
+                    
                 })
                 .catch(error => {
                     console.error('Erro ao buscar vagas');
@@ -63,7 +65,6 @@ export default class Vagas extends Component {
                     'Authorization': `Bearer ${token}`
                 }
             }).then(resp => {
-
                 this.getVacancies();
             })
                 .catch(error => {
@@ -72,11 +73,7 @@ export default class Vagas extends Component {
 
                     }
                 })
-
         }
-
-
-
     }
 
     render() {
@@ -117,8 +114,8 @@ export default class Vagas extends Component {
                                 <div className="col-md-12">
                                     <h1 className="title"><span className="span-border">Vagas disponiveis</span></h1>
                                     <div className="row">
-                                        <h4 className="title-vacancies">Entre e venha participar da nossa historia</h4>
-
+                                        <h4 className="title-vacancies">Aqui você pode encontrar as vagas nos hospitais, encontrando o mais próximo e quantos pontos você acumula ao concluir o programa. Candidate-se já!</h4>
+<hr />
                                     </div>
                                 </div>
 
@@ -134,11 +131,12 @@ export default class Vagas extends Component {
                                             </div>
                                             <div className="card-content" >
                                                 <h3 className="card-title">{vacancy.title}</h3>
-                                                <p className="card-text"><strong>Descrição:</strong> {vacancy.description}</p>
-                                                <p className="card-text"><strong>voluntários necessarios:</strong> {vacancy.qtd_volunteer}</p>
-                                                <p className="card-text"><strong>Data:</strong> {new Date(vacancy.schedule).toLocaleDateString('pt-BR')}</p>
-                                                <p className="card-text"><strong>Pontos:</strong> {vacancy.score}</p>
+                                                <p className="card-text"><i className="fa fa-clipboard"></i><strong> Descrição:</strong> {vacancy.description}</p>
+                                                <p className="card-text"><i className="fa fa-users"></i><strong> voluntários necessarios:</strong> {vacancy.applications.length}/{vacancy.qtd_volunteer}</p>
+                                                <p className="card-text"><i className="fa fa-calendar"></i><strong> Data:</strong> {new Date(vacancy.schedule).toLocaleDateString('pt-BR')}</p>
+                                                <p className="card-text"><i className="fa fa-award"></i><strong> Pontos:</strong> {vacancy.score}</p>
                                             </div>
+                                            <hr />
                                             <div className="card-buttons">
                                                 <a className="btn" onClick={() => this.onsubmit(vacancy.id)} >Participar</a>
                                             </div>

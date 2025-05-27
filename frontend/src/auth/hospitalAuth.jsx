@@ -5,7 +5,7 @@ import './auth.css'
 import { hashHistory } from 'react-router'
 import Logo from '../template/assets/img/logo2.png'
 
-export default class Auth extends Component {
+export default class hospitalAuth extends Component {
 
     constructor(props) {
         super(props);
@@ -87,7 +87,9 @@ export default class Auth extends Component {
                                 <label htmlFor="password" className="label">Senha:</label>
                                 <input type="password" name="password" value={password} placeholder="Digite sua senha" onChange={(e) => this.setState({ password: e.target.value })} required />
                             </div>
-                            <div className="grupo-inputs button">
+                        <a href="#/user/register" className="redirect-button">Cadastrar um usuario</a>
+
+                            <div className="grupo-inputs button-form">
                                 <button type="submit" className="btn-submit">Cadastrar</button>
                                 <a href="/#/user/auth">Já possuo uma conta</a>
                             </div>
