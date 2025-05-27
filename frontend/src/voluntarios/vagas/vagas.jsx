@@ -30,7 +30,7 @@ export default class Vagas extends Component {
             const decoded = jwt_decode.jwtDecode(token);
             const userId = decoded.userid;
 
-            Axios.get(`https://projeto-hospital-backend-production.up.railway.app//api/vacancies?userId=${userId}`)
+            Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies?userId=${userId}`)
                 .then(resp => {
                     this.setState({ vacancies: resp.data });
                     console.log(this.state.vacancies);
@@ -40,7 +40,7 @@ export default class Vagas extends Component {
                     console.error('Erro ao buscar vagas');
                 });
         } else {
-            Axios.get(`https://projeto-hospital-backend-production.up.railway.app//api/vacancies`)
+            Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies`)
                 .then(resp => {
                     this.setState({ vacancies: resp.data });
                 })
@@ -60,7 +60,7 @@ export default class Vagas extends Component {
             const decoded = jwt_decode.jwtDecode(token)
             const userId = decoded.userid
 
-            Axios.post('https://projeto-hospital-backend-production.up.railway.app//api/volunteer/newapplication', { userId, vacancyId }, {
+            Axios.post('https://projeto-hospital-backend-production.up.railway.app/api/volunteer/newapplication', { userId, vacancyId }, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
