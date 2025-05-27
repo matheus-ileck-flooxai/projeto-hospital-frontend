@@ -19,7 +19,7 @@ class users extends Component {
     getusers() {
         const token = localStorage.getItem('token')
 
-        Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/hospital/users`, {
+        Axios.get(`http://localhost:3306/api/hospital/users`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -55,7 +55,7 @@ class users extends Component {
             hospitalId: hospitalid
         };
         if (this.state.User.id) {
-            Axios.put(`https://projeto-hospital-backend-production.up.railway.app/api/users/${this.state.User.id}`, User, {
+            Axios.put(`http://localhost:3306/api/users/${this.state.User.id}`, User, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -68,7 +68,7 @@ class users extends Component {
             })
         }
         else {
-            Axios.post('https://projeto-hospital-backend-production.up.railway.app/api/users', User, {
+            Axios.post('http://localhost:3306/api/users', User, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -88,7 +88,7 @@ class users extends Component {
     onDelete(id) {
         const token = localStorage.getItem('token')
 
-        Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/users/${id}`, {
+        Axios.delete(`http://localhost:3306/api/users/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -142,74 +142,104 @@ class users extends Component {
                     </div>
                 )}
                 {this.state.showForm && (
-                    <form className="form" onSubmit={this.onSubmit}>
+
+                    <form className="form-user" onSubmit={this.onSubmit}>
                         <h2>Insira os dados do novo usuário</h2>
 
-                        <div className="form-row">
-                            <div className="form-group">
-                                <label>Nome</label>
-                                <input type="text" name="name" required
-                                    value={this.state.User ? this.state.User.name : ''}
-                                    onChange={e => this.setState({
-                                        User: {
-                                            ...this.state.User,
-                                            name: e.target.value
-                                        }
-                                    })} />
-                            </div>
+                        <div className="grupo-inputs">
+                            <label className="label">Nome:</label>
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Digite seu nome"
+                                required
+                                value={this.state.User ? this.state.User.name : ''}
+                                onChange={e => this.setState({
+                                    User: {
+                                        ...this.state.User,
+                                        name: e.target.value
+                                    }
+                                })}
+                            />
+                        </div>
 
-                            <div className="form-group">
-                                <label>Telefone</label>
-                                <input type="tel" name="phone" required
-                                    value={this.state.User ? this.state.User.phone_number : ''}
+                        <div className="grupo-inputs">
+                            <label className="label">Telefone:</label>
+                            <input
+                                type="tel"
+                                name="phone"
+                                placeholder="Digite seu telefone"
+                                required
+                                value={this.state.User ? this.state.User.phone_number : ''}
+                                onChange={e => this.setState({
+                                    User: {
+                                        ...this.state.User,
+                                        phone_number: e.target.value
+                                    }
+                                })}
+                            />
+                        </div>
+
+                        <div className="grupo-inputs">
+                            <label className="label">Data de nascimento:</label>
+                            <input
+                                type="date"
+                                name="age"
+                                required
+                                value={this.state.User ? this.state.User.age : ''}
+                                onChange={e => this.setState({
+                                    User: {
+                                        ...this.state.User,
+                                        age: e.target.value
+                                    }
+                                })}
+                            />
+                        </div>
+
+                        <div className="grupo-inputs">
+                            <label className="label">Email:</label>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Digite seu e-mail"
+                                required
+                                value={this.state.User ? this.state.User.email : ''}
+                                onChange={e => this.setState({
+                                    User: {
+                                        ...this.state.User,
+                                        email: e.target.value
+                                    }
+                                })}
+                            />
+                        </div>
+
+                        {!this.state.User.id && (
+                            <div className="grupo-inputs">
+                                <label className="label">Senha:</label>
+                                <input
+                                    type="password"
+                                    name="password"
+                                    placeholder="Digite sua senha"
+                                    required
+                                    value={this.state.User ? this.state.User.pass : ''}
+                                    readOnly={this.state.user}
                                     onChange={e => this.setState({
                                         User: {
                                             ...this.state.User,
-                                            phone_number: e.target.value
+                                            pass: e.target.value
                                         }
                                     })}
                                 />
                             </div>
-                            <div className="form-group">
-                                <label>Data de nascimento</label>
-                                <input type="date" name="age" required
-                                    value={this.state.User ? this.state.User.age : ''}
-                                    onChange={e => this.setState({
-                                        User: {
-                                            ...this.state.User,
-                                            age: e.target.value
-                                        }
-                                    })} />
-                            </div>
-                        </div>
+                        )}
 
-                        <div className="form-row">
-                            <div className="form-group">
-                                <label>Email</label>
-                                <input type="email" name="email" required
-                                    value={this.state.User ? this.state.User.email : ''}
-                                    onChange={e => this.setState({
-                                        User: {
-                                            ...this.state.User,
-                                            email: e.target.value
-                                        }
-                                    })} />
-                            </div>
-
-                            {!this.state.User.id && (<div className="form-group">
-                                <label>Senha</label>
-                                <input type="password" name="password" required
-                                    value={this.state.User ? this.state.User.pass : ''}
-                                    readOnly={this.state.user} />
-                            </div>
-                            )}
-                        </div>
-
-                        <div className="form-row">
+                        <div className="grupo-inputs button">
                             <button type="button" className="cancel-button" onClick={() => this.setState({ showForm: false, User: {} })}>Cancelar</button>
-                            <button type="submit" className="submit-button">Enviar</button>
+                            <button type="submit" className="btn-submit">Enviar</button>
                         </div>
                     </form>
+
+
                 )}
 
             </div>

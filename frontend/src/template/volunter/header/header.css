@@ -1,4 +1,4 @@
-.nav-header{
+.nav-header {
     position: fixed;
     top: 0;
     left: 0;
@@ -10,6 +10,20 @@
     padding: 0 4rem;
 
 }
-#nav-items{
+
+#nav-items {
     margin-right: 2rem;
+
+}
+
+#nav-items a {
+    border-radius: 4px;
+
+}
+
+#nav-items a:hover {
+    color: white;
+
+    background-color: green;
+    transition: 0.2s;
 }

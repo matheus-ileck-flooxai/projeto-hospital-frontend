@@ -1,6 +1,7 @@
 .card-header {
-    background: #acff0082;
+    background: #4caf50;
     text-align: center;
+    padding: 1rem;
 }
 
 .card-custom {

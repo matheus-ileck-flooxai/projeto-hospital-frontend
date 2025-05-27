@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-const jwt_decode = require('jwt-decode');
-
-
+import jwt_decode from 'jwt-decode'
 import axios from "axios";
-import './auth.css'
 import { hashHistory } from 'react-router'
 import Logo from '../template/assets/img/logo2.png'
 
@@ -30,7 +27,7 @@ export default class userAuth extends Component {
             try {
                 const decoded = jwt_decode(token);
                 const currentTime = Date.now() / 1000;
-                if (decoded.exp && decoded.exp > currentTime && decoded.role === 'Admin') {
+                if (decoded.exp && decoded.exp > currentTime) {
                     hashHistory.push('/hospital');
                 } else {
                     localStorage.removeItem('token');
@@ -48,31 +45,12 @@ export default class userAuth extends Component {
         const url = 'http://localhost:3306/api/user/login';
         axios.post(url, { email, password })
             .then(resp => {
-
                 this.setState({ message: resp.message })
-
                 localStorage.setItem('token', resp.data.token)
 
-                const token = localStorage.getItem('token')
-                const decoded = jwt_decode.jwtDecode(token)
-                if (token) {
-                    
-                    const role = decoded.role
-
-                    if(role === 'Admin'){
-                        hashHistory.push('/hospital')
-                    }
-                    else{
-                        hashHistory.push('/volunteer')
-                    }
-                }
-                console.log(decoded);
-
-
+                hashHistory.push('/hospital')
             })
             .catch(err => {
-                console.log(err);
-
                 this.setState({ message: err.message })
 
             })

@@ -1,10 +1,14 @@
-ol,ul,p {
+ol,
+ul,
+p {
   margin: 0;
   margin-bottom: 0 !important;
 }
-.row{
+
+.row {
   margin: 0 !important;
 }
+
 .layout {
   display: grid;
   height: 100vh;
@@ -38,15 +42,17 @@ ol,ul,p {
   grid-area: footer;
 }
 */
-#main-content{
+#main-content {
   padding: 0;
-  border:  1px solid black;
+  border: 1px solid black;
 }
-.main-content{
+
+.main-content {
   margin-bottom: 0;
 
 }
-#aside{
+
+#aside {
   height: 100%;
   margin: 0;
   padding-left: 0;
@@ -54,19 +60,21 @@ ol,ul,p {
 
 
 }
-#aside aside{
+
+#aside aside {
   height: 100%;
 }
+
 .users-table {
-    width: 100%;
-    border-spacing: 1px;
-    border-collapse: separate;
+  width: 100%;
+  border-spacing: 1px;
+  border-collapse: separate;
 }
 
 
 .users-table td,
 .users-table th {
-  
+
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
@@ -133,16 +141,15 @@ ol,ul,p {
   background-color: #28661c;
 }
 
-.form {
+.form-user {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background: #2e7d32;
-  color: white;
-  padding: 2rem 3rem;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  max-width: 800px;
-  margin: 2rem auto;
+  width: 100%;
+  gap: 12px;
+  font-size: 1.5rem;
+}
+.form-user input:focus {
+ border: 1px solid green;
 }
 
 .form h2 {
@@ -177,6 +184,11 @@ ol,ul,p {
   border-radius: 0;
   border: none;
   background-color: #f1f1f1;
+
+}
+
+.form-group input:focus {
+  border: 1px solid green;
 }
 
 .table-buttons {
@@ -214,10 +226,24 @@ table button,
 }
 
 .cancel-button {
-  background-color: #BDBDBD;
+  background-color: #d14141;
+  border: 0;
+  border-radius: 6px;
+  color: white;
 }
 
 
 .content.forms {
   align-content: center;
+}
+
+.grupo-inputs.button {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.grupo-inputs button {
+  padding: 1rem;
 }

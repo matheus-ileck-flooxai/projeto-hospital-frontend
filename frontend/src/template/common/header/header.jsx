@@ -41,7 +41,7 @@ export default props => {
                         </form>
                         <ul className="nav navbar-nav navbar-right" >
 
-                            <li><a href="#">Sair</a></li>
+                            <li><a href="#/user/auth">Sair</a></li>
 
 
                         </ul>

@@ -10,12 +10,23 @@ import userAuth from "../auth/userAuth";
 import voluntarios from "../voluntarios/voluntarios";
 import Vagas from "../voluntarios/vagas/vagas";
 
+
+function requireAuth(nextState, replace) {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+        replace({
+            pathname: '/user/auth'
+        });
+    }
+}
+
 export default props => (
 
-    <Router history={hashHistory}>
+    <Router history={hashHistory} >
         <Route path='/hospital/auth' component={Auth} />
         <Route path='/user/auth' component={userAuth} />
-        <Route path='/hospital' component={Hospital}>
+        <Route path='/hospital' component={Hospital} onEnter={requireAuth}>
             <IndexRedirect to="usuarios" />
             <Route path='usuarios' component={Usuarios} />
             <Route path='vagas' component={Vaga} />

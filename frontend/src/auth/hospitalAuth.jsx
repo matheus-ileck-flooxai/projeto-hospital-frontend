@@ -48,7 +48,7 @@ export default class Auth extends Component {
         const { name, address, email, password,phone_number } = this.state;
         const newHospital = { name, address, email, password, phone_number  };
 
-        const url = 'https://projeto-hospital-backend-production.up.railway.app/api/hospital/register';
+        const url = 'http://localhost:3306/api/hospital/register';
         axios.post(url, newHospital)
             .then(resp => {
                 this.setState({ showForm: false });
@@ -65,6 +65,7 @@ export default class Auth extends Component {
         return (
             <div className="auth-container">
                 <div className="login-box">
+                      <img src={Logo} alt="Logo" className="logo" />
                    <form onSubmit={this.register} className="form-register">
                             <div className="grupo-inputs">
                                 <label htmlFor="name" className="label">Nome:</label>

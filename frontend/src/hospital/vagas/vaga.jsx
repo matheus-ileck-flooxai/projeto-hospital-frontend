@@ -20,14 +20,14 @@ class vacancies extends Component {
     getVacancies() {
         const token = localStorage.getItem('token');
 
-        Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/hospital/vacancies`, {
+        Axios.get(`http://localhost:3306/api/hospital/vacancies`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         })
             .then(resp => {
                 this.setState({ vacancies: resp.data })
-                ;
+                    ;
 
 
             })
@@ -53,7 +53,7 @@ class vacancies extends Component {
         }
 
         if (this.state.Vacancy.id) {
-            Axios.put(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies/${this.state.Vacancy.id}`, vacancy, {
+            Axios.put(`http://localhost:3306/api/vacancies/${this.state.Vacancy.id}`, vacancy, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -66,7 +66,7 @@ class vacancies extends Component {
             })
         }
         else {
-            Axios.post('https://projeto-hospital-backend-production.up.railway.app/api/vacancies', vacancy, {
+            Axios.post('http://localhost:3306/api/vacancies', vacancy, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -89,7 +89,7 @@ class vacancies extends Component {
     onDelete(id) {
         const token = localStorage.getItem('token');
 
-        Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies/${id}`, {
+        Axios.delete(`http://localhost:3306/api/vacancies/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -100,7 +100,7 @@ class vacancies extends Component {
         const status = 'concluded'
         const token = localStorage.getItem('token');
 
-        Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies/${id}`, status,{
+        Axios.delete(`http://localhost:3306/api/vacancies/${id}`, status, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -111,62 +111,65 @@ class vacancies extends Component {
 
 
 
-render() {
-    let vacancies = this.state.vacancies
+    render() {
+        let vacancies = this.state.vacancies
 
-    return (
+        return (
 
-        <div className="content">
-            {!this.state.showForm && (
-                <div>
-                    <table className="users-table">
-                        <thead>
-                            <tr>
-                                <th>Numero</th>
-                                <th>Titulo</th>
-                                <th>Descrição</th>
-                                <th>Data</th>
-                                <th>Voluntarios necessarios</th>
-                                <th>Voluntarios inscritos</th>
-                                <th>Pontos</th>
-                                <th className="th-buttons">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {vacancies.map((vacancy, index) =>
-                                <tr key={vacancy.id}>
-                                    <td>{index + 1} </td>
-                                    <td>{vacancy.title} </td>
-                                    <td>{vacancy.description}</td>
-                                    <td>{new Date(vacancy.schedule).toLocaleDateString('pt-BR')}</td>
-
-                                    <td>{vacancy.qtd_volunteer}</td>
-                                    <td>{vacancy.applications ? vacancy.applications.length : 0}</td>
-                                    <td>{vacancy.score}</td>
-                                    <td className="table-buttons">
-                                        <div className="table-buttons-group">
-                                            <i className="fas fa-edit" onClick={() => this.setState({ showForm: true, Vacancy: vacancy })}></i>
-                                            <i className="fas fa-trash" onClick={() => this.onDelete(vacancy.id)}></i>
-                                            <i className="fas fa-check" onClick={() => this.finishVacancy(vacancy.id)}></i>
-                                        </div>
-                                    </td>
-
+            <div className="content">
+                {!this.state.showForm && (
+                    <div>
+                        <table className="users-table">
+                            <thead>
+                                <tr>
+                                    <th>Numero</th>
+                                    <th>Titulo</th>
+                                    <th>Descrição</th>
+                                    <th>Data</th>
+                                    <th>Voluntarios necessarios</th>
+                                    <th>Voluntarios inscritos</th>
+                                    <th>Pontos</th>
+                                    <th className="th-buttons">Ações</th>
                                 </tr>
-                            )
-                            }
-                        </tbody>
-                    </table>
-                    <button className="new-data-button" onClick={() => this.setState({ showForm: true })} >Criar nova vaga</button>
+                            </thead>
+                            <tbody>
+                                {vacancies.map((vacancy, index) =>
+                                    <tr key={vacancy.id}>
+                                        <td>{index + 1} </td>
+                                        <td>{vacancy.title} </td>
+                                        <td>{vacancy.description}</td>
+                                        <td>{new Date(vacancy.schedule).toLocaleDateString('pt-BR')}</td>
 
-                </div>
-            )}
-            {this.state.showForm && (<form className="form" onSubmit={this.onSubmit}>
-                <h2>Insira os dados da vaga</h2>
+                                        <td>{vacancy.qtd_volunteer}</td>
+                                        <td>{vacancy.applications ? vacancy.applications.length : 0}</td>
+                                        <td>{vacancy.score}</td>
+                                        <td className="table-buttons">
+                                            <div className="table-buttons-group">
+                                                <i className="fas fa-edit" onClick={() => this.setState({ showForm: true, Vacancy: vacancy })}></i>
+                                                <i className="fas fa-trash" onClick={() => this.onDelete(vacancy.id)}></i>
+                                                <i className="fas fa-check" onClick={() => this.finishVacancy(vacancy.id)}></i>
+                                            </div>
+                                        </td>
 
-                <div className="form-row">
-                    <div className="form-group">
-                        <label>Titulo</label>
-                        <input type="text" name="title" required
+                                    </tr>
+                                )
+                                }
+                            </tbody>
+                        </table>
+                        <button className="new-data-button" onClick={() => this.setState({ showForm: true })} >Criar nova vaga</button>
+
+                    </div>
+                )}
+                {this.state.showForm && (<form className="form-vacancy" onSubmit={this.onSubmit}>
+                    <h2>Insira os dados da vaga</h2>
+
+                    <div className="grupo-inputs">
+                        <label className="label">Título:</label>
+                        <input
+                            type="text"
+                            name="title"
+                            placeholder="Digite o título da vaga"
+                            required
                             value={this.state.Vacancy ? this.state.Vacancy.title : ''}
                             onChange={e => this.setState({
                                 Vacancy: {
@@ -177,11 +180,13 @@ render() {
                         />
                     </div>
 
-
-                    <div className="form-group">
-                        <label>Data</label>
-                        <input type="date" name="schedule" required
-
+                    <div className="grupo-inputs">
+                        <label className="label">Data:</label>
+                        <input
+                            type="date"
+                            name="schedule"
+                            required
+                            value={this.state.Vacancy ? this.state.Vacancy.schedule : ''}
                             onChange={e => this.setState({
                                 Vacancy: {
                                     ...this.state.Vacancy,
@@ -191,9 +196,14 @@ render() {
                         />
                     </div>
 
-                    <div className="form-group">
-                        <label>Voluntarios necessarios</label>
-                        <input type="number" name="qtd_volunteer" required min={1}
+                    <div className="grupo-inputs">
+                        <label className="label">Voluntários necessários:</label>
+                        <input
+                            type="number"
+                            name="qtd_volunteer"
+                            placeholder="Quantidade de voluntários"
+                            required
+                            min={1}
                             value={this.state.Vacancy ? this.state.Vacancy.qtd_volunteer : ''}
                             onChange={e => this.setState({
                                 Vacancy: {
@@ -203,13 +213,14 @@ render() {
                             })}
                         />
                     </div>
-                </div>
 
-                <div className="form-row">
-
-                    <div className="form-group">
-                        <label>Descrição</label>
-                        <input type="text" name="description" required
+                    <div className="grupo-inputs">
+                        <label className="label">Descrição:</label>
+                        <input
+                            type="text"
+                            name="description"
+                            placeholder="Descreva a vaga"
+                            required
                             value={this.state.Vacancy ? this.state.Vacancy.description : ''}
                             onChange={e => this.setState({
                                 Vacancy: {
@@ -219,9 +230,14 @@ render() {
                             })}
                         />
                     </div>
-                    <div className="form-group">
-                        <label>Pontos</label>
-                        <input type="number" name="score" required
+
+                    <div className="grupo-inputs">
+                        <label className="label">Pontos:</label>
+                        <input
+                            type="number"
+                            name="score"
+                            placeholder="Pontuação da vaga"
+                            required
                             value={this.state.Vacancy ? this.state.Vacancy.score : ''}
                             onChange={e => this.setState({
                                 Vacancy: {
@@ -231,17 +247,18 @@ render() {
                             })}
                         />
                     </div>
-                </div>
 
-                <div className="form-row">
-                    <button type="button" className="cancel-button" onClick={() => this.setState({ showForm: false, vacancy: {} })}>Cancelar</button>
-                    <button type="submit" className="submit-button">Enviar</button>
-                </div>
-            </form>
-            )}
-        </div>
-    );
-}
+                    <div className="grupo-inputs button">
+                        <button type="button" className="cancel-button" onClick={() => this.setState({ showForm: false, Vacancy: {} })}>Cancelar</button>
+                        <button type="submit" className="btn-submit">Enviar</button>
+                    </div>
+                </form>
+
+
+                )}
+            </div>
+        );
+    }
 }
 
 export default vacancies

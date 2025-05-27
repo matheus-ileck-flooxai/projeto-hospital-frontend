@@ -3,6 +3,8 @@ import Logo from '../../template/assets/img/logo2.png'
 import firstImage from '../../template/assets/img/img1.png'
 import Axios from "axios"
 import './vagas.css'
+const jwt_decode = require('jwt-decode');
+
 export default class Vagas extends Component {
 
     constructor(props) {
@@ -18,20 +20,63 @@ export default class Vagas extends Component {
     }
 
     componentDidMount() {
-        Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies`, {
+        this.getVacancies();
 
-        })
-            .then(resp => {
-                this.setState({ vacancies: resp.data });
+    }
+    getVacancies() {
+        const token = localStorage.getItem('token');
 
-                console.log(this.state.vacancies);
+        if (token) {
+            const decoded = jwt_decode.jwtDecode(token);
+            const userId = decoded.userid;
+
+            Axios.get(`http://localhost:3306/api/vacancies?userId=${userId}`)
+                .then(resp => {
+                    this.setState({ vacancies: resp.data });
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar vagas');
+                });
+        } else {
+            Axios.get(`http://localhost:3306/api/vacancies`)
+                .then(resp => {
+                    this.setState({ vacancies: resp.data });
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar todas as vagas', err);
+                });
+        }
+    }
 
 
 
+    onsubmit(vacancyId) {
+
+        const token = localStorage.getItem('token');
+
+        if (token) {
+            const decoded = jwt_decode.jwtDecode(token)
+            const userId = decoded.userid
+
+            Axios.post('http://localhost:3306/api/volunteer/newapplication', { userId, vacancyId }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then(resp => {
+
+                this.getVacancies();
             })
-            .catch(err => {
+                .catch(error => {
+                    {
+                        console.log(error);
 
-            })
+                    }
+                })
+
+        }
+
+
+
     }
 
     render() {
@@ -48,13 +93,15 @@ export default class Vagas extends Component {
                 </div>
                 <div className="container">
 
-                    <section className="about">
+                    <section className="about" id="about">
                         <div className="row align-items-center">
                             <div className="col-12 col-md-6 mb-4">
                                 <h2 className="title about-title"><span className="span-border">Quem somos</span></h2>
                                 <div className="about-text">
                                     <p>
-                                        Somos uma plataforma com o intuito de mobilizar pessoas atraves de serviços voluntarios para ajudar pacientes em diversos hospitais.
+                                        Somos uma plataforma com  feita com o intuito de mobilizar pessoas através de serviços voluntários para ajudar pacientes de todos os hospitais de qualquer lugar do mundo!
+
+                                        Nós contamos com mais de  hospitais registrados onde você pode escolher se voluntariar no mais próximo de sua casa, podendo ajudar em tarefes de todo tipo. Venha fazer a diferença na vida das pessoas!
                                     </p>
                                 </div>
                             </div>
@@ -64,7 +111,7 @@ export default class Vagas extends Component {
                         </div>
                     </section>
 
-                    <section className="vacancies">
+                    <section className="vacancies" id="vagas">
                         <div className="row">
                             <div className="row">
                                 <div className="col-md-12">
@@ -85,21 +132,21 @@ export default class Vagas extends Component {
                                             <div className="card-header">
                                                 <img src={Logo} className="img-card"></img>
                                             </div>
-                                            <div className="card-content">
+                                            <div className="card-content" >
                                                 <h3 className="card-title">{vacancy.title}</h3>
-                                                <p className="card-text">Descrição: {vacancy.description}</p>
-                                                <p className="card-text">Voluntarios necessarios: {vacancy.qtd_volunteer}</p>
-                                                <p className="card-text">Data: {new Date(vacancy.schedule).toLocaleDateString('pt-BR')}</p>
-                                                <p className="card-text">Pontos: {vacancy.score}</p>
+                                                <p className="card-text"><strong>Descrição:</strong> {vacancy.description}</p>
+                                                <p className="card-text"><strong>voluntários necessarios:</strong> {vacancy.qtd_volunteer}</p>
+                                                <p className="card-text"><strong>Data:</strong> {new Date(vacancy.schedule).toLocaleDateString('pt-BR')}</p>
+                                                <p className="card-text"><strong>Pontos:</strong> {vacancy.score}</p>
                                             </div>
                                             <div className="card-buttons">
-                                                <button className="btn">Participar</button>
+                                                <a className="btn" onClick={() => this.onsubmit(vacancy.id)} >Participar</a>
                                             </div>
-                                            
+
                                         </div>
-                                        
+
                                     </div>
-                                    
+
                                 )}
 
                             </div>
