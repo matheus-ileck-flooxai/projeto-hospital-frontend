@@ -1,4 +1,4 @@
-.title-vacancies{
+.title-vacancies {
     margin-top: 5rem;
     font-weight: 300;
 }
@@ -11,13 +11,16 @@
 }
 
 .card-custom {
+    display: flex;
     background: #fff;
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     padding: 20px;
     text-align: justify;
     max-width: 300px;
-
+    height: 450px;
+    flex-direction: column;
+    justify-content: space-between;
     margin: 1rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 2px solid #4caf5054;
@@ -71,4 +74,69 @@
     background: #42753e;
     color: white !important;
 
+}
+
+.no-content {
+    height: 500px;
+    align-content: center;
+    color: #4caf50;
+    justify-items: center;
+}
+
+.confirm-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    display: flex;
+    ;
+    flex-direction: column;
+    gap: 2rem;
+    background: white;
+    padding: 3rem;
+    border-radius: 8px;
+}
+
+.modal-title {
+    color: #42753e;
+}
+
+.modal-buttons {
+    display: flex;
+
+    justify-content: space-evenly;
+}
+
+.modal-description {
+    font-size: 1.6rem;
+}
+
+.modal-buttons button {
+    padding: 1rem;
+    background-color: green;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    width: 30%;
+    text-align: center;
+}
+
+.modal-buttons button:hover {
+    background-color: #355e32;
+}
+
+.modal-buttons button:first-child {
+    background-color: red;
+}
+
+.modal-buttons button:first-child:hover {
+    background-color: rgb(202, 0, 0);
 }

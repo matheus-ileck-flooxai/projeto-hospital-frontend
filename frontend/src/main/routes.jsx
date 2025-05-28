@@ -5,11 +5,12 @@ import Vaga from "../hospital/vagas/vaga";
 import Usuarios from "../hospital/usuarios/usuarios";
 import Pedidos from "../hospital/pedidos/pedidos";
 import Pontuacao from "../hospital/pontuacao/pontuacao";
-import userAuth from "../auth/userAuth";
-import voluntarios from "../voluntarios/voluntarios";
+import UserAuth from "../auth/userAuth";
+import Voluntarios from "../voluntarios/voluntarios";
 import Vagas from "../voluntarios/vagas/vagas";
-import hospitalAuth from "../auth/hospitalAuth";
-import volunteerAuth from "../auth/volunteerAuth";
+import HospitalAuth from "../auth/hospitalAuth";
+import VolunteerAuth from "../auth/volunteerAuth";
+import Perfil from "../voluntarios/perfil/perfil";
 
 
 function requireAuth(nextState, replace) {
@@ -25,19 +26,20 @@ function requireAuth(nextState, replace) {
 export default props => (
 
     <Router history={hashHistory} >
-        <Route path='/user/register' component={volunteerAuth} />
-        <Route path='/hospital/auth' component={hospitalAuth} />
-        <Route path='/user/auth' component={userAuth} />
+        <Route path='/user/register' component={VolunteerAuth} />
+        <Route path='/hospital/auth' component={HospitalAuth} />
+        <Route path='/user/auth' component={UserAuth} />
         <Route path='/hospital' component={Hospital} onEnter={requireAuth}>
             <IndexRedirect to="usuarios" />
-            <Route path='usuarios' component={Usuarios} />
-            <Route path='vagas' component={Vaga} />
-            <Route path='pedidos' component={Pedidos} />
-            <Route path='pontuacao' component={Pontuacao} />
+            <Route path='users' component={Usuarios} />
+            <Route path='vacancies' component={Vaga} />
+            <Route path='applications' component={Pedidos} />
+            <Route path='leaderboard' component={Pontuacao} />
         </Route>
-        <Route path='/volunteer' component={voluntarios} >
-            <IndexRedirect to="vagas" />
-            <Route path='vagas' component={Vagas} />
+        <Route path='/volunteer' component={Voluntarios} >
+            <IndexRedirect to="vacancies" />
+            <Route path='vacancies' component={Vagas} />
+            <Route path='profile' component={Perfil} />
         </Route>
 
         <Redirect from='*' to='/volunteer' />

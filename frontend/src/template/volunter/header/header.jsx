@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router";
 import './header.css';
 import Logo from '../../assets/img/logo2.png';
 const jwt_decode = require('jwt-decode');
@@ -7,8 +8,7 @@ export default class HeaderVoluntario extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            token: null,
-            user: null,
+            role: '',
         };
     }
 
@@ -17,21 +17,18 @@ export default class HeaderVoluntario extends Component {
 
 
         if (token) {
-                const decoded = jwt_decode.jwtDecode(token);
-                this.setState({ token, user: decoded });
-
+            const decoded = jwt_decode.jwtDecode(token);
+            const role = decoded.role
+            this.setState({ role }, () => {
+                console.log(this.state.role);
+            });
 
         }
     }
 
-    logout (){
-        localStorage.removeItem('token');
-        this.setState({ token: null, user: null });
-    }
+  
 
     render() {
-        const { token } = this.state;
-        
 
         return (
             <nav className="navbar navbar-default" id="navbar">
@@ -58,19 +55,14 @@ export default class HeaderVoluntario extends Component {
                             </div>
                         </form>
                         <ul className="nav navbar-nav navbar-right" id="nav-items">
-                            {token ? (
-                                [
-                                    <li key="perfil"><a href="#">Perfil</a></li>,
-                                    <li key="sair"><a href="#/user/auth" onClick={this.logout}>Sair</a></li>
-                                ]
-                            ) : (
-                                [
-                                    <li key="entrar"><a href="#/user/auth">Entrar</a></li>,
-                                    <li key="sobre"><a href="#about">Sobre</a></li>,
-                                    <li key="vagas"><a href="#vagas">Vagas</a></li>,
-                                    <li key="contato"><a href="#">Contato</a></li>
-                                ]
-                            )}
+                            {this.state.role === 'Volunteer' && <li><Link to="/volunteer/profile">Perfil</Link></li>}
+                            {this.state.role === 'Volunteer' && <li><Link to="/volunteer/vacancies">vagas</Link></li>}
+                            {this.state.role === 'Volunteer' && <li><Link to="/user/auth">Sair</Link></li>}
+
+
+                            {this.state.role !== 'Volunteer' && <li><Link to="/user/auth">Entrar</Link></li>}
+                            {this.state.role !== 'Volunteer' && <li><a href="#about">Sobre</a></li>}
+                            {this.state.role !== 'Volunteer' && <li><a href="#vagas">Vagas</a></li>}
                         </ul>
                     </div>
                 </div>

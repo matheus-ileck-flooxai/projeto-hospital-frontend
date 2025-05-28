@@ -4,6 +4,8 @@ import firstImage from '../../template/assets/img/img1.png'
 import Axios from "axios"
 import './vagas.css'
 const jwt_decode = require('jwt-decode');
+import { hashHistory } from 'react-router'
+
 
 export default class Vagas extends Component {
 
@@ -30,52 +32,75 @@ export default class Vagas extends Component {
             const decoded = jwt_decode.jwtDecode(token);
             const userId = decoded.userid;
 
-            Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies?userId=${userId}`)
+            Axios.get(`http://localhost:3306/api/vacancies?userId=${userId}`)
                 .then(resp => {
                     this.setState({ vacancies: resp.data });
-                    console.log(this.state.vacancies);
-                    
+
                 })
                 .catch(error => {
-                    console.error('Erro ao buscar vagas');
+                    console.error(error);
                 });
         } else {
-            Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies`)
+            Axios.get(`http://localhost:3306/api/vacancies`)
                 .then(resp => {
                     this.setState({ vacancies: resp.data });
                 })
                 .catch(error => {
-                    console.error('Erro ao buscar todas as vagas', err);
+                    console.error('Erro ao buscar todas as vagas', error);
                 });
         }
     }
 
 
 
-    onsubmit(vacancyId) {
+    onsubmit() {
 
         const token = localStorage.getItem('token');
+        const decoded = jwt_decode.jwtDecode(token)
 
-        if (token) {
-            const decoded = jwt_decode.jwtDecode(token)
+        if (token && decoded.role == 'Volunteer') {
             const userId = decoded.userid
-
-            Axios.post('https://projeto-hospital-backend-production.up.railway.app/api/volunteer/newapplication', { userId, vacancyId }, {
+            const vacancyId = this.state.Vacancy.id
+            Axios.post('http://localhost:3306/api/volunteer/newapplication', { userId, vacancyId }, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             }).then(resp => {
+                this.setState({ showForm: false })
                 this.getVacancies();
+            }).catch(error => {
+                {
+                    console.log(error);
+                }
             })
-                .catch(error => {
-                    {
-                        console.log(error);
-
-                    }
-                })
         }
-    }
+        else {
+            hashHistory.push('/user/auth')
+        }
 
+    }
+    openModal(vacancy) {
+        const token = localStorage.getItem('token');
+
+        if (token) {
+            this.setState({
+                showForm: true,
+                Vacancy: vacancy
+            });
+        }
+        else {
+            hashHistory.push('/user/auth')
+
+        }
+
+
+    }
+    closeModal() {
+        this.setState({
+            showForm: false,
+            Vacancy: ''
+        });
+    }
     render() {
         let vacancies = this.state.vacancies
 
@@ -85,15 +110,15 @@ export default class Vagas extends Component {
             <div className="row">
                 <div className="jumbotron" id="inicio">
                     <div className="col-md-12">
-                        <h2 className="title-jumbotron">Seja bem vindo a plataforma de voluntarios!</h2>
+                        <h2 className="title-jumbotron">Seja bem vindo a plataforma de Voluntários!</h2>
                     </div>
                 </div>
                 <div className="container">
 
                     <section className="about" id="about">
                         <div className="row align-items-center">
-                            <div className="col-12 col-md-6 mb-4">
-                                <h2 className="title about-title"><span className="span-border">Quem somos</span></h2>
+                            <div className="col-12 col-md-6  mb-4">
+                                <h2 className="title about-title"><span className="span-border">Quem somos?</span></h2>
                                 <div className="about-text">
                                     <p>
                                         Somos uma plataforma com  feita com o intuito de mobilizar pessoas através de serviços voluntários para ajudar pacientes de todos os hospitais de qualquer lugar do mundo!
@@ -115,39 +140,59 @@ export default class Vagas extends Component {
                                     <h1 className="title"><span className="span-border">Vagas disponiveis</span></h1>
                                     <div className="row">
                                         <h4 className="title-vacancies">Aqui você pode encontrar as vagas nos hospitais, encontrando o mais próximo e quantos pontos você acumula ao concluir o programa. Candidate-se já!</h4>
-<hr />
+                                        <hr />
                                     </div>
                                 </div>
 
                             </div>
 
-                            <div className="row">
-                                {vacancies.map((vacancy, index) =>
 
-                                    <div className="col-sm-6 col-md-4">
-                                        <div className="card-custom">
-                                            <div className="card-header">
-                                                <img src={Logo} className="img-card"></img>
-                                            </div>
-                                            <div className="card-content" >
-                                                <h3 className="card-title">{vacancy.title}</h3>
-                                                <p className="card-text"><i className="fa fa-clipboard"></i><strong> Descrição:</strong> {vacancy.description}</p>
-                                                <p className="card-text"><i className="fa fa-users"></i><strong> voluntários necessarios:</strong> {vacancy.applications.length}/{vacancy.qtd_volunteer}</p>
-                                                <p className="card-text"><i className="fa fa-calendar"></i><strong> Data:</strong> {new Date(vacancy.schedule).toLocaleDateString('pt-BR')}</p>
-                                                <p className="card-text"><i className="fa fa-award"></i><strong> Pontos:</strong> {vacancy.score}</p>
-                                            </div>
-                                            <hr />
-                                            <div className="card-buttons">
-                                                <a className="btn" onClick={() => this.onsubmit(vacancy.id)} >Participar</a>
+                            <div className="row justify-content-center">
+
+                                {this.state.vacancies && this.state.vacancies.length > 0 ? (
+                                    vacancies.map((vacancy, index) => (
+                                        <div className="col-xs-12 col-sm-6 col-md-5 col-lg-4" key={index}>
+                                            <div className="card-custom">
+                                                <div className="card-header">
+                                                    <img src={Logo} className="img-card" alt="Logo" />
+                                                </div>
+                                                <div className="card-content">
+                                                    <h3 className="card-title">{vacancy.title}</h3>
+                                                    <p className="card-text"><i className="fa fa-users"></i><strong> Hospital:</strong> {vacancy.hospital.name}</p>
+                                                    <p className="card-text"><i className="fa fa-users"></i><strong> Endereço:</strong> {vacancy.hospital.address}</p>
+                                                    <p className="card-text"><i className="fa fa-users"></i><strong> Voluntários necessários:</strong> {vacancy.applications.length}/{vacancy.qtd_volunteer}</p>
+                                                    <p className="card-text"><i className="fa fa-calendar"></i><strong> Data:</strong> {new Date(vacancy.schedule).toLocaleDateString('pt-BR')}</p>
+                                                    <p className="card-text"><i className="fa fa-clipboard"></i><strong> Descrição:</strong> {vacancy.description}</p>
+                                                    <p className="card-text"><i className="fa fa-award"></i><strong> Pontos:</strong> {vacancy.score}</p>
+                                                </div>
+                                                <div className="card-buttons">
+                                                    <a className="btn" onClick={() => this.openModal(vacancy)}>Participar</a>
+                                                </div>
                                             </div>
 
                                         </div>
-
+                                    ))
+                                ) : (
+                                    <div className="no-content">
+                                        <h1>Nenhuma vaga disponível no momento...</h1>
                                     </div>
-
+                                )}
+                                {this.state.showForm && (
+                                    <div className="confirm-modal">
+                                        <div className="modal-content">
+                                            <h1 className="modal-title">Confirmar inscrição?</h1>
+                                            <p className="modal-description">Você deseja se inscrever na vaga: {this.state.Vacancy.title}</p>
+                                            <div className="modal-buttons">
+                                                <button onClick={() => this.closeModal()}>Cancelar</button>
+                                                <button onClick={() => this.onsubmit()}>Enviar</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 )}
 
                             </div>
+
+
                         </div>
                     </section>
                 </div>

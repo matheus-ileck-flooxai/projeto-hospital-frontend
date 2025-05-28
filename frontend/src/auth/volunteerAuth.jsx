@@ -19,6 +19,14 @@ export default class volunteerAuth extends Component {
             phone_number: '',
             score: 0
         };
+
+        this.date = new Date()
+        this.maxDate = new Date(
+            this.date.getFullYear() - 18,
+            this.date.getMonth(),
+            this.date.getDate()
+        ).toISOString().split('T')[0];
+
     }
 
     componentDidMount() {
@@ -47,10 +55,14 @@ export default class volunteerAuth extends Component {
     register(e) {
         e.preventDefault();
 
-        const { name, address, email, age, password,role, phone_number } = this.state;
-        const newUser = { name, address,age, email, role,password, phone_number };
+        if (!e.target.checkValidity()) {
+            e.target.reportValidity(); 
+            return;                    
+        }
+        const { name, address, email, age, password, role, phone_number } = this.state;
+        const newUser = { name, address, age, email, role, password, phone_number };
 
-        const url = 'https://projeto-hospital-backend-production.up.railway.app/api/user/register';
+        const url = 'http://localhost:3306/api/user/register';
         axios.post(url, newUser)
             .then(resp => {
                 this.setState({ showForm: false });
@@ -73,6 +85,7 @@ export default class volunteerAuth extends Component {
                             <input
                                 type="text"
                                 name="name"
+                                pattern="^[A-Za-zÀ-ú\s]+$"
                                 value={this.state.name}
                                 placeholder="Digite seu nome"
                                 onChange={(e) => this.setState({ name: e.target.value })}
@@ -85,6 +98,7 @@ export default class volunteerAuth extends Component {
                             <input
                                 type="date"
                                 name="age"
+                                max={this.maxDate}
                                 value={this.state.age}
                                 placeholder="Digite sua idade"
                                 onChange={(e) => this.setState({ age: e.target.value })}
@@ -109,9 +123,10 @@ export default class volunteerAuth extends Component {
                             <input
                                 type="tel"
                                 name="phone_number"
+                                pattern="\d{10,11}"
                                 value={this.state.phone_number}
-                                placeholder="Digite o telefone"
-                                onChange={(e) => this.setState({ phone_number: e.target.value })}
+                                placeholder="Ex: xxxxxxxxxxx"
+                                onChange={(e) => this.setState({ phone_number: e.target.value.replace(/\D/g, "") })}
                                 required
                             />
                         </div>
@@ -121,6 +136,8 @@ export default class volunteerAuth extends Component {
                             <input
                                 type="password"
                                 name="password"
+                                title="Senha deve ter no mínimo 8 caracteres, incluindo uma letra maiúscula, uma minúscula e um caractere especial."
+                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$"
                                 value={this.state.password}
                                 placeholder="Digite sua senha"
                                 onChange={(e) => this.setState({ password: e.target.value })}

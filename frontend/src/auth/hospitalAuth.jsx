@@ -44,15 +44,18 @@ export default class hospitalAuth extends Component {
 
     register(e) {
         e.preventDefault();
+        if (!e.target.checkValidity()) {
+            e.target.reportValidity();
+            return;
+        }
+        const { name, address, email, password, phone_number } = this.state;
+        const newHospital = { name, address, email, password, phone_number };
 
-        const { name, address, email, password,phone_number } = this.state;
-        const newHospital = { name, address, email, password, phone_number  };
-
-        const url = 'https://projeto-hospital-backend-production.up.railway.app/api/hospital/register';
+        const url = 'http://localhost:3306/api/hospital/register';
         axios.post(url, newHospital)
             .then(resp => {
                 this.setState({ showForm: false });
-                  hashHistory.push('/user/auth')
+                hashHistory.push('/user/auth')
             })
             .catch(err => {
                 ;
@@ -60,41 +63,46 @@ export default class hospitalAuth extends Component {
     }
 
     render() {
-        const { email, password, name, address,phone_number, showForm } = this.state;
+        const { email, password, name, address, phone_number, showForm } = this.state;
 
         return (
             <div className="auth-container">
                 <div className="login-box">
-                      <img src={Logo} alt="Logo" className="logo" />
-                   <form onSubmit={this.register} className="form-register">
-                            <div className="grupo-inputs">
-                                <label htmlFor="name" className="label">Nome:</label>
-                                <input type="text" name="name" value={name} placeholder="Nome do hospital" onChange={(e) => this.setState({ name: e.target.value })} required />
-                            </div>
-                            <div className="grupo-inputs">
-                                <label htmlFor="address" className="label">Endereço:</label>
-                                <input type="text" name="address" value={address} placeholder="Endereço" onChange={(e) => this.setState({ address: e.target.value })} required />
-                            </div>
-                            <div className="grupo-inputs">
-                                <label htmlFor="email" className="label">Email:</label>
-                                <input type="email" name="email" value={email} placeholder="Digite seu e-mail" onChange={(e) => this.setState({ email: e.target.value })} required />
-                            </div>
-                            <div className="grupo-inputs">
-                                <label htmlFor="phone_number" className="label">Telefone contato:</label>
-                                <input type="tel" name="phone_number" value={phone_number} placeholder="Digite o telefone" onChange={(e) => this.setState({ phone_number: e.target.value })} required />
-                            </div>
-                            <div className="grupo-inputs">
-                                <label htmlFor="password" className="label">Senha:</label>
-                                <input type="password" name="password" value={password} placeholder="Digite sua senha" onChange={(e) => this.setState({ password: e.target.value })} required />
-                            </div>
+                    <img src={Logo} alt="Logo" className="logo" />
+                    <form onSubmit={this.register} className="form-register">
+                        <div className="grupo-inputs">
+                            <label htmlFor="name" className="label">Nome:</label>
+                            <input type="text" name="name" pattern="^[A-Za-zÀ-ú\s]+$" value={name} placeholder="Nome do hospital" onChange={(e) => this.setState({ name: e.target.value })} required />
+                        </div>
+                        <div className="grupo-inputs">
+                            <label htmlFor="address" className="label">Endereço:</label>
+                            <input type="text" name="address" value={address} placeholder="Endereço do hospital" onChange={(e) => this.setState({ address: e.target.value })} required />
+                        </div>
+                        <div className="grupo-inputs">
+                            <label htmlFor="email" className="label">Email:</label>
+                            <input type="email" name="email" value={email} placeholder="Digite seu e-mail" onChange={(e) => this.setState({ email: e.target.value })} required />
+                        </div>
+                        <div className="grupo-inputs">
+                            <label htmlFor="phone_number" className="label">Telefone contato:</label>
+                            <input type="tel" inputMode="numeric" pattern="\d{10,11}" name="phone_number" value={phone_number} placeholder="Ex: xxxxxxxxxxx" onChange={(e) => this.setState({ phone_number: e.target.value.replace(/\D/g, "") })} required />
+                        </div>
+                        <div className="grupo-inputs">
+                            <label htmlFor="password" className="label">Senha:</label>
+                            <input type="password" 
+                            title="Senha deve ter no mínimo 8 caracteres, incluindo uma letra maiúscula, uma minúscula e um caractere especial."
+                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$" 
+                            name="password" value={password} placeholder="Digite sua senha" 
+                            onChange={(e) => this.setState({ password: e.target.value })} 
+                            required />
+                        </div>
                         <a href="#/user/register" className="redirect-button">Cadastrar um usuario</a>
 
-                            <div className="grupo-inputs button-form">
-                                <button type="submit" className="btn-submit">Cadastrar</button>
-                                <a href="/#/user/auth">Já possuo uma conta</a>
-                            </div>
-                        </form>
-                
+                        <div className="grupo-inputs button-form">
+                            <button type="submit" className="btn-submit">Cadastrar</button>
+                            <a href="/#/user/auth">Já possuo uma conta</a>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         )
