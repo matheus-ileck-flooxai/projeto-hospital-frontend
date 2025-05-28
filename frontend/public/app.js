@@ -15591,7 +15591,7 @@
 	                password = _state.password;
 	
 	
-	            var url = 'http://localhost:3306/api/hospital/login';
+	            var url = `https://projeto-hospital-backend-production.up.railway.app/api/hospital/login';
 	            _axios2.default.post(url, { email: email, password: password }).then(function (resp) {
 	                localStorage.setItem('token', resp.data.token);
 	                _reactRouter.hashHistory.push('/hospital');
@@ -15614,7 +15614,7 @@
 	
 	            var newHospital = { name: name, address: address, email: email, password: password };
 	
-	            var url = 'http://localhost:3306/api/hospital/register';
+	            var url = `https://projeto-hospital-backend-production.up.railway.app/api/hospital/register';
 	            _axios2.default.post(url, newHospital).then(function (resp) {
 	                _this2.setState({ showForm: false });
 	            }).catch(function (err) {
@@ -15857,7 +15857,7 @@
 	                password = _state.password;
 	
 	
-	            var url = 'http://localhost:3306/api/user/login';
+	            var url = `https://projeto-hospital-backend-production.up.railway.app/api/user/login';
 	            _axios2.default.post(url, { email: email, password: password }).then(function (resp) {
 	                localStorage.setItem('token', resp.data.token);
 	                _reactRouter.hashHistory.push('/hospital');
@@ -16352,7 +16352,7 @@
 	                    });
 	                });
 	            } else {
-	                _axios2.default.post('http://localhost:3306/api/users', User, {
+	                _axios2.default.post(`https://projeto-hospital-backend-production.up.railway.app/api/users', User, {
 	                    headers: {
 	                        'Authorization': "Bearer " + token
 	                    }
@@ -16720,7 +16720,7 @@
 	                    });
 	                });
 	            } else {
-	                _axios2.default.post('http://localhost:3306/api/vacancies', vacancy, {
+	                _axios2.default.post(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies', vacancy, {
 	                    headers: {
 	                        'Authorization': "Bearer " + token
 	                    }

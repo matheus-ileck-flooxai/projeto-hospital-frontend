@@ -30,7 +30,7 @@ export default props => (
         <Route path='/hospital/auth' component={HospitalAuth} />
         <Route path='/user/auth' component={UserAuth} />
         <Route path='/hospital' component={Hospital} onEnter={requireAuth}>
-            <IndexRedirect to="usuarios" />
+            <IndexRedirect to="users" />
             <Route path='users' component={Usuarios} />
             <Route path='vacancies' component={Vaga} />
             <Route path='applications' component={Pedidos} />

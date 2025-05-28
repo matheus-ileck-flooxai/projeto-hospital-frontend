@@ -10,19 +10,19 @@ const Menu = (props) => {
 
     return (
         <ul className="sidebar-menu">
-            <Link to="/hospital/usuarios">
+            <Link to="/hospital/users">
                 <li className={`menu-item ${isActive('/hospital/usuarios')}`}>
                     <i className="fas fa-user"></i> Usuários
                 </li>
             </Link>
 
-            <Link to="/hospital/vagas">
+            <Link to="/hospital/vacancies">
                 <li className={`menu-item ${isActive('/hospital/vagas')}`}>
                     <i className="fa fa-briefcase"></i> Vagas
                 </li>
             </Link>
 
-            <Link to="/hospital/pedidos">
+            <Link to="/hospital/applications">
                 <li className={`menu-item ${isActive('/hospital/pedidos')}`}>
                     <i className="fa fa-handshake"></i> Pedidos
                 </li>

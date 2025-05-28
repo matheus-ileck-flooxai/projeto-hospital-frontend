@@ -45,7 +45,7 @@ export default class userAuth extends Component {
         e.preventDefault();
         const { email, password } = this.state;
 
-        const url = 'http://localhost:3306/api/user/login';
+        const url = `https://projeto-hospital-backend-production.up.railway.app/api/user/login`;
         axios.post(url, { email, password })
             .then(resp => {
 
@@ -66,7 +66,6 @@ export default class userAuth extends Component {
                         hashHistory.push('/volunteer')
                     }
                 }
-                console.log(decoded);
 
 
             })

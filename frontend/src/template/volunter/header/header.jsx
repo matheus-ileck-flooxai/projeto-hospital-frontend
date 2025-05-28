@@ -20,7 +20,6 @@ export default class HeaderVoluntario extends Component {
             const decoded = jwt_decode.jwtDecode(token);
             const role = decoded.role
             this.setState({ role }, () => {
-                console.log(this.state.role);
             });
 
         }
