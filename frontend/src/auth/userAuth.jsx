@@ -45,7 +45,7 @@ export default class userAuth extends Component {
         e.preventDefault();
         const { email, password } = this.state;
 
-        const url = `https://projeto-hospital-frontend.vercel.app/api/user/login`;
+        const url = `https://projeto-hospital-backend-production.up.railway.app/api/user/login`;
         axios.post(url, { email, password })
             .then(resp => {
 

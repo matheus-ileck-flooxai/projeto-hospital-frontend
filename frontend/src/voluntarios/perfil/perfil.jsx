@@ -32,7 +32,7 @@ export default class profile extends Component {
 
             const id = decoded.userid;
 
-            Axios.get(`https://projeto-hospital-frontend.vercel.app/api/volunteer/${id}`, {
+            Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/volunteer/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -82,7 +82,7 @@ export default class profile extends Component {
         };
 
         if (id) {
-            Axios.put(`https://projeto-hospital-frontend.vercel.app/api/volunteer/${id}`, User, {
+            Axios.put(`https://projeto-hospital-backend-production.up.railway.app/api/volunteer/${id}`, User, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
