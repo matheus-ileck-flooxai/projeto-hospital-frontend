@@ -132,6 +132,7 @@ export default class Vagas extends Component {
                             </div>
                         </div>
                     </section>
+                    
 
                     <section className="vacancies" id="vagas">
                         <div className="row">
@@ -144,7 +145,8 @@ export default class Vagas extends Component {
                                     </div>
                                 </div>
 
-                            </div>    
+                            </div>   
+                             
 
                             {/*VAGAS DISPONIVEIS*/}
                             <div className="row justify-content-center">

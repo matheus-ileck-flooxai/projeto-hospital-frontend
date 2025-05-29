@@ -21,6 +21,10 @@ export default class profile extends Component {
     }
 
     componentDidMount() {
+        this.getUser()
+
+    }
+    getUser() {
 
         const token = localStorage.getItem('token');
         if (token) {
@@ -33,13 +37,14 @@ export default class profile extends Component {
                     'Authorization': `Bearer ${token}`
                 }
             }).then(resp => {
-                this.setState({ user: resp.data })
+                this.setState({ user: resp.data }
+
+                )
 
 
             })
 
         }
-
     }
 
     toggleEditForm() {
@@ -83,12 +88,10 @@ export default class profile extends Component {
                 }
             }).then(resp => {
                 this.setState({
-                    readOnly: true,
-                    user: resp.data.updatedUser
-                }, () => {
-                    console.log(this.state.user);
+                    readOnly: true
 
                 })
+                this.getUser()
 
             })
         }
@@ -100,14 +103,14 @@ export default class profile extends Component {
     render() {
 
         return (
-            <div className="container profile-content">
+            <div className="container-fluid profile-content">
                 <div className="main-body">
 
 
                     <div className="row">
 
 
-                        <div className="col-md-12">
+                        <div className="col-md-12 col-lg-3 ">
                             <div className="panel panel-default " id="panel-content" style={{ marginBottom: '15px', }}>
                                 <div className="panel-body text-center">
                                     <img src={Logo} alt="Admin" className="img-circle" width="150" />
@@ -271,6 +274,7 @@ export default class profile extends Component {
                                                 </div>
                                             </div>
                                         </div>
+
                                     </form>
                                 </div>
 
@@ -278,7 +282,79 @@ export default class profile extends Component {
 
 
                         </div>
+                        <div className="col-md-12 col-lg-9">
+                            <div className="panel panel-default " id="panel-content" style={{ marginBottom: '15px', }}>
+                                <div className="panel-body text-center">
+                                    <div className="col-md-12">
+                                        <h1 className="title">Vagas Atuais</h1>
+                                        <hr />
+
+                                        {this.state.user && this.state.user.applications && this.state.user.applications.length ? (
+                                            this.state.user.applications.map((application, index) => {
+                                                return (
+
+
+                                                    <div className="col-xs-12 col-sm-6 col-md-5 col-lg-4" key={index}>
+                                                        <div className="card-custom profile">
+                                                            <div>
+                                                                <div className="card-header">
+                                                                    <img className="img-card" src={Logo} alt="Logo" />
+
+                                                                </div>
+                                                                <h3 className="card-title">{application.vacancy.title}</h3>
+
+                                                            </div>
+
+                                                            <div className="card-content">
+
+                                                                <p className="card-text">
+                                                                    <i className="fa-solid fa-hospital"></i>
+                                                                    <strong> Hospital:</strong> {application.vacancy.hospital.name}
+                                                                </p>
+                                                                <p className="card-text">
+                                                                    <i className="fa-solid fa-location-dot"></i>
+                                                                    <strong> Endereço:</strong> {application.vacancy.hospital.address}
+                                                                </p>
+                                                                <p className="card-text">
+                                                                    <i className="fa fa-users"></i>
+                                                                    <strong> Voluntários necessários:</strong> {application.vacancy.qtd_volunteer}
+                                                                </p>
+                                                                <p className="card-text">
+                                                                    <i className="fa fa-calendar"></i>
+                                                                    <strong> Data:</strong> {new Date(application.vacancy.schedule).toLocaleDateString('pt-BR')}
+                                                                </p>
+                                                                <p className="card-text">
+                                                                    <i className="fa fa-clipboard"></i>
+                                                                    <strong> Descrição:</strong> {application.vacancy.description}
+                                                                </p>
+                                                                <p className="card-text">
+                                                                    <i className="fa fa-award"></i>
+                                                                    <strong> Pontos:</strong> {application.vacancy.score}
+                                                                </p>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                );
+                                            })
+                                        ) : (
+                                            <div className="no-content">
+                                                <h1>Nenhuma vaga disponível no momento...</h1>
+                                            </div>
+                                        )}
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
+
+
                 </div>
             </div>
 
