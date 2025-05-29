@@ -124,8 +124,9 @@ export default class volunteerAuth extends Component {
                                 type="tel"
                                 name="phone_number"
                                 pattern="\d{10,11}"
-                                value={this.state.phone_number}
                                 placeholder="Ex: xxxxxxxxxxx"
+                                value={this.state.phone_number}
+
                                 onChange={(e) => this.setState({ phone_number: e.target.value.replace(/\D/g, "") })}
                                 required
                             />

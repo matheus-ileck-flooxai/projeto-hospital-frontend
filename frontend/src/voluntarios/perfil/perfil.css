@@ -70,8 +70,7 @@
 }
 
 .edit-date {
-    margin-left: 5rem;
-    width: 60%;
+    width: 58%;
     height: 34px;
     padding: 6px 12px;
     font-size: 14px;
@@ -81,5 +80,37 @@
     background-image: none;
     border: 1px solid #ccc;
     border-radius: 4px;
+    position: relative;
+    left: 15px;
+}
 
+.profile-group-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 2rem;
+    place-self: center;
+
+
+}
+
+.profile-group-buttons button {
+    flex: 1 1 200px;
+    max-width: 300px;
+    padding: 10px 20px;
+
+}
+
+.profile-group-buttons button:focus {
+    outline: none;
+    border: none;
+    color: #fff;
+
+}
+
+.btn .btn-edit-profile.visible{
+    display: none;
 }

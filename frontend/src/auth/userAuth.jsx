@@ -45,7 +45,7 @@ export default class userAuth extends Component {
         e.preventDefault();
         const { email, password } = this.state;
 
-        const url = `https://projeto-hospital-backend-production.up.railway.app/api/user/login`;
+        const url = `http://localhost:3306/api/user/login`;
         axios.post(url, { email, password })
             .then(resp => {
 

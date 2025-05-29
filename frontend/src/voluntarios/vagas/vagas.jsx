@@ -32,7 +32,7 @@ export default class Vagas extends Component {
             const decoded = jwt_decode.jwtDecode(token);
             const userId = decoded.userid;
 
-            Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies?userId=${userId}`)
+            Axios.get(`http://localhost:3306/api/vacancies?userId=${userId}`)
                 .then(resp => {
                     this.setState({ vacancies: resp.data });
 
@@ -41,7 +41,7 @@ export default class Vagas extends Component {
                     console.error(error);
                 });
         } else {
-            Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies`)
+            Axios.get(`http://localhost:3306/api/vacancies`)
                 .then(resp => {
                     this.setState({ vacancies: resp.data });
                 })
@@ -61,7 +61,7 @@ export default class Vagas extends Component {
         if (token && decoded.role == 'Volunteer') {
             const userId = decoded.userid
             const vacancyId = this.state.Vacancy.id
-            Axios.post(`https://projeto-hospital-backend-production.up.railway.app/api/volunteer/newapplication`, { userId, vacancyId }, {
+            Axios.post(`http://localhost:3306/api/volunteer/newapplication`, { userId, vacancyId }, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -121,9 +121,9 @@ export default class Vagas extends Component {
                                 <h2 className="title about-title"><span className="span-border">Quem somos?</span></h2>
                                 <div className="about-text">
                                     <p>
-                                        Somos uma plataforma com  feita com o intuito de mobilizar pessoas através de serviços voluntários para ajudar pacientes de todos os hospitais de qualquer lugar do mundo!
+                                        Somos uma plataforma feita com o intuito de mobilizar pessoas através de serviços voluntários para ajudar pacientes de hospitais de qualquer lugar do mundo!
 
-                                        Nós contamos com mais de  hospitais registrados onde você pode escolher se voluntariar no mais próximo de sua casa, podendo ajudar em tarefes de todo tipo. Venha fazer a diferença na vida das pessoas!
+                                        Nós contamos com diversos hospitais registrados, onde você pode escolher se voluntariar no mais próximo de sua casa, podendo ajudar em tarefas de todo tipo. Venha fazer a diferença na vida das pessoas!
                                     </p>
                                 </div>
                             </div>
@@ -144,9 +144,9 @@ export default class Vagas extends Component {
                                     </div>
                                 </div>
 
-                            </div>
+                            </div>    
 
-
+                            {/*VAGAS DISPONIVEIS*/}
                             <div className="row justify-content-center">
 
                                 {this.state.vacancies && this.state.vacancies.length > 0 ? (
@@ -158,8 +158,8 @@ export default class Vagas extends Component {
                                                 </div>
                                                 <div className="card-content">
                                                     <h3 className="card-title">{vacancy.title}</h3>
-                                                    <p className="card-text"><i className="fa fa-users"></i><strong> Hospital:</strong> {vacancy.hospital.name}</p>
-                                                    <p className="card-text"><i className="fa fa-users"></i><strong> Endereço:</strong> {vacancy.hospital.address}</p>
+                                                    <p className="card-text"><i className="fa-solid fa-hospital"></i><strong> Hospital:</strong> {vacancy.hospital.name}</p>
+                                                    <p className="card-text"><i className="fa-solid fa-location-dot"></i><strong> Endereço:</strong> {vacancy.hospital.address}</p>
                                                     <p className="card-text"><i className="fa fa-users"></i><strong> Voluntários necessários:</strong> {vacancy.applications.length}/{vacancy.qtd_volunteer}</p>
                                                     <p className="card-text"><i className="fa fa-calendar"></i><strong> Data:</strong> {new Date(vacancy.schedule).toLocaleDateString('pt-BR')}</p>
                                                     <p className="card-text"><i className="fa fa-clipboard"></i><strong> Descrição:</strong> {vacancy.description}</p>
