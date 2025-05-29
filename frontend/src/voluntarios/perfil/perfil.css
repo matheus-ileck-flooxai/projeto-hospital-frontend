@@ -70,7 +70,7 @@
 }
 
 .edit-date {
-    width: 58%;
+    width: 56%;
     height: 34px;
     padding: 6px 12px;
     font-size: 14px;
@@ -116,6 +116,10 @@
 }
 
 .card-custom.profile {
-    height: 400px;
+    min-height: 400px;
     justify-content: flex-start;
+}
+
+.card-custom.profile h3 {
+    text-align: center;
 }

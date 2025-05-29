@@ -77,6 +77,7 @@ p {
 
 .table-buttons i {
   padding: 8px;
+  width: 100%;
   margin-left: 10px;
   height: 100%;
   border: 0;
@@ -114,15 +115,18 @@ p {
   background-color: #28661c;
 }
 
-.form-user,.form-vacancy {
+.form-user,
+.form-vacancy {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 12px;
+  gap: 4rem;
   font-size: 1.5rem;
 }
-.form-user input:focus ,.form-vacancy input:focus {
- border: 1px solid green;
+
+.form-user input:focus,
+.form-vacancy input:focus {
+  border: 1px solid green;
 }
 
 .form h2 {
@@ -220,7 +224,14 @@ table button,
 .grupo-inputs button {
   padding: 1rem;
 }
-.grupo-inputs .button-form{
-    gap: 0;
+
+.grupo-inputs .button-form {
+  gap: 0;
 }
 
+.input-description {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  outline: none;
+}

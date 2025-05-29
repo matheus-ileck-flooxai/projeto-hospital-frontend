@@ -32,7 +32,7 @@ export default class profile extends Component {
 
             const id = decoded.userid;
 
-            Axios.get(`http://localhost:3306/api/volunteer/${id}`, {
+            Axios.get(`projeto-hospital-backend-production.up.railway.app/api/volunteer/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -82,7 +82,7 @@ export default class profile extends Component {
         };
 
         if (id) {
-            Axios.put(`http://localhost:3306/api/volunteer/${id}`, User, {
+            Axios.put(`projeto-hospital-backend-production.up.railway.app/api/volunteer/${id}`, User, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -110,12 +110,11 @@ export default class profile extends Component {
                     <div className="row">
 
 
-                        <div className="col-md-12 col-lg-3 ">
+                        <div className="col-md-12 col-lg-4 ">
                             <div className="panel panel-default " id="panel-content" style={{ marginBottom: '15px', }}>
                                 <div className="panel-body text-center">
                                     <img src={Logo} alt="Admin" className="img-circle" width="150" />
                                     <div style={{ marginTop: '15px' }}>
-                                        <h4>{this.state.user.name}</h4>
                                         {this.idade ? (<p className="text-muted">{this.idade} anos</p>) : ('')}
 
                                     </div>
@@ -126,8 +125,9 @@ export default class profile extends Component {
                                         <div className="row">
 
                                             <div className="col-sm-3">
-                                                <strong>Nome completo</strong>
+                                                <strong><i className="fas fa-user"></i> Nome:</strong>
                                             </div>
+
                                             <div className="col-sm-9">
                                                 <input
                                                     readOnly={this.state.readOnly}
@@ -144,7 +144,7 @@ export default class profile extends Component {
 
                                         <div className="row">
                                             <div className="col-sm-3">
-                                                <strong>data de nascimento</strong>
+                                                <strong><i className="fas fa-calendar-alt"></i> Nascimento:</strong>
                                             </div>
                                             {this.state.readOnly ? (
                                                 <div className="col-sm-9">
@@ -176,8 +176,9 @@ export default class profile extends Component {
 
                                         <div className="row">
                                             <div className="col-sm-3">
-                                                <strong>Email</strong>
+                                                <strong><i className="fas fa-envelope"></i> Email:</strong>
                                             </div>
+
                                             <div className="col-sm-9">
                                                 <input
                                                     readOnly={this.state.readOnly}
@@ -193,15 +194,15 @@ export default class profile extends Component {
 
                                         <div className="row">
                                             <div className="col-sm-3">
-                                                <strong>Telefone</strong>
+                                                <strong><i className="fas fa-phone"></i> Telefone:</strong>
                                             </div>
+
                                             <div className="col-sm-9">
                                                 <input
                                                     readOnly={this.state.readOnly}
                                                     type="text"
                                                     name="phone_number"
                                                     pattern="\d{10,11}"
-                                                    placeholder="Ex: xxxxxxxxxxx"
                                                     className={`profile-inputs ${!this.state.readOnly ? 'edit' : ''}`}
                                                     value={this.state.user.phone_number}
                                                     onChange={(e) => this.setState({ user: { ...this.state.user, phone_number: e.target.value.replace(/\D/g, "") } })}
@@ -211,9 +212,12 @@ export default class profile extends Component {
                                         <hr />
 
                                         {!this.state.readOnly ? (<div className="row">
+
                                             <div className="col-sm-3">
-                                                <strong>Senha:</strong>
+
+                                                <strong><i className="fa fa-lock"></i> Senha:</strong>
                                             </div>
+
                                             <div className="col-sm-9">
                                                 <input
                                                     readOnly={this.state.readOnly}
@@ -230,7 +234,9 @@ export default class profile extends Component {
                                         </div>) :
                                             (<div className="row">
                                                 <div className="col-sm-3">
-                                                    <strong>Senha:</strong>
+
+                                                    <strong> <i className="fa fa-lock"></i> Senha:</strong>
+
                                                 </div>
                                                 <div className="col-sm-9">
                                                     <input
@@ -248,9 +254,11 @@ export default class profile extends Component {
                                         <hr />
 
                                         <div className="row">
+
                                             <div className="col-sm-3">
-                                                <strong>Pontuação</strong>
+                                                <strong> <i className="fa-solid fa-medal"></i> Pontuação:</strong>
                                             </div>
+
                                             <div className="col-sm-9">
                                                 <input
                                                     readOnly={true}
@@ -282,7 +290,7 @@ export default class profile extends Component {
 
 
                         </div>
-                        <div className="col-md-12 col-lg-9">
+                        <div className="col-md-12 col-lg-8">
                             <div className="panel panel-default " id="panel-content" style={{ marginBottom: '15px', }}>
                                 <div className="panel-body text-center">
                                     <div className="col-md-12">

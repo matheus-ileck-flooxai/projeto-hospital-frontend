@@ -32,7 +32,7 @@ export default class Vagas extends Component {
             const decoded = jwt_decode.jwtDecode(token);
             const userId = decoded.userid;
 
-            Axios.get(`http://localhost:3306/api/vacancies?userId=${userId}`)
+            Axios.get(`projeto-hospital-backend-production.up.railway.app/api/vacancies?userId=${userId}`)
                 .then(resp => {
                     this.setState({ vacancies: resp.data });
 
@@ -41,7 +41,7 @@ export default class Vagas extends Component {
                     console.error(error);
                 });
         } else {
-            Axios.get(`http://localhost:3306/api/vacancies`)
+            Axios.get(`projeto-hospital-backend-production.up.railway.app/api/vacancies`)
                 .then(resp => {
                     this.setState({ vacancies: resp.data });
                 })
@@ -61,7 +61,7 @@ export default class Vagas extends Component {
         if (token && decoded.role == 'Volunteer') {
             const userId = decoded.userid
             const vacancyId = this.state.Vacancy.id
-            Axios.post(`http://localhost:3306/api/volunteer/newapplication`, { userId, vacancyId }, {
+            Axios.post(`projeto-hospital-backend-production.up.railway.app/api/volunteer/newapplication`, { userId, vacancyId }, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

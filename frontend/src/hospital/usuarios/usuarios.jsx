@@ -19,14 +19,17 @@ class users extends Component {
     getusers() {
         const token = localStorage.getItem('token')
 
-        Axios.get(`http://localhost:3306/api/hospital/users`, {
+        Axios.get(`projeto-hospital-backend-production.up.railway.app/api/hospital/users`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         })
             .then(resp => {
 
-                this.setState({ users: resp.data });
+                this.setState({ users: resp.data }, () => {
+                    console.log(this.state.users);
+
+                });
 
 
             })
@@ -55,7 +58,7 @@ class users extends Component {
             hospitalId: hospitalid
         };
         if (this.state.User.id) {
-            Axios.put(`http://localhost:3306/api/users/${this.state.User.id}`, User, {
+            Axios.put(`projeto-hospital-backend-production.up.railway.app/api/users/${this.state.User.id}`, User, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -68,7 +71,7 @@ class users extends Component {
             })
         }
         else {
-            Axios.post(`http://localhost:3306/api/users`, User, {
+            Axios.post(`projeto-hospital-backend-production.up.railway.app/api/users`, User, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -88,7 +91,7 @@ class users extends Component {
     onDelete(id) {
         const token = localStorage.getItem('token')
 
-        Axios.delete(`http://localhost:3306/api/users/${id}`, {
+        Axios.delete(`projeto-hospital-backend-production.up.railway.app/api/users/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -128,7 +131,9 @@ class users extends Component {
                                             <div className="table-buttons-group">
 
                                                 <i className="fas fa-edit" onClick={() => this.setState({ showForm: true, User: user })}></i>
-                                                <i className="fas fa-trash" onClick={() => this.onDelete(user.id)}></i>
+                                                {index !== 0 && (
+                                                    <i className="fas fa-trash" onClick={() => this.onDelete(user.id)}></i>
+                                                )}
                                             </div>
                                         </td>
 
@@ -151,6 +156,7 @@ class users extends Component {
                             <input
                                 type="text"
                                 name="name"
+
                                 placeholder="Digite seu nome"
                                 required
                                 value={this.state.User ? this.state.User.name : ''}
@@ -170,11 +176,12 @@ class users extends Component {
                                 name="phone"
                                 placeholder="Digite seu telefone"
                                 required
+                                pattern="\d{10,11}"
                                 value={this.state.User ? this.state.User.phone_number : ''}
                                 onChange={e => this.setState({
                                     User: {
                                         ...this.state.User,
-                                        phone_number: e.target.value
+                                        phone_number: e.target.value.replace(/\D/g, "")
                                     }
                                 })}
                             />
@@ -233,7 +240,7 @@ class users extends Component {
                             </div>
                         )}
 
-                        <div className="grupo-inputs button">
+                        <div className="grupo-inputs button admin">
                             <button type="button" className="cancel-button" onClick={() => this.setState({ showForm: false, User: {} })}>Cancelar</button>
                             <button type="submit" className="btn-submit">Enviar</button>
                         </div>

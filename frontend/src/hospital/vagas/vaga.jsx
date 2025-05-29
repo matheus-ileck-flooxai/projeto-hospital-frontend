@@ -21,7 +21,7 @@ class vacancies extends Component {
     getVacancies() {
         const token = localStorage.getItem('token');
 
-        Axios.get(`http://localhost:3306/api/hospital/vacancies`, {
+        Axios.get(`projeto-hospital-backend-production.up.railway.app/api/hospital/vacancies`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -54,7 +54,7 @@ class vacancies extends Component {
         }
 
         if (this.state.Vacancy.id) {
-            Axios.put(`http://localhost:3306/api/vacancies/${this.state.Vacancy.id}`, vacancy, {
+            Axios.put(`projeto-hospital-backend-production.up.railway.app/api/vacancies/${this.state.Vacancy.id}`, vacancy, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -67,16 +67,18 @@ class vacancies extends Component {
             })
         }
         else {
-            Axios.post(`http://localhost:3306/api/vacancies`, vacancy, {
+            Axios.post(`projeto-hospital-backend-production.up.railway.app/api/vacancies`, vacancy, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             })
                 .then(resp => {
                     this.setState(state => ({
-                        vacancies: [...state.vacancies, resp.data.newVacancy],
-                        showForm: false
+                        showForm: false,
+                        Vacancy: {}
                     }));
+                    this.getVacancies()
+
 
                 })
                 .catch(err => {
@@ -90,7 +92,7 @@ class vacancies extends Component {
     onDelete(id) {
         const token = localStorage.getItem('token');
 
-        Axios.delete(`http://localhost:3306/api/vacancies/${id}`, {
+        Axios.delete(`projeto-hospital-backend-production.up.railway.app/api/vacancies/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -99,9 +101,9 @@ class vacancies extends Component {
     }
     finishVacancy(id) {
         const token = localStorage.getItem('token');
-        
 
-        Axios.delete(`http://localhost:3306/api/vacancies/${id}/conclude` , {
+
+        Axios.delete(`projeto-hospital-backend-production.up.railway.app/api/vacancies/${id}/conclude`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -146,9 +148,9 @@ class vacancies extends Component {
                                         <td>{vacancy.score}</td>
                                         <td className="table-buttons">
                                             <div className="table-buttons-group">
+                                                <i className="fas fa-check" onClick={() => this.finishVacancy(vacancy.id)}></i>
                                                 <i className="fas fa-edit" onClick={() => this.setState({ showForm: true, Vacancy: vacancy })}></i>
                                                 <i className="fas fa-trash" onClick={() => this.onDelete(vacancy.id)}></i>
-                                                <i className="fas fa-check" onClick={() => this.finishVacancy(vacancy.id)}></i>
                                             </div>
                                         </td>
 
@@ -214,14 +216,14 @@ class vacancies extends Component {
                             })}
                         />
                     </div>
-
                     <div className="grupo-inputs">
                         <label className="label">Descrição:</label>
-                        <input
-                            type="text"
+                        <textarea
                             name="description"
                             placeholder="Descreva a vaga"
+                            maxLength="191"
                             required
+                            className="input-description"
                             value={this.state.Vacancy ? this.state.Vacancy.description : ''}
                             onChange={e => this.setState({
                                 Vacancy: {
@@ -249,7 +251,7 @@ class vacancies extends Component {
                         />
                     </div>
 
-                    <div className="grupo-inputs button">
+                    <div className="grupo-inputs button admin">
                         <button type="button" className="cancel-button" onClick={() => this.setState({ showForm: false, Vacancy: {} })}>Cancelar</button>
                         <button type="submit" className="btn-submit">Enviar</button>
                     </div>
