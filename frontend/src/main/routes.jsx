@@ -57,10 +57,10 @@ export default props => (
             <Route path='leaderboard' component={Pontuacao} />
         </Route>
 
-        <Route path='/volunteer' component={Voluntarios} onEnter={requireAuth(false)}>
+        <Route path='/volunteer' component={Voluntarios} >
             <IndexRedirect to="vacancies" />
             <Route path='vacancies' component={Vagas} />
-            <Route path='profile' component={Perfil} />
+            <Route path='profile' component={Perfil} onEnter={requireAuth(false)} />
         </Route>
 
         <Redirect from='*' to='/volunteer' />
