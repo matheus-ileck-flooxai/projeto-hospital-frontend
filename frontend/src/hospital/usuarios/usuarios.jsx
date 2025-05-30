@@ -19,7 +19,7 @@ class users extends Component {
     getusers() {
         const token = localStorage.getItem('token')
 
-        Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/hospital/users`, {
+        Axios.get(`http://localhost:3306/api/hospital/users`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -58,7 +58,7 @@ class users extends Component {
             hospitalId: hospitalid
         };
         if (this.state.User.id) {
-            Axios.put(`https://projeto-hospital-backend-production.up.railway.app/api/users/${this.state.User.id}`, User, {
+            Axios.put(`http://localhost:3306/api/users/${this.state.User.id}`, User, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -71,7 +71,7 @@ class users extends Component {
             })
         }
         else {
-            Axios.post(`https://projeto-hospital-backend-production.up.railway.app/api/users`, User, {
+            Axios.post(`http://localhost:3306/api/users`, User, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -91,7 +91,7 @@ class users extends Component {
     onDelete(id) {
         const token = localStorage.getItem('token')
 
-        Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/users/${id}`, {
+        Axios.delete(`http://localhost:3306/api/users/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

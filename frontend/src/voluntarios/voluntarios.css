@@ -4,13 +4,9 @@
 }
 
 .main {
-    height: 100vh;
+    min-height: 100vh;
 }
 
-.container-fluid {
-    margin: 0;
-    padding: 0;
-}
 #row{
     display: flex;
     justify-content: center;

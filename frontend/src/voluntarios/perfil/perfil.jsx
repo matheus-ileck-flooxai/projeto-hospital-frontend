@@ -32,7 +32,7 @@ export default class profile extends Component {
 
             const id = decoded.userid;
 
-            Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/volunteer/${id}`, {
+            Axios.get(`http://localhost:3306/api/volunteer/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -82,7 +82,7 @@ export default class profile extends Component {
         };
 
         if (id) {
-            Axios.put(`https://projeto-hospital-backend-production.up.railway.app/api/volunteer/${id}`, User, {
+            Axios.put(`http://localhost:3306/api/volunteer/${id}`, User, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -226,7 +226,7 @@ export default class profile extends Component {
                                                     title="Senha deve ter no mínimo 8 caracteres, incluindo uma letra maiúscula, uma minúscula e um caractere especial."
                                                     pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$"
                                                     className={`profile-inputs ${!this.state.readOnly ? 'edit' : ''}`}
-                                                    value={this.state.user.password}
+                                                    value=''
                                                     onChange={(e) => this.setState({ user: { ...this.state.user, password: e.target.value } })}
                                                 />
                                             </div>
@@ -244,7 +244,7 @@ export default class profile extends Component {
                                                         type="password"
                                                         name="password"
                                                         className={`profile-inputs`}
-                                                        value={this.state.user.password}
+                                                        value='*******'
                                                         onChange={(e) => this.setState({ user: { ...this.state.user, password: e.target.value } })}
                                                     />
                                                 </div>

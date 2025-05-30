@@ -4,13 +4,13 @@ import Hospital from "../hospital/hospital";
 import Vaga from "../hospital/vagas/vaga";
 import Usuarios from "../hospital/usuarios/usuarios";
 import Pedidos from "../hospital/pedidos/pedidos";
-import Pontuacao from "../hospital/pontuacao/pontuacao";
 import UserAuth from "../auth/userAuth";
 import Voluntarios from "../voluntarios/voluntarios";
 import Vagas from "../voluntarios/vagas/vagas";
 import HospitalAuth from "../auth/hospitalAuth";
 import VolunteerAuth from "../auth/volunteerAuth";
 import Perfil from "../voluntarios/perfil/perfil";
+import Pontuacao from "../voluntarios/pontuacao/pontuacao";
 const jwt_decode = require('jwt-decode');
 
 
@@ -54,13 +54,13 @@ export default props => (
             <Route path='users' component={Usuarios} />
             <Route path='vacancies' component={Vaga} />
             <Route path='applications' component={Pedidos} />
-            <Route path='leaderboard' component={Pontuacao} />
         </Route>
 
         <Route path='/volunteer' component={Voluntarios} >
             <IndexRedirect to="vacancies" />
             <Route path='vacancies' component={Vagas} />
             <Route path='profile' component={Perfil} onEnter={requireAuth(false)} />
+            <Route path='leaderboard' component={Pontuacao}/>
         </Route>
 
         <Redirect from='*' to='/volunteer' />

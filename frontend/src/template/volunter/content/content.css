@@ -12,9 +12,12 @@
     margin-left: 0;
 }
 
-.container-fluid {
+.container-fluid{
     margin: 0;
     padding: 0;
+}
+.container-fluid.main{
+    min-height: 100vh;
 }
 
 .img-about {
