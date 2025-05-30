@@ -26,7 +26,7 @@ class vacancies extends Component {
     getVacancies() {
         const token = localStorage.getItem('token');
 
-        Axios.get(`http://localhost:3306/api/hospital/vacancies`, {
+        Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/hospital/vacancies`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -59,7 +59,7 @@ class vacancies extends Component {
         }
 
         if (this.state.Vacancy.id) {
-            Axios.put(`http://localhost:3306/api/vacancies/${this.state.Vacancy.id}`, vacancy, {
+            Axios.put(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies/${this.state.Vacancy.id}`, vacancy, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -72,7 +72,7 @@ class vacancies extends Component {
             })
         }
         else {
-            Axios.post(`http://localhost:3306/api/vacancies`, vacancy, {
+            Axios.post(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies`, vacancy, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -97,7 +97,7 @@ class vacancies extends Component {
     onDelete(id) {
         const token = localStorage.getItem('token');
 
-        Axios.delete(`http://localhost:3306/api/vacancies/${id}`, {
+        Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -108,7 +108,7 @@ class vacancies extends Component {
         const token = localStorage.getItem('token');
 
 
-        Axios.delete(`http://localhost:3306/api/vacancies/${id}/conclude`, {
+        Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies/${id}/conclude`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
