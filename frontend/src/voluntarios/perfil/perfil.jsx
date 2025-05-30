@@ -73,11 +73,12 @@ export default class profile extends Component {
 
         const formData = new FormData(e.target);
 
+
         const User = {
             name: formData.get('name'),
             phone_number: formData.get('phone_number'),
             email: formData.get('email'),
-            password: formData.get('password'),
+            password: formData.get('password') ? formData.get('password') : this.state.user.password,
             age: new Date(formData.get('age')).toISOString(),
         };
 
@@ -226,7 +227,6 @@ export default class profile extends Component {
                                                     title="Senha deve ter no mínimo 8 caracteres, incluindo uma letra maiúscula, uma minúscula e um caractere especial."
                                                     pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$"
                                                     className={`profile-inputs ${!this.state.readOnly ? 'edit' : ''}`}
-                                                    value=''
                                                     onChange={(e) => this.setState({ user: { ...this.state.user, password: e.target.value } })}
                                                 />
                                             </div>
@@ -244,7 +244,7 @@ export default class profile extends Component {
                                                         type="password"
                                                         name="password"
                                                         className={`profile-inputs`}
-                                                        value='*******'
+                                                        value=''
                                                         onChange={(e) => this.setState({ user: { ...this.state.user, password: e.target.value } })}
                                                     />
                                                 </div>

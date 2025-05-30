@@ -3,31 +3,34 @@ import Logo from '../../assets/img/logo2.png'
 import './header.css'
 import { jwtDecode } from 'jwt-decode'
 
-
 export default props => {
-
     const token = localStorage.getItem('token');
-    let hospitalName = 'hospital'
+    let hospitalName = 'hospital';
 
     if (token) {
-        const decoded = jwtDecode(token)
-        hospitalName = decoded.name
-
-
+        const decoded = jwtDecode(token);
+        hospitalName = decoded.name;
     }
+
     return (
         <header>
             <nav className="navbar" id="navbar-admin">
                 <div className="container-fluid">
                     <div className="navbar-header">
-                        <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                            <span className="sr-only">Toggle navigation</span>
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-
-                        </button>
-
+                        <div className="form-group-mobile">
+                            <img alt="Brand" src={Logo} width={40} />
+                            <p>{hospitalName}</p>
+                            <button
+                                type="button"
+                                className="navbar-toggle collapsed"
+                                onClick={props.toggleAside}
+                            >
+                                <span className="sr-only">Toggle navigation</span>
+                                <span className="barras"></span>
+                                <span className="barras"></span>
+                                <span className="barras"></span>
+                            </button>
+                        </div>
                     </div>
 
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -35,15 +38,10 @@ export default props => {
                             <div className="form-group">
                                 <img alt="Brand" src={Logo} width={50} />
                                 <p>{hospitalName}</p>
-
                             </div>
-
                         </form>
-                        <ul className="nav navbar-nav navbar-right" >
-
+                        <ul className="nav navbar-nav navbar-right">
                             <li><a href="#/user/auth">Sair</a></li>
-
-
                         </ul>
                     </div>
                 </div>

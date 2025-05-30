@@ -11,7 +11,12 @@ class vacancies extends Component {
             Vacancy: {},
             showForm: false,
         };
-
+        this.date = new Date()
+        this.minDate = new Date(
+            this.date.getFullYear(),
+            this.date.getMonth(),
+            this.date.getDate()
+        ).toISOString().split('T')[0];
         this.onSubmit = this.onSubmit.bind(this);
 
     }
@@ -122,43 +127,46 @@ class vacancies extends Component {
             <div className="content">
                 {!this.state.showForm && (
                     <div>
-                        <table className="users-table">
-                            <thead>
-                                <tr>
-                                    <th>Numero</th>
-                                    <th>Titulo</th>
-                                    <th>Descrição</th>
-                                    <th>Data</th>
-                                    <th>Voluntarios necessarios</th>
-                                    <th>Voluntarios inscritos</th>
-                                    <th>Pontos</th>
-                                    <th className="th-buttons">Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {vacancies.map((vacancy, index) =>
-                                    <tr key={vacancy.id}>
-                                        <td>{index + 1} </td>
-                                        <td>{vacancy.title} </td>
-                                        <td>{vacancy.description}</td>
-                                        <td>{new Date(vacancy.schedule).toLocaleDateString('pt-BR')}</td>
-
-                                        <td>{vacancy.qtd_volunteer}</td>
-                                        <td>{vacancy.applications ? vacancy.applications.length : 0}</td>
-                                        <td>{vacancy.score}</td>
-                                        <td className="table-buttons">
-                                            <div className="table-buttons-group">
-                                                <i className="fas fa-check" onClick={() => this.finishVacancy(vacancy.id)}></i>
-                                                <i className="fas fa-edit" onClick={() => this.setState({ showForm: true, Vacancy: vacancy })}></i>
-                                                <i className="fas fa-trash" onClick={() => this.onDelete(vacancy.id)}></i>
-                                            </div>
-                                        </td>
-
+                        <div className="table-responsive">
+                            <table className="users-table">
+                                <thead>
+                                    <tr>
+                                        <th>Numero</th>
+                                        <th>Titulo</th>
+                                        <th>Descrição</th>
+                                        <th>Data</th>
+                                        <th>Voluntarios necessarios</th>
+                                        <th>Voluntarios inscritos</th>
+                                        <th>Pontos</th>
+                                        <th className="th-buttons">Ações</th>
                                     </tr>
-                                )
-                                }
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {vacancies.map((vacancy, index) =>
+                                        <tr key={vacancy.id}>
+                                            <td>{index + 1} </td>
+                                            <td>{vacancy.title} </td>
+                                            <td>{vacancy.description}</td>
+                                            <td>{new Date(vacancy.schedule).toLocaleDateString('pt-BR')}</td>
+
+                                            <td>{vacancy.qtd_volunteer}</td>
+                                            <td>{vacancy.applications ? vacancy.applications.length : 0}</td>
+                                            <td>{vacancy.score}</td>
+                                            <td className="table-buttons">
+                                                <div className="table-buttons-group">
+                                                    <i className="fas fa-check" onClick={() => this.finishVacancy(vacancy.id)}></i>
+                                                    <i className="fas fa-edit" onClick={() => this.setState({ showForm: true, Vacancy: vacancy })}></i>
+                                                    <i className="fas fa-trash" onClick={() => this.onDelete(vacancy.id)}></i>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    )
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
                         <button className="new-data-button" onClick={() => this.setState({ showForm: true })} >Criar nova vaga</button>
 
                     </div>
@@ -171,6 +179,7 @@ class vacancies extends Component {
                         <input
                             type="text"
                             name="title"
+                            pattern="^[A-Za-zÀ-ú\s]+$"
                             placeholder="Digite o título da vaga"
                             required
                             value={this.state.Vacancy ? this.state.Vacancy.title : ''}
@@ -189,6 +198,7 @@ class vacancies extends Component {
                             type="date"
                             name="schedule"
                             required
+                            min={this.minDate}
                             value={this.state.Vacancy ? this.state.Vacancy.schedule : ''}
                             onChange={e => this.setState({
                                 Vacancy: {
@@ -202,16 +212,18 @@ class vacancies extends Component {
                     <div className="grupo-inputs">
                         <label className="label">Voluntários necessários:</label>
                         <input
-                            type="number"
+                            type="text"
                             name="qtd_volunteer"
                             placeholder="Quantidade de voluntários"
                             required
+                            inputMode="numeric"
+                            pattern="[0-9]*"
                             min={1}
                             value={this.state.Vacancy ? this.state.Vacancy.qtd_volunteer : ''}
                             onChange={e => this.setState({
                                 Vacancy: {
                                     ...this.state.Vacancy,
-                                    qtd_volunteer: e.target.value
+                                    qtd_volunteer: e.target.value.replace(/\D/g, "")
                                 }
                             })}
                         />

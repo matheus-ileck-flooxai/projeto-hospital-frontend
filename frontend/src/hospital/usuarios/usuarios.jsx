@@ -12,6 +12,12 @@ class users extends Component {
             User: {}
         };
         this.onSubmit = this.onSubmit.bind(this);
+        this.date = new Date()
+        this.maxDate = new Date(
+            this.date.getFullYear() - 18,
+            this.date.getMonth(),
+            this.date.getDate()
+        ).toISOString().split('T')[0];
     }
     componentDidMount() {
         this.getusers()
@@ -109,43 +115,47 @@ class users extends Component {
             <div className="content">
                 {!this.state.showForm && (
                     <div>
-                        <table className="users-table">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Nome</th>
-                                    <th>Email</th>
-                                    <th>Telefone</th>
-                                    <th>Ações</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {users.map((user, index) =>
-                                    <tr key={user.id}>
-                                        <td>{index}</td>
-                                        <td>{user.name} </td>
-                                        <td>{user.email}</td>
-                                        <td>{user.phone_number}</td>
-                                        <td className="table-buttons">
-                                            <div className="table-buttons-group">
-
-                                                <i className="fas fa-edit" onClick={() => this.setState({ showForm: true, User: user })}></i>
-                                                {index !== 0 && (
-                                                    <i className="fas fa-trash" onClick={() => this.onDelete(user.id)}></i>
-                                                )}
-                                            </div>
-                                        </td>
+                        <div className="table-responsive">
+                            <table className="users-table">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                        <th>Telefone</th>
+                                        <th>Ações</th>
 
                                     </tr>
-                                )
-                                }
-                            </tbody>
-                        </table>
-                        <button className="new-data-button" onClick={() => this.setState({ showForm: true })} >Novo usuario</button>
+                                </thead>
+                                <tbody>
+                                    {users.map((user, index) =>
+                                        <tr key={user.id}>
+                                            <td>{index}</td>
+                                            <td>{user.name} </td>
+                                            <td>{user.email}</td>
+                                            <td>{user.phone_number}</td>
+                                            <td className="table-buttons">
+                                                <div className="table-buttons-group">
 
+                                                    <i className="fas fa-edit" onClick={() => this.setState({ showForm: true, User: user })}></i>
+                                                    {index !== 0 && (
+                                                        <i className="fas fa-trash" onClick={() => this.onDelete(user.id)}></i>
+                                                    )}
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    )
+                                    }
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                        <button className="new-data-button" onClick={() => this.setState({ showForm: true })} >Novo usuario</button>
                     </div>
                 )}
+
                 {this.state.showForm && (
 
                     <form className="form-user" onSubmit={this.onSubmit}>
@@ -156,7 +166,7 @@ class users extends Component {
                             <input
                                 type="text"
                                 name="name"
-
+                                pattern="^[A-Za-zÀ-ú\s]+$"
                                 placeholder="Digite seu nome"
                                 required
                                 value={this.state.User ? this.state.User.name : ''}
@@ -193,7 +203,8 @@ class users extends Component {
                                 type="date"
                                 name="age"
                                 required
-                                value={this.state.User ? this.state.User.age : ''}
+                                max={this.maxDate}
+                                value={this.state.age}
                                 onChange={e => this.setState({
                                     User: {
                                         ...this.state.User,
@@ -228,6 +239,8 @@ class users extends Component {
                                     name="password"
                                     placeholder="Digite sua senha"
                                     required
+                                    title="Senha deve ter no mínimo 8 caracteres, incluindo uma letra maiúscula, uma minúscula e um caractere especial."
+                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$"
                                     value={this.state.User ? this.state.User.pass : ''}
                                     readOnly={this.state.user}
                                     onChange={e => this.setState({

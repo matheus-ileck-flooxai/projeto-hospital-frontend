@@ -42,3 +42,37 @@
     gap: 1rem;
     color: white;
 }
+
+.form-group-mobile {
+    display: none;
+}
+
+.barras {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 4px 0;
+    background-color: rgb(255, 255, 255);
+}
+
+.hidden-aside {
+    display: none !important;
+}
+
+@media (max-width: 991px) {
+
+
+    .form-group-mobile {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        color: #fff;
+        padding: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .navbar-form {
+        display: none;
+    }
+}

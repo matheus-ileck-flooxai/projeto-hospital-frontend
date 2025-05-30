@@ -1,33 +1,46 @@
-import React from "react";
+import React, { Component } from "react";
 import Header from "../template/common/header/header";
 import Footer from "../template/common/footer/footer";
 import Aside from "../template/common/Aside/Aside";
-import Content from "../template/common/content/content"
-import './hospital.css'
+import Content from "../template/common/content/content";
+import './hospital.css';
 
-export default props => (
-    <div className="layout">
-        <div className="row">
-            <Header />
+export default class HospitalLayout extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showAside: true
+        };
+        this.toggleAside = this.toggleAside.bind(this);
+    }
 
-        </div>
-        <div className="row">
-            <div className="col-md-2" id="aside">
-                <Aside />
+    toggleAside() {
+        this.setState(prevState => ({
+            showAside: !prevState.showAside
+        }));
+    }
+
+    render() {
+        return (
+            <div className="layout">
+                <div className="row">
+                    <Header toggleAside={this.toggleAside} />
+                </div>
+                <div className="row">
+                    <div className={this.state.showAside ? "col-md-2" : "hidden-aside"} id="aside">
+                        {this.state.showAside && <Aside />}
+                    </div>
+
+                    <div className={this.state.showAside ? "col-md-10" : "col-md-12"} id="main-content">
+                        <Content>
+                            {this.props.children}
+                        </Content>
+                    </div>
+                </div>
+                <div className="row">
+                    <Footer />
+                </div>
             </div>
-            <div className="col-md-10" id="main-content">
-
-                <Content>
-                    {props.children}
-                </Content>
-            </div>
-
-        </div>
-        <div className="row">
-            <Footer />
-
-        </div>
-
-
-    </div>
-)
+        );
+    }
+}

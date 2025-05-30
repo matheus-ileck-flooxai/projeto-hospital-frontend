@@ -56,45 +56,47 @@ class Pedidos extends Component {
         return (
 
             <div className="content">
-                <table className="users-table" id="users-table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nome</th>
-                            <th>Email</th>
-                            <th>Telefone</th>
-                            <th>Vaga</th>
-                            <th>Horario</th>
-                            <th>Status</th>
+                <div className="table-responsive">
 
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {applications.map((application, index) =>
-                            <tr key={application.id}>
-                                <td>{index}</td>
-                                <td>{application.user.name} </td>
-                                <td>{application.user.email}</td>
-                                <td>{application.user.phone_number}</td>
-                                <td>{application.vacancy.title}</td>
-                                <td>{new Date(application.vacancy.schedule).toLocaleTimeString('pt-BR')}</td>
-                                <td>{application.status}</td>
+                    <table className="users-table" id="users-table">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Telefone</th>
+                                <th>Vaga</th>
+                                <th>Horario</th>
+                                <th>Status</th>
 
-                                <td className="table-buttons">
-                                    <div className="table-buttons-group">
-                                        <i className="fas fa-check" onClick={() => this.onUpdate(application.id)}></i>
-
-                                        <i className="fas fa-trash" onClick={() => this.onDelete(application.id)}></i>
-                                    </div>
-                                </td>
-
+                                <th>Ações</th>
                             </tr>
-                        )
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {applications.map((application, index) =>
+                                <tr key={application.id}>
+                                    <td>{index}</td>
+                                    <td>{application.user.name} </td>
+                                    <td>{application.user.email}</td>
+                                    <td>{application.user.phone_number}</td>
+                                    <td>{application.vacancy.title}</td>
+                                    <td>{new Date(application.vacancy.schedule).toLocaleTimeString('pt-BR')}</td>
+                                    <td>{application.status}</td>
 
+                                    <td className="table-buttons">
+                                        <div className="table-buttons-group">
+                                            <i className="fas fa-check" onClick={() => this.onUpdate(application.id)}></i>
+
+                                            <i className="fas fa-trash" onClick={() => this.onDelete(application.id)}></i>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            )
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     }

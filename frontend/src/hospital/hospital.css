@@ -10,14 +10,13 @@ p {
 }
 
 .layout {
-  display: grid;
   height: 100vh;
 
 }
 
 #main-content {
   padding: 0;
-  border: 1px solid black;
+  border: 1px solid #2e7d32;
 }
 
 .main-content {
@@ -99,7 +98,6 @@ p {
   display: flex;
   place-self: end;
   padding: 1rem;
-  width: 10%;
   place-content: center;
   margin: 0.5rem;
   background: green;
@@ -120,7 +118,7 @@ p {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 4rem;
+  gap: 2rem;
   font-size: 1.5rem;
 }
 
@@ -234,4 +232,8 @@ table button,
   border-radius: 6px;
   border: 1px solid #ddd;
   outline: none;
+}
+
+.hidden-aside {
+  display: none;
 }
