@@ -364,7 +364,7 @@ export default class profile extends Component {
 
                                                                 <p className="card-text">
                                                                     <i className="fa fa-calendar"></i>
-                                                                    <strong> Data:</strong> {new Date(application.vacancy.schedule).toLocaleDateString('pt-BR')}
+                                                                    <strong> Data:</strong> {new Date(application.vacancy.schedule).toLocaleString('pt-BR')}
                                                                 </p>
                                                                 <p className="card-text">
                                                                     <i className="fa fa-clipboard"></i>

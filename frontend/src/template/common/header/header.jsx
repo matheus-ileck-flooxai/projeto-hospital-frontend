@@ -30,6 +30,7 @@ export default props => {
                                 <span className="barras"></span>
                                 <span className="barras"></span>
                             </button>
+                            
                         </div>
                     </div>
 
@@ -40,9 +41,7 @@ export default props => {
                                 <p>{hospitalName}</p>
                             </div>
                         </form>
-                        <ul className="nav navbar-nav navbar-right">
-                            <li><a href="#/user/auth">Sair</a></li>
-                        </ul>
+                     
                     </div>
                 </div>
             </nav>

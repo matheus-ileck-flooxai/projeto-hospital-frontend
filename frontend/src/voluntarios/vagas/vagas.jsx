@@ -205,7 +205,7 @@ export default class Vagas extends Component {
                                                     <p className="card-text"><i className="fa-solid fa-hospital"></i><strong> Hospital:</strong> {vacancy.hospital.name}</p>
                                                     <p className="card-text"><i className="fa-solid fa-location-dot"></i><strong> Endereço:</strong> {vacancy.hospital.address}</p>
                                                     <p className="card-text"><i className="fa fa-users"></i><strong> Voluntários necessários:</strong> {vacancy.applications.length}/{vacancy.qtd_volunteer}</p>
-                                                    <p className="card-text"><i className="fa fa-calendar"></i><strong> Data:</strong> {new Date(vacancy.schedule).toLocaleDateString('pt-BR')}</p>
+                                                    <p className="card-text"><i className="fa fa-calendar"></i><strong> Data:</strong> {new Date(vacancy.schedule).toLocaleString('pt-BR')}</p>
                                                     <p className="card-text"><i className="fa fa-clipboard"></i><strong> Descrição:</strong> {vacancy.description}</p>
                                                     <p className="card-text"><i className="fa fa-award"></i><strong> Pontos:</strong> {vacancy.score}</p>
                                                 </div>

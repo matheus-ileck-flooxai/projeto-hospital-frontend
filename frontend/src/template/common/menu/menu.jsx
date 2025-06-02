@@ -26,6 +26,10 @@ const Menu = (props) => {
                 <li className={`menu-item ${isActive('/hospital/applications')}`}>
                     <i className="fa fa-handshake"></i> Pedidos
                 </li>
+            </Link>  <Link to="/user/auth">
+                <li className={`menu-item ${isActive('/user/auth')}`}>
+                    <i className="fa fa-sign-out"></i> Sair
+                </li>
             </Link>
         </ul>
     );

@@ -114,51 +114,51 @@ class users extends Component {
             <div className="content">
                 {!this.state.showForm && (
                     <div>
-                        <div className="table-responsive">
-                            <table className="users-table">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Nome</th>
-                                        <th>Email</th>
-                                        <th>Telefone</th>
-                                        <th>Ações</th>
+                        <table className="users-table">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                    <th>Telefone</th>
+                                    <th>Ações</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {users.map((user, index) =>
+                                    <tr key={user.id}>
+                                        <td data-label="Index:">{index + 1}</td>
+                                        <td data-label="Nome:">{user.name} </td>
+                                        <td data-label="Email:">{user.email}</td>
+                                        <td data-label="Telefone:">{user.phone_number}</td>
+                                        <td data-label="Ações:"className="table-buttons">
+                                            <div className="table-buttons-group">
+
+                                                <i className="fas fa-edit" onClick={() => this.setState({ showForm: true, User: user })}></i>
+                                                {index !== 0 && (
+                                                    <i className="fas fa-trash" onClick={() => this.onDelete(user.id)}></i>
+                                                )}
+                                            </div>
+                                        </td>
 
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    {users.map((user, index) =>
-                                        <tr key={user.id}>
-                                            <td>{index}</td>
-                                            <td>{user.name} </td>
-                                            <td>{user.email}</td>
-                                            <td>{user.phone_number}</td>
-                                            <td className="table-buttons">
-                                                <div className="table-buttons-group">
-
-                                                    <i className="fas fa-edit" onClick={() => this.setState({ showForm: true, User: user })}></i>
-                                                    {index !== 0 && (
-                                                        <i className="fas fa-trash" onClick={() => this.onDelete(user.id)}></i>
-                                                    )}
-                                                </div>
-                                            </td>
-
-                                        </tr>
-                                    )
-                                    }
-                                </tbody>
-                            </table>
+                                )
+                                }
+                            </tbody>
+                        </table>
 
 
-                        </div>
                         <button className="new-data-button" onClick={() => this.setState({ showForm: true })} >Novo usuario</button>
+
+
                     </div>
                 )}
 
                 {this.state.showForm && (
 
                     <form className="form-user" onSubmit={this.onSubmit}>
-                        <h2>Insira os dados do novo usuário</h2>
+                        <h2 className="form-user-title">Insira os dados do novo usuário</h2>
 
                         <div className="grupo-inputs">
                             <label className="label">Nome:</label>

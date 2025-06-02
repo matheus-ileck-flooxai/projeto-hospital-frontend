@@ -11,12 +11,7 @@ class vacancies extends Component {
             Vacancy: {},
             showForm: false,
         };
-        this.date = new Date()
-        this.minDate = new Date(
-            this.date.getFullYear(),
-            this.date.getMonth(),
-            this.date.getDate()
-        ).toISOString().split('T')[0];
+      
         this.onSubmit = this.onSubmit.bind(this);
 
     }
@@ -144,14 +139,13 @@ class vacancies extends Component {
                                 <tbody>
                                     {vacancies.map((vacancy, index) =>
                                         <tr key={vacancy.id}>
-                                            <td>{index + 1} </td>
-                                            <td>{vacancy.title} </td>
-                                            <td>{vacancy.description}</td>
-                                            <td>{new Date(vacancy.schedule).toLocaleDateString('pt-BR')}</td>
-
-                                            <td>{vacancy.qtd_volunteer}</td>
-                                            <td>{vacancy.applications ? vacancy.applications.length : 0}</td>
-                                            <td>{vacancy.score}</td>
+                                            <td data-label="Index:">{index + 1} </td>
+                                            <td data-label="Titulo:">{vacancy.title} </td>
+                                            <td data-label="Desc:">{vacancy.description}</td>
+                                            <td data-label="Data:">{new Date(vacancy.schedule).toLocaleString('pt-BR')}</td>
+                                            <td data-label="Voluntários Necessarios:">{vacancy.qtd_volunteer}</td>
+                                            <td data-label="Voluntários Candidatos:">{vacancy.applications ? vacancy.applications.length : 0}</td>
+                                            <td data-label="Pontos:">{vacancy.score}</td>
                                             <td className="table-buttons">
                                                 <div className="table-buttons-group">
                                                     <i className="fas fa-check" onClick={() => this.finishVacancy(vacancy.id)}></i>
@@ -195,10 +189,10 @@ class vacancies extends Component {
                     <div className="grupo-inputs">
                         <label className="label">Data:</label>
                         <input
-                            type="date"
+                            type="datetime-local"
                             name="schedule"
                             required
-                            min={this.minDate}
+                           min={new Date().toISOString().slice(0,16)}
                             value={this.state.Vacancy ? this.state.Vacancy.schedule : ''}
                             onChange={e => this.setState({
                                 Vacancy: {

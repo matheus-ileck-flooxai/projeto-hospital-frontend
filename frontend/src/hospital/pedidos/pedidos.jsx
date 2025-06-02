@@ -75,13 +75,13 @@ class Pedidos extends Component {
                         <tbody>
                             {applications.map((application, index) =>
                                 <tr key={application.id}>
-                                    <td>{index}</td>
-                                    <td>{application.user.name} </td>
-                                    <td>{application.user.email}</td>
-                                    <td>{application.user.phone_number}</td>
-                                    <td>{application.vacancy.title}</td>
-                                    <td>{new Date(application.vacancy.schedule).toLocaleTimeString('pt-BR')}</td>
-                                    <td>{application.status}</td>
+                                    <td data-label="Index:">{index + 1}</td>
+                                    <td data-label="Nome do Voluntário:">{application.user.name} </td>
+                                    <td data-label="Email:">{application.user.email}</td>
+                                    <td data-label="Telefone:">{application.user.phone_number}</td>
+                                    <td data-label="Vaga:">{application.vacancy.title}</td>
+                                    <td data-label="Data:"> {new Date(application.vacancy.schedule).toLocaleDateString('pt-BR')}</td>
+                                    <td data-label="Situação:">{application.status == 'Pending' ? 'Pendente' : 'Aprovado'}</td>
 
                                     <td className="table-buttons">
                                         <div className="table-buttons-group">
