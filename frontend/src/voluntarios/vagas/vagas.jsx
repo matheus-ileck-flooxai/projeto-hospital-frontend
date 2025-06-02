@@ -15,6 +15,7 @@ export default class Vagas extends Component {
             vacancies: [],
             Vacancy: {},
             showForm: false,
+            cancel: false
         };
 
 
@@ -61,28 +62,57 @@ export default class Vagas extends Component {
         if (token && decoded.role == 'Volunteer') {
             const userId = decoded.userid
             const vacancyId = this.state.Vacancy.id
-            Axios.post(`https://projeto-hospital-backend-production.up.railway.app/api/volunteer/newapplication`, { userId, vacancyId }, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            }).then(resp => {
-                this.setState({ showForm: false })
-                this.getVacancies();
-            }).catch(error => {
-                {
-                    console.log(error);
-                }
-            })
+
+
+            if (this.state.cancel) {
+
+                const application = this.state.Vacancy.applications.find(app => app.userId === userId);
+                const idApplication = application.id
+
+
+                Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/volunteer/cancelapplication/${idApplication}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                    .then(resp => {
+                        this.closeModal();
+                        this.getVacancies();
+
+                    })
+            }
+            else {
+                Axios.post(`https://projeto-hospital-backend-production.up.railway.app/api/volunteer/newapplication`, { userId, vacancyId }, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                }).then(resp => {
+                    this.setState({ showForm: false })
+                    this.getVacancies();
+                }).catch(error => {
+                    {
+                        console.error(error);
+                    }
+                })
+            }
+
+
         }
         else {
             hashHistory.push('/user/auth')
         }
 
     }
-    openModal(vacancy) {
+    openModal(cancel = false, vacancy) {
         const token = localStorage.getItem('token');
 
+
         if (token) {
+            if (cancel) {
+                this.setState({
+                    cancel: true
+                });
+            }
             this.setState({
                 showForm: true,
                 Vacancy: vacancy
@@ -98,11 +128,20 @@ export default class Vagas extends Component {
     closeModal() {
         this.setState({
             showForm: false,
-            Vacancy: ''
+            cancel: false,
+            Vacancy: {}
         });
     }
     render() {
         let vacancies = this.state.vacancies
+        const token = localStorage.getItem('token');
+        let userId = null;
+
+        if (token) {
+            const decoded = jwt_decode.jwtDecode(token);
+            userId = decoded.userid;
+        }
+
 
         return (
 
@@ -132,7 +171,7 @@ export default class Vagas extends Component {
                             </div>
                         </div>
                     </section>
-                    
+
 
                     <section className="vacancies" id="vagas">
                         <div className="row">
@@ -145,21 +184,24 @@ export default class Vagas extends Component {
                                     </div>
                                 </div>
 
-                            </div>   
-                             
+                            </div>
 
-                            {/*VAGAS DISPONIVEIS*/}
+
                             <div className="row justify-content-center">
-
                                 {this.state.vacancies && this.state.vacancies.length > 0 ? (
                                     vacancies.map((vacancy, index) => (
                                         <div className="col-xs-12 col-sm-6 col-md-5 col-lg-4" key={index}>
                                             <div className="card-custom">
-                                                <div className="card-header">
-                                                    <img src={Logo} className="img-card" alt="Logo" />
-                                                </div>
-                                                <div className="card-content">
+                                                <div>
+                                                    <div className="card-header">
+                                                        <img src={Logo} className="img-card" alt="Logo" />
+                                                    </div>
                                                     <h3 className="card-title">{vacancy.title}</h3>
+
+                                                </div>
+
+
+                                                <div className="card-content">
                                                     <p className="card-text"><i className="fa-solid fa-hospital"></i><strong> Hospital:</strong> {vacancy.hospital.name}</p>
                                                     <p className="card-text"><i className="fa-solid fa-location-dot"></i><strong> Endereço:</strong> {vacancy.hospital.address}</p>
                                                     <p className="card-text"><i className="fa fa-users"></i><strong> Voluntários necessários:</strong> {vacancy.applications.length}/{vacancy.qtd_volunteer}</p>
@@ -168,8 +210,18 @@ export default class Vagas extends Component {
                                                     <p className="card-text"><i className="fa fa-award"></i><strong> Pontos:</strong> {vacancy.score}</p>
                                                 </div>
                                                 <div className="card-buttons">
-                                                    <a className="btn" onClick={() => this.openModal(vacancy)}>Participar</a>
+                                                    {token ? (
+                                                        vacancy.applications.some(application => application.userId === userId) ? (
+                                                            <a className="btn" onClick={() => this.openModal(true, vacancy)}>Cancelar inscrição</a>
+                                                        ) : (
+                                                            <a className="btn" onClick={() => this.openModal(false, vacancy)}>Candidatar</a>
+                                                        )
+                                                    ) : (
+                                                        <a className="btn" onClick={() => this.openModal(false, vacancy)}>Candidatar</a>
+                                                    )}
+
                                                 </div>
+
                                             </div>
 
                                         </div>
@@ -181,9 +233,22 @@ export default class Vagas extends Component {
                                 )}
                                 {this.state.showForm && (
                                     <div className="confirm-modal">
+
                                         <div className="modal-content">
-                                            <h1 className="modal-title">Confirmar inscrição?</h1>
-                                            <p className="modal-description">Você deseja se inscrever na vaga: {this.state.Vacancy.title}</p>
+                                            {token && this.state.cancel ? (
+                                                <div>
+                                                    <h1 className="modal-title">Cancelar Candidatura?</h1>
+                                                    <p className="modal-description">Você deseja cancelar a candidatura na vaga: {this.state.Vacancy.title}</p>
+                                                </div>
+                                            ) :
+                                                (
+                                                    <div>
+
+                                                        <h1 className="modal-title">Confirmar inscrição?</h1>
+                                                        <p className="modal-description">Você deseja se inscrever na vaga: {this.state.Vacancy.title}</p>
+                                                    </div>
+                                                )}
+
                                             <div className="modal-buttons">
                                                 <button onClick={() => this.closeModal()}>Cancelar</button>
                                                 <button onClick={() => this.onsubmit()}>Enviar</button>
@@ -197,10 +262,10 @@ export default class Vagas extends Component {
 
                         </div>
                     </section>
-                </div>
+                </div >
 
 
-            </div>
+            </div >
         )
     }
 }

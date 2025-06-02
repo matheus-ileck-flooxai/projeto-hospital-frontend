@@ -33,7 +33,6 @@ class users extends Component {
             .then(resp => {
 
                 this.setState({ users: resp.data }, () => {
-                    console.log(this.state.users);
 
                 });
 

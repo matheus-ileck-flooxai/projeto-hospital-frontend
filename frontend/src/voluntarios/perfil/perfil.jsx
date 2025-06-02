@@ -12,10 +12,17 @@ export default class profile extends Component {
         super(props);
         this.state = {
             user: '',
-            readOnly: true
+            readOnly: true,
+            showForm: false,
+            application: {}
         }
         this.onSubmit = this.onSubmit.bind(this);
-
+        this.date = new Date()
+        this.maxDate = new Date(
+            this.date.getFullYear() - 18,
+            this.date.getMonth(),
+            this.date.getDate()
+        ).toISOString().split('T')[0];
 
 
     }
@@ -37,9 +44,7 @@ export default class profile extends Component {
                     'Authorization': `Bearer ${token}`
                 }
             }).then(resp => {
-                this.setState({ user: resp.data }
-
-                )
+                this.setState({ user: resp.data })
 
 
             })
@@ -101,6 +106,41 @@ export default class profile extends Component {
 
     }
 
+    cancelApplication() {
+
+        const applicationId = this.state.application.id
+        
+        const token = localStorage.getItem('token');
+
+        Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/volunteer/cancelapplication/${applicationId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then(resp => {
+                this.closeModal();
+                this.getUser();
+
+            })
+    }
+    closeModal() {
+        this.setState({
+            showForm: false,
+            application: {},
+        });
+    }
+
+    openModal(application) {
+        const token = localStorage.getItem('token');
+
+        if (token) {
+            this.setState({
+                showForm: true,
+                application: application
+            });
+        }
+
+    }
     render() {
 
         return (
@@ -152,7 +192,6 @@ export default class profile extends Component {
                                                     <input
                                                         readOnly={true}
                                                         type="text"
-
                                                         className={`profile-inputs`}
                                                         value={this.state.user.age ? new Date(this.state.user.age).toISOString().split('T')[0] : ''}
                                                         onChange={(e) => this.setState({ user: { ...this.state.user, age: e.target.value } })}
@@ -165,6 +204,7 @@ export default class profile extends Component {
                                                     <input
                                                         type="date"
                                                         name="age"
+                                                        max={this.maxDate}
 
                                                         className={`profile-inputs ${!this.state.readOnly ? 'edit-date' : ''}`}
                                                         value={this.state.user.age ? new Date(this.state.user.age).toISOString().split('T')[0] : ''}
@@ -215,7 +255,6 @@ export default class profile extends Component {
                                         {!this.state.readOnly ? (<div className="row">
 
                                             <div className="col-sm-3">
-
                                                 <strong><i className="fa fa-lock"></i> Senha:</strong>
                                             </div>
 
@@ -294,14 +333,13 @@ export default class profile extends Component {
                             <div className="panel panel-default " id="panel-content" style={{ marginBottom: '15px', }}>
                                 <div className="panel-body text-center">
                                     <div className="col-md-12">
-                                        <h1 className="title">Vagas Atuais</h1>
+                                        <h1 className="title">Minhas Candidaturas</h1>
                                         <hr />
 
                                         {this.state.user && this.state.user.applications && this.state.user.applications.length ? (
                                             this.state.user.applications.map((application, index) => {
+
                                                 return (
-
-
                                                     <div className="col-xs-12 col-sm-6 col-md-5 col-lg-4" key={index}>
                                                         <div className="card-custom profile">
                                                             <div>
@@ -323,10 +361,7 @@ export default class profile extends Component {
                                                                     <i className="fa-solid fa-location-dot"></i>
                                                                     <strong> Endereço:</strong> {application.vacancy.hospital.address}
                                                                 </p>
-                                                                <p className="card-text">
-                                                                    <i className="fa fa-users"></i>
-                                                                    <strong> Voluntários necessários:</strong> {application.vacancy.qtd_volunteer}
-                                                                </p>
+
                                                                 <p className="card-text">
                                                                     <i className="fa fa-calendar"></i>
                                                                     <strong> Data:</strong> {new Date(application.vacancy.schedule).toLocaleDateString('pt-BR')}
@@ -339,6 +374,17 @@ export default class profile extends Component {
                                                                     <i className="fa fa-award"></i>
                                                                     <strong> Pontos:</strong> {application.vacancy.score}
                                                                 </p>
+                                                                <p className="card-text">
+                                                                    <i className="fa fa-tag"></i>
+                                                                    <strong> Situação:</strong> {application.status == 'Pending' ? 'Pendente' : 'Aprovado'}
+                                                                </p>
+
+                                                                <div className="card-buttons">
+                                                                    {application.status == 'Pending' && (
+                                                                        <a className="btn" onClick={() => this.openModal(application)}>Cancelar inscrição</a>
+
+                                                                    )}
+                                                                </div>
                                                             </div>
 
                                                         </div>
@@ -353,7 +399,24 @@ export default class profile extends Component {
                                                 <h1>Nenhuma vaga disponível no momento...</h1>
                                             </div>
                                         )}
+                                        {this.state.showForm && (
+                                            <div className="confirm-modal">
 
+                                                <div className="modal-content">
+
+                                                    <div>
+                                                        <h1 className="modal-title">Cancelar Candidatura?</h1>
+                                                        <p className="modal-description">Você deseja realmente cancelar sua candidatura para a vaga "{this.state.application.vacancy.title}"?</p>
+                                                    </div>
+
+
+                                                    <div className="modal-buttons">
+                                                        <button onClick={() => this.closeModal()}>Cancelar</button>
+                                                        <button onClick={() => this.cancelApplication()}>Enviar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
 
                                     </div>
                                 </div>

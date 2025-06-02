@@ -70,7 +70,6 @@ export default class userAuth extends Component {
 
             })
             .catch(err => {
-                console.log(err);
 
                 this.setState({ message: err.message })
 
