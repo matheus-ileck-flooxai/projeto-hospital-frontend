@@ -186,7 +186,7 @@ export default class profile extends Component {
                                 <div className="panel-body">
                                     <form onSubmit={this.onSubmit} className="form-edit-profile">
 
-                                        <div className="row">
+                                        <div className="row form">
 
                                             <div className="col-sm-3">
                                                 <strong><i className="fas fa-user"></i> Nome:</strong>
@@ -206,7 +206,7 @@ export default class profile extends Component {
                                         </div>
                                         <hr />
 
-                                        <div className="row">
+                                        <div className="row form">
                                             <div className="col-sm-3">
                                                 <strong><i className="fas fa-calendar-alt"></i> Nascimento:</strong>
                                             </div>
@@ -238,7 +238,7 @@ export default class profile extends Component {
                                         </div>
                                         <hr />
 
-                                        <div className="row">
+                                        <div className="row form">
                                             <div className="col-sm-3">
                                                 <strong><i className="fas fa-envelope"></i> Email:</strong>
                                             </div>
@@ -256,7 +256,7 @@ export default class profile extends Component {
                                         </div>
                                         <hr />
 
-                                        <div className="row">
+                                        <div className="row form">
                                             <div className="col-sm-3">
                                                 <strong><i className="fas fa-phone"></i> Telefone:</strong>
                                             </div>
@@ -275,7 +275,7 @@ export default class profile extends Component {
                                         </div>
                                         <hr />
 
-                                        {!this.state.readOnly ? (<div className="row">
+                                        {!this.state.readOnly ? (<div className="row form">
 
                                             <div className="col-sm-3">
                                                 <strong><i className="fa fa-lock"></i> Senha:</strong>
@@ -294,7 +294,7 @@ export default class profile extends Component {
                                             </div>
 
                                         </div>) :
-                                            (<div className="row">
+                                            (<div className="row form">
                                                 <div className="col-sm-3">
 
                                                     <strong> <i className="fa fa-lock"></i> Senha:</strong>
@@ -315,7 +315,7 @@ export default class profile extends Component {
                                         }
                                         <hr />
 
-                                        <div className="row">
+                                        <div className="row form">
 
                                             <div className="col-sm-3">
                                                 <strong> <i className="fa-solid fa-medal"></i> Pontuação:</strong>
@@ -399,7 +399,7 @@ export default class profile extends Component {
                                                                 </p>
                                                                 <p className="card-text">
                                                                     <i className="fa fa-tag"></i>
-                                                                    <strong> Situação:</strong> {application.status == 'Pending' ? 'Pendente' : 'Aprovado'}
+                                                                    <strong> Situação:</strong> {application.status == 'Pending' ? 'Pendente' : `Aprovado. Comparecer ao local na data ${new Date(application.vacancy.schedule).toLocaleString('pt-BR')}`}
                                                                 </p>
 
                                                                 <div className="card-buttons">

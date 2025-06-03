@@ -123,3 +123,7 @@
 .card-custom.profile h3 {
     text-align: center;
 }
+.row.form{
+    display: flex;
+    align-items: center;
+}

@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import Logo from '../../template/assets/img/logo2.png'
 import firstImage from '../../template/assets/img/img1.png'
+import Tabela from '../../template/assets/img/tabela.png'
 import Axios from "axios"
 import './vagas.css'
 const jwt_decode = require('jwt-decode');
@@ -207,6 +208,9 @@ export default class Vagas extends Component {
                                     <div className="row">
                                         <h4 className="title-vacancies">Aqui você pode encontrar as vagas nos hospitais, encontrando o mais próximo e quantos pontos você acumula ao concluir o programa. Candidate-se já!</h4>
                                         <hr />
+                                        <div className="access-profile">
+                                            <a className="form-user-title" href="#/volunteer/profile">Para ver todas as suas candidaturas acesse seu perfil aqui...</a>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -247,7 +251,6 @@ export default class Vagas extends Component {
                                                     )}
 
                                                 </div>
-
                                             </div>
 
                                         </div>
@@ -287,6 +290,33 @@ export default class Vagas extends Component {
 
 
                         </div>
+
+                    </section>
+                    <section className="leaderboard" id="leaderboard">
+                        <div className="row">
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <div className="row">
+                                        <h1 className="title"><span className="span-border">Ranking</span></h1>
+
+                                        <h4 className="title-vacancies">Nossa Plataforma possui uma ranking com os melhores voluntários com base na sua pontuação e dedicação com o nosso trabalho.</h4>
+                                        <hr />
+                                        <div className="row justify-content-center">
+                                            <div className="leaderboard-content">
+                                                <img src={Tabela} className="img-responsive" alt="" />
+                                            </div>
+
+
+                                            <div className="access-leaderboard">
+                                                <a className="btn form-user-title" href="#/volunteer/leaderboard">Para ver o ranking completo acesse aqui...</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
                     </section>
                 </div >
 

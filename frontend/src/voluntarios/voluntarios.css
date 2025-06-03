@@ -1,21 +1,24 @@
 * {
     font-family: "Roboto", sans-serif;
-    
+
 }
 
 .main {
     min-height: 100vh;
 }
 
-#row{
+#row {
     display: flex;
     justify-content: center;
     align-content: center;
     align-items: center;
 }
-.navbar-collapse{
+
+.navbar-collapse {
     margin: 0;
 }
-.navbar-collapse.collapse.in{
+
+.navbar-collapse.collapse.in {
     margin: 0;
 }
+
