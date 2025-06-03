@@ -29,7 +29,12 @@ module.exports = {
             template: './public/index.html',
             filename: 'index.html',
             inject: 'body'
+        }),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
         })
+
     ],
     module: {
         loaders: [{
