@@ -36,6 +36,7 @@
     "bootstrap": "^3.4.1",
     "jquery": "^3.7.1",
     "jwt-decode": "^4.0.0",
+    "react-input-mask": "^1.0.0",
     "react-s-alert": "^1.4.1"
   }
 }

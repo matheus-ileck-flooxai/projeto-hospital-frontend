@@ -16,7 +16,8 @@ export default class Vagas extends Component {
             vacancies: [],
             Vacancy: {},
             showForm: false,
-            cancel: false
+            cancel: false,
+            leaderboard: []
         };
 
 
@@ -46,6 +47,7 @@ export default class Vagas extends Component {
 
     componentDidMount() {
         this.getVacancies();
+        this.getLeaderboard();
 
     }
     getVacancies() {
@@ -75,6 +77,20 @@ export default class Vagas extends Component {
                 });
         }
     }
+    getLeaderboard() {
+
+        Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/leaderboard`)
+            .then(resp => {
+                this.setState({ leaderboard: resp.data });
+
+            })
+            .catch(err => {
+                this.alert('Ocorreu um erro. Por favor, tente novamente.', true)
+
+            });
+
+    }
+
 
 
 
@@ -168,6 +184,7 @@ export default class Vagas extends Component {
             const decoded = jwt_decode.jwtDecode(token);
             userId = decoded.userid;
         }
+
 
 
         return (
@@ -302,8 +319,22 @@ export default class Vagas extends Component {
                                         <h4 className="title-vacancies">Nossa Plataforma possui uma ranking com os melhores voluntários com base na sua pontuação e dedicação com o nosso trabalho.</h4>
                                         <hr />
                                         <div className="row justify-content-center">
-                                            <div className="leaderboard-content">
-                                                <img src={Tabela} className="img-responsive" alt="" />
+                                            <div className="leaderboard">
+                                                <ul className="responsive-table">
+                                                    <li className="table-header">
+                                                        <div className="col col-1">Rank</div>
+                                                        <div className="col col-2">Voluntário</div>
+                                                        <div className="col col-3">Pontuação</div>
+                                                    </li>
+                                                    {this.state.leaderboard.users && this.state.leaderboard.users.slice(0, 5).map((user, index) => (
+                                                        <li className="table-row" key={user.id || index}>
+                                                            <div className="col col-1" data-label="Rank">{index + 1}</div>
+                                                            <div className="col col-2" data-label="Name">{user.name}</div>
+                                                            <div className="col col-3" data-label="Score">{user.score}</div>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+
                                             </div>
 
 

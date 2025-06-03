@@ -5,6 +5,8 @@ import './auth.css'
 import { hashHistory } from 'react-router'
 import Logo from '../template/assets/img/logo2.png'
 import Alert from "react-s-alert"
+import InputMask from 'react-input-mask';
+
 
 
 export default class hospitalAuth extends Component {
@@ -125,7 +127,16 @@ export default class hospitalAuth extends Component {
                         </div>
                         <div className="grupo-inputs">
                             <label htmlFor="phone_number" className="label">Telefone contato:</label>
-                            <input type="tel" inputMode="numeric" pattern="\d{10,11}" name="phone_number" value={phone_number} placeholder="Ex: xxxxxxxxxxx" onChange={(e) => this.setState({ phone_number: e.target.value.replace(/\D/g, "") })} required />
+                            <InputMask
+                                mask="(99) 99999-9999"
+                                maskChar=""
+                                type="tel"
+                                name="phone_number"
+                                placeholder="(99) 99999-9999"
+                                value={this.state.phone_number}
+                                onChange={(e) => this.setState({ phone_number: e.target.value })}
+                                required
+                            />
                         </div>
                         <div className="grupo-inputs">
                             <label htmlFor="password" className="label">Senha:</label>

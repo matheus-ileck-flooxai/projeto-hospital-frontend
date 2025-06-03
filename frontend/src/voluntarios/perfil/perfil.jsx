@@ -335,7 +335,7 @@ export default class profile extends Component {
                                         <div className="row buttons" style={{ marginTop: '15px' }}>
                                             <div className="col-sm-12">
                                                 <div className="profile-group-buttons">
-                                                    <button type="button" className="btn btn-edit" onClick={() => this.toggleEditForm()}>{this.state.readOnly ? ('Editar') : ('cancelar')}</button>
+                                                    <button type="button" className="btn btn-edit" onClick={() => this.toggleEditForm()}>{this.state.readOnly ? ('Editar') : ('Cancelar')}</button>
                                                     {!this.state.readOnly && (
                                                         <button type="submit" className="btn btn-edit-profile">
                                                             Enviar
