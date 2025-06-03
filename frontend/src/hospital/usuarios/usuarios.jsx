@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Axios from "axios";
 import './usuarios.css'
 import { jwtDecode } from "jwt-decode";
+import Alert from "react-s-alert"
+
 
 class users extends Component {
     constructor(props) {
@@ -19,9 +21,31 @@ class users extends Component {
             this.date.getDate()
         ).toISOString().split('T')[0];
     }
+
+
+    alert(msg, error = false) {
+
+        if (error) {
+            Alert.error(msg, {
+                position: 'top-right',
+                effect: 'slide',
+                timeout: 3000
+            });
+        }
+        else {
+            Alert.success(msg, {
+                position: 'top-right',
+                effect: 'slide',
+                timeout: 3000
+            });
+        }
+
+    }
     componentDidMount() {
         this.getusers()
     }
+
+
     getusers() {
         const token = localStorage.getItem('token')
 
@@ -31,17 +55,14 @@ class users extends Component {
             }
         })
             .then(resp => {
-
-                this.setState({ users: resp.data }, () => {
-
-                });
+                this.setState({ users: resp.data });
 
 
             })
             .catch(err => {
-                ;
+                this.alert('Ocorreu um erro. Por favor, tente novamente.', true)
 
-            })
+            });
     }
 
     onSubmit(e) {
@@ -71,9 +92,13 @@ class users extends Component {
                 this.getusers()
                 this.setState({
                     showForm: false,
-                    User: {}
+                    User: {},
                 })
-            })
+                this.alert('Usuário atualizado com sucesso!')
+            }).catch(err => {
+                this.alert('Ocorreu um erro. Por favor, tente novamente.', true)
+
+            });
         }
         else {
             Axios.post(`https://projeto-hospital-backend-production.up.railway.app/api/users`, User, {
@@ -84,11 +109,14 @@ class users extends Component {
                 .then(resp => {
                     this.setState(state => ({
                         users: [...state.users, resp.data],
-                        showForm: false
+                        showForm: false,
                     }));
+                    this.alert('Usuário cadastrado com sucesso!')
+
                 })
                 .catch(err => {
-                    console.error(err);
+                    this.alert('Ocorreu um erro. Por favor, tente novamente.', true)
+
                 });
         }
 
@@ -100,7 +128,13 @@ class users extends Component {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
-        }).then(() => this.getusers());
+        }).then(() => {
+            this.getusers()
+            this.alert('Usuário removido com sucesso!')
+        }).catch(err => {
+            this.alert('Ocorreu um erro. Por favor, tente novamente.', true)
+
+        });;
 
     }
 
@@ -132,7 +166,7 @@ class users extends Component {
                                         <td data-label="Nome:">{user.name} </td>
                                         <td data-label="Email:">{user.email}</td>
                                         <td data-label="Telefone:">{user.phone_number}</td>
-                                        <td data-label="Ações:"className="table-buttons">
+                                        <td data-label="Ações:" className="table-buttons">
                                             <div className="table-buttons-group">
 
                                                 <i className="fas fa-edit" onClick={() => this.setState({ showForm: true, User: user })}></i>

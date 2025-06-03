@@ -4,6 +4,8 @@ import Footer from "../template/common/footer/footer";
 import Aside from "../template/common/Aside/Aside";
 import Content from "../template/common/content/content";
 import './hospital.css';
+import Alert from "react-s-alert"
+
 
 export default class HospitalLayout extends Component {
     constructor(props) {
@@ -40,6 +42,8 @@ export default class HospitalLayout extends Component {
                 <div className="row">
                     <Footer />
                 </div>
+                <Alert stack={{ limit: 3 }} timeout={3000} position="top-right" effect="slide" />
+
             </div>
         );
     }

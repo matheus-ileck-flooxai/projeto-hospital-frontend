@@ -56,8 +56,8 @@ export default class volunteerAuth extends Component {
         e.preventDefault();
 
         if (!e.target.checkValidity()) {
-            e.target.reportValidity(); 
-            return;                    
+            e.target.reportValidity();
+            return;
         }
         const { name, address, email, age, password, role, phone_number } = this.state;
         const newUser = { name, address, age, email, role, password, phone_number };
@@ -144,6 +144,7 @@ export default class volunteerAuth extends Component {
                                 onChange={(e) => this.setState({ password: e.target.value })}
                                 required
                             />
+                            <label>- A senha deve conter: 1 letra maiuscula, 1 minuscula, numeros e um caractere especial.</label>
                         </div>
                         <a href="#/hospital/auth" className="redirect-button">Cadastrar um hospital</a>
 

@@ -5,7 +5,7 @@ import Axios from "axios"
 import './vagas.css'
 const jwt_decode = require('jwt-decode');
 import { hashHistory } from 'react-router'
-
+import Alert from "react-s-alert"
 
 export default class Vagas extends Component {
 
@@ -21,6 +21,27 @@ export default class Vagas extends Component {
 
 
     }
+
+
+    alert(msg, error = false) {
+
+        if (error) {
+            Alert.error(msg, {
+                position: 'top-right',
+                effect: 'slide',
+                timeout: 3000
+            });
+        }
+        else {
+            Alert.success(msg, {
+                position: 'top-right',
+                effect: 'slide',
+                timeout: 3000
+            });
+        }
+
+    }
+
 
     componentDidMount() {
         this.getVacancies();
@@ -38,16 +59,18 @@ export default class Vagas extends Component {
                     this.setState({ vacancies: resp.data });
 
                 })
-                .catch(error => {
-                    console.error(error);
+                .catch(err => {
+                    this.alert('Ocorreu um erro. Por favor, tente novamente.', true)
+
                 });
         } else {
             Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies`)
                 .then(resp => {
                     this.setState({ vacancies: resp.data });
                 })
-                .catch(error => {
-                    console.error('Erro ao buscar todas as vagas', error);
+                .catch(err => {
+                    this.alert('Ocorreu um erro. Por favor, tente novamente.', true)
+
                 });
         }
     }
@@ -78,6 +101,7 @@ export default class Vagas extends Component {
                     .then(resp => {
                         this.closeModal();
                         this.getVacancies();
+                        this.alert('Candidatura cancelada com sucesso!')
 
                     })
             }
@@ -88,6 +112,8 @@ export default class Vagas extends Component {
                     }
                 }).then(resp => {
                     this.setState({ showForm: false })
+                    this.alert('candidatura à vaga realizada com sucesso')
+
                     this.getVacancies();
                 }).catch(error => {
                     {
@@ -263,6 +289,7 @@ export default class Vagas extends Component {
                         </div>
                     </section>
                 </div >
+
 
 
             </div >

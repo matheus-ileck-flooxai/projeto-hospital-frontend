@@ -1,4 +1,5 @@
 import React, { Component, use } from "react";
+import Alert from "react-s-alert"
 import Axios from "axios";
 
 class Pedidos extends Component {
@@ -7,6 +8,27 @@ class Pedidos extends Component {
         this.state = {
             applications: []
         };
+
+    }
+
+
+
+    alert(msg, error = false) {
+
+        if (error) {
+            Alert.error(msg, {
+                position: 'top-right',
+                effect: 'slide',
+                timeout: 3000
+            });
+        }
+        else {
+            Alert.success(msg, {
+                position: 'top-right',
+                effect: 'slide',
+                timeout: 3000
+            });
+        }
 
     }
     componentDidMount() {
@@ -25,7 +47,7 @@ class Pedidos extends Component {
 
             })
             .catch(err => {
-                ;
+                this.alert('Ocorreu um erro. Por favor, tente novamente.', true)
 
             })
     }
@@ -35,7 +57,15 @@ class Pedidos extends Component {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
-        }).then(() => this.getApplications());
+        }).then(() => {
+            this.getApplications()
+            this.alert('Voluntário rejeitado com sucesso.')
+
+        })
+            .catch(err => {
+                this.alert('Ocorreu um erro. Por favor, tente novamente.', true)
+
+            });
     }
     onUpdate(id) {
         const token = localStorage.getItem('token');
@@ -46,7 +76,14 @@ class Pedidos extends Component {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
-        }).then(() => this.getApplications());
+        }).then(() => {
+            this.getApplications()
+            this.alert('Voluntário aprovado com sucesso!')
+
+        }).catch(err => {
+            this.alert('Ocorreu um erro. Por favor, tente novamente.', true)
+
+        });;
     }
 
 
@@ -68,7 +105,6 @@ class Pedidos extends Component {
                                 <th>Vaga</th>
                                 <th>Horario</th>
                                 <th>Status</th>
-
                                 <th>Ações</th>
                             </tr>
                         </thead>

@@ -56,7 +56,7 @@ export default class HeaderVoluntario extends Component {
                         </form>
                         <ul className="nav navbar-nav navbar-right" id="nav-items">
                             {this.state.role === 'Volunteer' && <li><Link to="/volunteer/profile">Perfil</Link></li>}
-                            {this.state.role === 'Volunteer' && <li><Link to="/volunteer/vacancies">Vagas</Link></li>}
+                            {this.state.role === 'Volunteer' && <li><a href="#vagas">Vagas</a></li>}
                             {this.state.role === 'Volunteer' && <li><Link to="/volunteer/leaderboard">Pontuação</Link></li>}
                             {this.state.role === 'Volunteer' && <li><Link to="/user/auth">Sair</Link></li>}
 

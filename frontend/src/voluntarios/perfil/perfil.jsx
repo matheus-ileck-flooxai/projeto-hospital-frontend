@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import './perfil.css'
 import Axios from "axios";
 import Logo from '../../template/assets/img/logo2.png'
+import Alert from "react-s-alert"
 
 const jwt_decode = require('jwt-decode');
 
@@ -26,6 +27,26 @@ export default class profile extends Component {
 
 
     }
+
+    alerta(msg, error = false) {
+
+        if (error) {
+            Alert.error(msg, {
+                position: 'top-right',
+                effect: 'slide',
+                timeout: 3000
+            });
+        }
+        else {
+            Alert.success(msg, {
+                position: 'top-right',
+                effect: 'slide',
+                timeout: 3000
+            });
+        }
+
+    }
+
 
     componentDidMount() {
         this.getUser()
@@ -98,6 +119,7 @@ export default class profile extends Component {
 
                 })
                 this.getUser()
+                this.alerta('Perfil atualizado com sucesso!')
 
             })
         }
@@ -109,7 +131,7 @@ export default class profile extends Component {
     cancelApplication() {
 
         const applicationId = this.state.application.id
-        
+
         const token = localStorage.getItem('token');
 
         Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/volunteer/cancelapplication/${applicationId}`, {
@@ -120,6 +142,7 @@ export default class profile extends Component {
             .then(resp => {
                 this.closeModal();
                 this.getUser();
+                this.alerta('Candidatura cancelada com sucesso!')
 
             })
     }

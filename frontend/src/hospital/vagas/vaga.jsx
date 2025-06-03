@@ -2,6 +2,8 @@ import React, { Component, use } from "react";
 import './vaga.css'
 import Axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import Alert from "react-s-alert"
+
 
 class vacancies extends Component {
     constructor(props) {
@@ -11,8 +13,27 @@ class vacancies extends Component {
             Vacancy: {},
             showForm: false,
         };
-      
+
         this.onSubmit = this.onSubmit.bind(this);
+
+    }
+
+    alert(msg, error = false) {
+
+        if (error) {
+            Alert.error(msg, {
+                position: 'top-right',
+                effect: 'slide',
+                timeout: 3000
+            });
+        }
+        else {
+            Alert.success(msg, {
+                position: 'top-right',
+                effect: 'slide',
+                timeout: 3000
+            });
+        }
 
     }
     componentDidMount() {
@@ -28,14 +49,14 @@ class vacancies extends Component {
         })
             .then(resp => {
                 this.setState({ vacancies: resp.data })
-                    ;
+
 
 
             })
             .catch(err => {
-                ;
+                this.alert('Ocorreu um erro. Por favor, tente novamente.', true)
 
-            })
+            });
     }
     onSubmit(e) {
         e.preventDefault()
@@ -64,6 +85,8 @@ class vacancies extends Component {
                     showForm: false,
                     Vacancy: {}
                 })
+                this.alert('Vaga atualizada com sucesso!')
+
             })
         }
         else {
@@ -78,11 +101,13 @@ class vacancies extends Component {
                         Vacancy: {}
                     }));
                     this.getVacancies()
+                    this.alert('Vaga criada com sucesso!')
 
 
                 })
                 .catch(err => {
-                    console.error(err);
+                    this.alert('Ocorreu um erro. Por favor, tente novamente.', true)
+
                 });
 
         }
@@ -96,7 +121,14 @@ class vacancies extends Component {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
-        }).then(() => this.getVacancies());
+        }).then(() => {
+            this.getVacancies()
+            this.alert('Vaga removida com sucesso!')
+
+        }).catch(err => {
+            this.alert('Ocorreu um erro. Por favor, tente novamente.', true)
+
+        });
 
     }
     finishVacancy(id) {
@@ -107,7 +139,14 @@ class vacancies extends Component {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
-        }).then(() => this.getVacancies());
+        }).then(() => {
+            this.getVacancies()
+            this.alert('Vaga concluida com sucesso!')
+
+        }).catch(err => {
+            this.alert('Ocorreu um erro. Por favor, tente novamente.', true)
+
+        });
 
     }
 
@@ -166,7 +205,7 @@ class vacancies extends Component {
                     </div>
                 )}
                 {this.state.showForm && (<form className="form-vacancy" onSubmit={this.onSubmit}>
-                    <h2>Insira os dados da vaga</h2>
+                    <h2 className="form-user-title">Insira os dados da vaga</h2>
 
                     <div className="grupo-inputs">
                         <label className="label">Título:</label>
@@ -192,8 +231,8 @@ class vacancies extends Component {
                             type="datetime-local"
                             name="schedule"
                             required
-                           min={new Date().toISOString().slice(0,16)}
-                            value={this.state.Vacancy ? this.state.Vacancy.schedule : ''}
+                            min={new Date().toISOString().slice(0, 16)}
+                            value={this.state.Vacancy.schedule ? this.state.Vacancy.schedule.slice(0, 16) : ''}
                             onChange={e => this.setState({
                                 Vacancy: {
                                     ...this.state.Vacancy,

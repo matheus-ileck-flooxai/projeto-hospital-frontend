@@ -43,6 +43,7 @@ p {
   width: 100%;
   margin: 0;
   padding: 0;
+  border-spacing: 1px;
   border-collapse: separate;
 }
 
