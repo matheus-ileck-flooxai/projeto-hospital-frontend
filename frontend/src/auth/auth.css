@@ -84,9 +84,22 @@ a {
     font-weight: bold;
     text-decoration: underline;
 }
-.redirect-button{
+
+.redirect-button {
     text-decoration: none;
 }
+
 .msg-inicial {
     text-align: center;
+}
+
+.password-rules.hide {
+    display: none;
+}
+
+.password-rules.show {
+    display: block;
+    margin-top: 6px;
+    padding-left: 18px;
+    color: #6c757d;
 }

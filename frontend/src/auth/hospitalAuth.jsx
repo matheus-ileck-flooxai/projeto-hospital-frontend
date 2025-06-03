@@ -4,6 +4,8 @@ import axios from "axios";
 import './auth.css'
 import { hashHistory } from 'react-router'
 import Logo from '../template/assets/img/logo2.png'
+import Alert from "react-s-alert"
+
 
 export default class hospitalAuth extends Component {
 
@@ -16,11 +18,31 @@ export default class hospitalAuth extends Component {
             name: '',
             address: '',
             phone_number: '',
+            show_rules: false
         };
     }
 
     componentDidMount() {
         this.verifytoken();
+    }
+
+    alerta(msg, error = false) {
+
+        if (error) {
+            Alert.error(msg, {
+                position: 'top-right',
+                effect: 'slide',
+                timeout: 3000
+            });
+        }
+        else {
+            Alert.success(msg, {
+                position: 'top-right',
+                effect: 'slide',
+                timeout: 3000
+            });
+        }
+
     }
 
     verifytoken() {
@@ -55,11 +77,30 @@ export default class hospitalAuth extends Component {
         axios.post(url, newHospital)
             .then(resp => {
                 this.setState({ showForm: false });
-                hashHistory.push('/user/auth')
+                this.alerta('Cadastro realizado com Sucesso!');
+                setTimeout(() => {
+                    hashHistory.push('/user/auth');
+                }, 1500);
+
             })
             .catch(err => {
-                ;
-            })
+
+                if (err.response) {
+                    this.alerta('Erro: ' + err.response.data.error, true);
+                } else {
+                    this.alerta('Erro de conexão com o servidor', true);
+                }
+            });
+
+    }
+    toggleRules() {
+
+        if (!this.state.show_rules) {
+            this.setState({ show_rules: true })
+        }
+        else {
+            this.setState({ show_rules: false })
+        }
     }
 
     render() {
@@ -88,22 +129,36 @@ export default class hospitalAuth extends Component {
                         </div>
                         <div className="grupo-inputs">
                             <label htmlFor="password" className="label">Senha:</label>
-                            <input type="password" 
-                            title="Senha deve ter no mínimo 8 caracteres, incluindo uma letra maiúscula, uma minúscula e um caractere especial."
-                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$" 
-                            name="password" value={password} placeholder="Digite sua senha" 
-                            onChange={(e) => this.setState({ password: e.target.value })} 
-                            required />
+                            <input type="password"
+                                title="Senha deve ter no mínimo 8 caracteres, incluindo uma letra maiúscula, uma minúscula e um caractere especial."
+                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$"
+                                name="password" value={password} placeholder="Digite sua senha"
+                                onChange={(e) => this.setState({ password: e.target.value })}
+                                onClick={() => this.toggleRules()}
+
+                                required />
+
                         </div>
+                        <ul className={this.state.show_rules ? 'password-rules show' : 'password-rules hide'}>
+
+                            <li>1 Letra maiúscula</li>
+                            <li>1 Letra minúscula</li>
+                            <li>Números</li>
+                            <li>1 Caractere especial</li>
+                            <li>Mínimo 8 caracteres</li>
+                        </ul>
                         <a href="#/user/register" className="redirect-button">Cadastrar um usuario</a>
 
                         <div className="grupo-inputs button-form">
                             <button type="submit" className="btn-submit">Cadastrar</button>
                             <a href="/#/user/auth">Já possuo uma conta</a>
                         </div>
+                        <Alert stack={{ limit: 3 }} timeout={3000} />
+
                     </form>
 
                 </div>
+
             </div>
         )
     }

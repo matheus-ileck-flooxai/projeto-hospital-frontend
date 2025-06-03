@@ -4,6 +4,8 @@ import axios from "axios";
 import './auth.css'
 import { hashHistory } from 'react-router'
 import Logo from '../template/assets/img/logo2.png'
+import Alert from "react-s-alert"
+
 
 export default class volunteerAuth extends Component {
 
@@ -51,6 +53,34 @@ export default class volunteerAuth extends Component {
     }
 
 
+    alerta(msg, error = false) {
+
+        if (error) {
+            Alert.error(msg, {
+                position: 'top-right',
+                effect: 'slide',
+                timeout: 3000
+            });
+        }
+        else {
+            Alert.success(msg, {
+                position: 'top-right',
+                effect: 'slide',
+                timeout: 3000
+            });
+        }
+
+    }
+    toggleRules() {
+
+        if (!this.state.show_rules) {
+            this.setState({ show_rules: true })
+        }
+        else {
+            this.setState({ show_rules: false })
+        }
+    }
+
 
     register(e) {
         e.preventDefault();
@@ -66,11 +96,21 @@ export default class volunteerAuth extends Component {
         axios.post(url, newUser)
             .then(resp => {
                 this.setState({ showForm: false });
-                hashHistory.push('/user/auth')
+                this.alerta('Cadastro realizado com Sucesso!');
+
+                setTimeout(() => {
+                    hashHistory.push('/user/auth');
+                }, 1500);
             })
             .catch(err => {
-                console.error(err)
-            })
+                console.log(err.response.data);
+
+                if (err.response) {
+                    this.alerta('Erro: ' + err.response.data.message, true);
+                } else {
+                    this.alerta('Erro de conexão com o servidor', true);
+                }
+            });
     }
 
     render() {
@@ -142,20 +182,33 @@ export default class volunteerAuth extends Component {
                                 value={this.state.password}
                                 placeholder="Digite sua senha"
                                 onChange={(e) => this.setState({ password: e.target.value })}
+                                onClick={() => this.toggleRules()}
                                 required
                             />
-                            <label>- A senha deve conter: 1 letra maiuscula, 1 minuscula, numeros e um caractere especial.</label>
+
                         </div>
+                        <ul className={this.state.show_rules ? 'password-rules show' : 'password-rules hide'}>
+
+                            <li>1 Letra maiúscula.</li>
+                            <li>1 Letra minúscula.</li>
+                            <li>1 Caractere especial.</li>
+                            <li>Mínimo 8 caracteres.</li>
+                            <li>Minimo 1 Número.</li>
+
+                        </ul>
                         <a href="#/hospital/auth" className="redirect-button">Cadastrar um hospital</a>
 
                         <div className="grupo-inputs button-form">
                             <button type="submit" className="btn-submit">Cadastrar</button>
                             <a href="/#/user/auth">Já possuo uma conta</a>
                         </div>
+                        <Alert stack={{ limit: 3 }} timeout={3000} />
+
                     </form>
                 </div>
             </div>
 
         )
+
     }
 }

@@ -6,6 +6,7 @@ import axios from "axios";
 import './auth.css'
 import { hashHistory } from 'react-router'
 import Logo from '../template/assets/img/logo2.png'
+import Alert from "react-s-alert"
 
 export default class userAuth extends Component {
 
@@ -22,6 +23,25 @@ export default class userAuth extends Component {
 
     componentDidMount() {
         this.verifytoken();
+    }
+
+    alerta(msg, error = false) {
+
+        if (error) {
+            Alert.error(msg, {
+                position: 'top-right',
+                effect: 'slide',
+                timeout: 3000
+            });
+        }
+        else {
+            Alert.success(msg, {
+                position: 'top-right',
+                effect: 'slide',
+                timeout: 3000
+            });
+        }
+
     }
 
     verifytoken() {
@@ -70,10 +90,14 @@ export default class userAuth extends Component {
 
             })
             .catch(err => {
+                console.log(err.response.data);
 
-                this.setState({ message: err.message })
-
-            })
+                if (err.response) {
+                    this.alerta('Erro: ' + err.response.data.error, true);
+                } else {
+                    this.alerta('Erro de conexão com o servidor', true);
+                }
+            });
     }
 
 
@@ -104,6 +128,8 @@ export default class userAuth extends Component {
 
                             <button type="submit" className="btn-submit">Entrar</button>
                         </div>
+                        <Alert stack={{ limit: 3 }} timeout={3000} />
+
                     </form>
                 </div>
             </div>
