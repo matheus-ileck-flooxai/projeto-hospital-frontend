@@ -241,7 +241,13 @@ export default class Inicio extends Component {
 
                             <div className="row justify-content-center">
                                 {this.state.vacancies && this.state.vacancies.length > 0 ? (
-                                    vacancies.slice(0, 6).filter(vacancy => vacancy.applications.length === 0).map((vacancy, index) => (
+                                    vacancies.slice(0, 6).filter(vacancy => {
+                                        if (!token) {
+                                            return true;
+                                        } else {
+                                            return !vacancy.applications.some(application => application.userId === userId);
+                                        }
+                                    }).map((vacancy, index) => (
                                         <div className="col-xs-12 col-sm-6 col-md-5 col-lg-4" key={index}>
                                             <div className="card-custom">
                                                 <div>
