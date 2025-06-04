@@ -3,6 +3,7 @@ import './perfil.css'
 import Axios from "axios";
 import Logo from '../../template/assets/img/logo2.png'
 import Alert from "react-s-alert"
+import InputMask from 'react-input-mask';
 
 const jwt_decode = require('jwt-decode');
 
@@ -15,7 +16,8 @@ export default class profile extends Component {
             user: '',
             readOnly: true,
             showForm: false,
-            application: {}
+            application: {},
+            newUser: {}
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.date = new Date()
@@ -74,13 +76,23 @@ export default class profile extends Component {
     }
 
     toggleEditForm() {
-        if (this.state.readOnly == true) {
-            this.setState({ readOnly: false })
-        }
-        else {
-            this.setState({ readOnly: true })
+        if (this.state.readOnly) {
+            this.setState({
+                readOnly: false,
+                newUser: {
+                    ...this.state.user,
+                    oldPassword: '',
+                    password: ''
+                }
+            });
+        } else {
+            this.setState({
+                readOnly: true,
+                newUser: {}
+            });
         }
     }
+
 
 
 
@@ -99,14 +111,15 @@ export default class profile extends Component {
 
         const formData = new FormData(e.target);
 
-
         const User = {
             name: formData.get('name'),
             phone_number: formData.get('phone_number'),
             email: formData.get('email'),
+            oldPassword: formData.get('oldPassword'),
             password: formData.get('password') ? formData.get('password') : this.state.user.password,
             age: new Date(formData.get('age')).toISOString(),
         };
+
 
         if (id) {
             Axios.put(`https://projeto-hospital-backend-production.up.railway.app/api/volunteer/${id}`, User, {
@@ -115,13 +128,22 @@ export default class profile extends Component {
                 }
             }).then(resp => {
                 this.setState({
-                    readOnly: true
+                    readOnly: true,
+                    newUser: {}
 
                 })
                 this.getUser()
                 this.alerta('Perfil atualizado com sucesso!')
 
             })
+                .catch(err => {
+
+                    if (err.response) {
+                        this.alerta('Erro: ' + err.response.data.error, true);
+                    } else {
+                        this.alerta('Erro de conexão com o servidor', true);
+                    }
+                });
         }
 
 
@@ -150,6 +172,8 @@ export default class profile extends Component {
         this.setState({
             showForm: false,
             application: {},
+
+
         });
     }
 
@@ -199,8 +223,8 @@ export default class profile extends Component {
                                                     name="name"
                                                     pattern="^[A-Za-zÀ-ú\s]+$"
                                                     className={`profile-inputs ${!this.state.readOnly ? 'edit' : ''}`}
-                                                    value={this.state.user.name}
-                                                    onChange={(e) => this.setState({ user: { ...this.state.user, name: e.target.value } })}
+                                                    value={this.state.readOnly ? this.state.user.name : this.state.newUser.name}
+                                                    onChange={(e) => this.setState({ newUser: { ...this.state.newUser, name: e.target.value } })}
                                                 />
                                             </div>
                                         </div>
@@ -216,8 +240,7 @@ export default class profile extends Component {
                                                         readOnly={true}
                                                         type="text"
                                                         className={`profile-inputs`}
-                                                        value={this.state.user.age ? new Date(this.state.user.age).toISOString().split('T')[0] : ''}
-                                                        onChange={(e) => this.setState({ user: { ...this.state.user, age: e.target.value } })}
+                                                        value={this.state.user.age ? new Date(this.state.user.age).toLocaleDateString('pt-br') : ''}
                                                     />
 
 
@@ -228,10 +251,9 @@ export default class profile extends Component {
                                                         type="date"
                                                         name="age"
                                                         max={this.maxDate}
-
-                                                        className={`profile-inputs ${!this.state.readOnly ? 'edit-date' : ''}`}
-                                                        value={this.state.user.age ? new Date(this.state.user.age).toISOString().split('T')[0] : ''}
-                                                        onChange={(e) => this.setState({ user: { ...this.state.user, age: e.target.value } })}
+                                                        className={`profile-inputs edit-date`}
+                                                        value={this.state.newUser.age ? new Date(this.state.newUser.age).toISOString().split('T')[0] : ''}
+                                                        onChange={(e) => this.setState({ newUser: { ...this.state.newUser, age: e.target.value } })}
                                                     />
                                                 )
                                             }
@@ -248,9 +270,9 @@ export default class profile extends Component {
                                                     readOnly={this.state.readOnly}
                                                     type="email"
                                                     name="email"
-
                                                     className={`profile-inputs ${!this.state.readOnly ? 'edit' : ''}`}
-                                                    value={this.state.user.email}
+                                                    value={this.state.readOnly ? this.state.user.email : this.state.newUser.email}
+                                                    onChange={(e) => this.setState({ newUser: { ...this.state.newUser, email: e.target.value } })}
                                                 />
                                             </div>
                                         </div>
@@ -262,34 +284,61 @@ export default class profile extends Component {
                                             </div>
 
                                             <div className="col-sm-9">
-                                                <input
-                                                    readOnly={this.state.readOnly}
-                                                    type="text"
+                                                <InputMask
+                                                    mask="(99) 99999-9999"
+                                                    maskChar=""
+                                                    type="tel"
                                                     name="phone_number"
-                                                    pattern="\d{10,11}"
                                                     className={`profile-inputs ${!this.state.readOnly ? 'edit' : ''}`}
-                                                    value={this.state.user.phone_number}
-                                                    onChange={(e) => this.setState({ user: { ...this.state.user, phone_number: e.target.value.replace(/\D/g, "") } })}
+                                                    placeholder="(99) 99999-9999"
+                                                    value={this.state.readOnly ? this.state.user.phone_number : this.state.newUser.phone_number}
+                                                    readOnly={this.state.readOnly}
+                                                    onChange={(e) => this.setState({ newUser: { ...this.state.newUser, phone_number: e.target.value } })}
                                                 />
+
                                             </div>
                                         </div>
                                         <hr />
-
-                                        {!this.state.readOnly ? (<div className="row form">
-
+                                        <div className={`row form  ${!this.state.readOnly ? 'show' : 'hide'}`}>
                                             <div className="col-sm-3">
-                                                <strong><i className="fa fa-lock"></i> Senha:</strong>
+                                                <strong><i className="fa fa-lock"></i> Senha antiga:</strong>
                                             </div>
 
                                             <div className="col-sm-9">
                                                 <input
-                                                    readOnly={this.state.readOnly}
+                                                    type="text"
+                                                    name="oldPassword"
+                                                    title="Senha deve ter no mínimo 8 caracteres, incluindo uma letra maiúscula, uma minúscula e um caractere especial."
+                                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$"
+                                                    className={`profile-inputs edit`}
+                                                    value={this.state.newUser.oldPassword || ''}
+                                                    onChange={(e) =>
+                                                        this.setState({
+                                                            newUser: {
+                                                                ...this.state.newUser,
+                                                                oldPassword: e.target.value
+                                                            }
+                                                        })
+                                                    }
+                                                />
+                                            </div>
+                                            <hr />
+
+                                        </div>
+                                        {!this.state.readOnly ? (<div className="row form">
+
+                                            <div className="col-sm-3">
+                                                <strong><i className="fa fa-lock"></i> Nova senha:</strong>
+                                            </div>
+
+                                            <div className="col-sm-9">
+                                                <input
                                                     type="text"
                                                     name="password"
                                                     title="Senha deve ter no mínimo 8 caracteres, incluindo uma letra maiúscula, uma minúscula e um caractere especial."
                                                     pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$"
-                                                    className={`profile-inputs ${!this.state.readOnly ? 'edit' : ''}`}
-                                                    onChange={(e) => this.setState({ user: { ...this.state.user, password: e.target.value } })}
+                                                    className={`profile-inputs edit`}
+                                                    onChange={(e) => this.setState({ newUser: { ...this.state.newUser, password: e.target.value } })}
                                                 />
                                             </div>
 
@@ -306,8 +355,7 @@ export default class profile extends Component {
                                                         type="password"
                                                         name="password"
                                                         className={`profile-inputs`}
-                                                        value=''
-                                                        onChange={(e) => this.setState({ user: { ...this.state.user, password: e.target.value } })}
+                                                        value=""
                                                     />
                                                 </div>
 
@@ -315,9 +363,9 @@ export default class profile extends Component {
                                         }
                                         <hr />
 
-                                        <div className="row form">
+                                        <div className={`row form ${!this.state.readOnly ? 'hide' : ''}`}>
 
-                                            <div className="col-sm-3">
+                                            <div className={`col-sm-3`}>
                                                 <strong> <i className="fa-solid fa-medal"></i> Pontuação:</strong>
                                             </div>
 
@@ -325,12 +373,13 @@ export default class profile extends Component {
                                                 <input
                                                     readOnly={true}
                                                     type="number"
-                                                    className={`profile-inputs`}
+                                                    className={`profile-inputs `}
                                                     value={this.state.user.score}
                                                     onChange={(e) => this.setState({ user: { ...this.state.user, score: e.target.value } })}
                                                 />
                                             </div>
                                         </div>
+
 
                                         <div className="row buttons" style={{ marginTop: '15px' }}>
                                             <div className="col-sm-12">
@@ -435,7 +484,7 @@ export default class profile extends Component {
 
                                                     <div className="modal-buttons">
                                                         <button onClick={() => this.closeModal()}>Cancelar</button>
-                                                        <button onClick={() => this.cancelApplication()}>Enviar</button>
+                                                        <button onClick={() => this.cancelApplication()}>Confirmar</button>
                                                     </div>
                                                 </div>
                                             </div>

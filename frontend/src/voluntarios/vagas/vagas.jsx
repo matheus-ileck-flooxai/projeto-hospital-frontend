@@ -200,7 +200,8 @@ export default class Vagas extends Component {
 
                     <section className="about" id="about">
                         <div className="row align-items-center">
-                            <div className="col-12 col-md-6  mb-4">
+                            
+                            <div className="col col-md-6  mb-4">
                                 <h2 className="title about-title"><span className="span-border">Quem somos?</span></h2>
                                 <div className="about-text">
                                     <p>
@@ -213,6 +214,7 @@ export default class Vagas extends Component {
                             <div className="col-12 col-md-6 mb-4">
                                 <img src={firstImage} className="img-responsive" alt="" />
                             </div>
+                            
                         </div>
                     </section>
 
@@ -297,7 +299,7 @@ export default class Vagas extends Component {
 
                                             <div className="modal-buttons">
                                                 <button onClick={() => this.closeModal()}>Cancelar</button>
-                                                <button onClick={() => this.onsubmit()}>Enviar</button>
+                                                <button onClick={() => this.onsubmit()}>Confirmar</button>
                                             </div>
                                         </div>
                                     </div>

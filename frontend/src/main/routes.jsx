@@ -25,6 +25,13 @@ function requireAuth(admin = false) {
         let role;
         try {
             const decoded = jwt_decode.jwtDecode(token);
+            const currentTime = Date.now() / 1000;
+            if (decoded.exp && decoded.exp < currentTime) {
+
+                localStorage.removeItem('token');
+                replace({ pathname: '/user/auth' });
+                return;
+            }
             role = decoded.role;
         } catch (error) {
             replace({ pathname: '/user/auth' });
@@ -60,7 +67,7 @@ export default props => (
             <IndexRedirect to="vacancies" />
             <Route path='vacancies' component={Vagas} />
             <Route path='profile' component={Perfil} onEnter={requireAuth(false)} />
-            <Route path='leaderboard' component={Pontuacao}/>
+            <Route path='leaderboard' component={Pontuacao} />
         </Route>
 
         <Redirect from='*' to='/volunteer' />

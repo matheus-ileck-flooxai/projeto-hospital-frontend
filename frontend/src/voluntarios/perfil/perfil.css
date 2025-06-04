@@ -127,3 +127,7 @@
     display: flex;
     align-items: center;
 }
+
+.row form.hide{
+    display: none;
+}
