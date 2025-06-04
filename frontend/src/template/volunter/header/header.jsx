@@ -50,13 +50,15 @@ export default class HeaderVoluntario extends Component {
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <form className="navbar-form navbar-left">
                             <div className="form-group">
-                                <Link to="/volunteer/vacancies"><img alt="Brand" src={Logo} width={50} /></Link>
+                                <Link to="/volunteer/inicio"><img alt="Brand" src={Logo} width={50} /></Link>
 
                             </div>
                         </form>
                         <ul className="nav navbar-nav navbar-right" id="nav-items">
                             {this.state.role === 'Volunteer' && <li><Link to="/volunteer/profile">Perfil</Link></li>}
-                            {this.state.role === 'Volunteer' && <li><a href="#vagas">Vagas</a></li>}
+                            {this.state.role === 'Volunteer' && <li><Link to="/volunteer/inicio">Inicio</Link></li>}
+
+                            {this.state.role === 'Volunteer' && <li><Link to="/volunteer/vacancies">Vagas</Link></li>}
                             {this.state.role === 'Volunteer' && <li><Link to="/volunteer/leaderboard">Pontuação</Link></li>}
                             {this.state.role === 'Volunteer' && <li><Link to="/user/auth">Sair</Link></li>}
 

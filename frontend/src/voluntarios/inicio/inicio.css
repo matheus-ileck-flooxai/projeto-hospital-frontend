@@ -1,0 +1,181 @@
+.title-vacancies {
+    margin-top: 5rem;
+    font-weight: 300;
+}
+
+.card-header {
+    background: #4caf50;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.card-custom {
+    display: flex;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: justify;
+    min-height: 500px;
+    min-width: 230px;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid #4caf5054;
+
+}
+
+
+.card-custom:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+
+}
+
+.card-content {
+    text-align: start;
+}
+
+.card-img {
+    width: 80px;
+    margin-bottom: 15px;
+}
+
+.card-title {
+    text-align: center;
+    color: #4CAF50;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.card-text {
+    margin: 4px 0;
+}
+
+.card-buttons {
+
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+
+.btn {
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    background: #54944e;
+    color: white;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #42753e;
+    color: white !important;
+
+}
+
+.no-content {
+    height: 500px;
+    align-content: center;
+    color: #4caf50;
+    justify-items: center;
+}
+
+.confirm-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    display: flex;
+    ;
+    flex-direction: column;
+    gap: 2rem;
+    background: white;
+    padding: 3rem;
+    border-radius: 8px;
+}
+
+.modal-title {
+    color: #42753e;
+}
+
+.modal-buttons {
+    display: flex;
+
+    justify-content: space-evenly;
+}
+
+.modal-description {
+    font-size: 1.6rem;
+}
+
+.modal-buttons button {
+    padding: 1rem;
+    background-color: green;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    width: 30%;
+    text-align: center;
+}
+
+.modal-buttons button:hover {
+    background-color: #355e32;
+}
+
+.modal-buttons button:first-child {
+    background-color: red;
+}
+
+.modal-buttons button:first-child:hover {
+    background-color: rgb(202, 0, 0);
+}
+
+.access-profile {
+    align-content: end;
+    align-items: center;
+    text-align: center;
+}
+
+.access-profile a:hover {
+    text-decoration: none;
+    color: #355e32;
+}
+
+#leaderboard .leaderboard-content {
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.access-leaderboard {
+    height: 10vh;
+    align-content: end;
+    align-items: center;
+    text-align: center;
+
+}
+
+.access-leaderboard a {
+    font-size: 1.5rem;
+
+}
+
+.see-more {
+    width: 100%;
+    text-align: center;
+    margin-top: 2rem;
+}
+.see-more a:hover{
+}
