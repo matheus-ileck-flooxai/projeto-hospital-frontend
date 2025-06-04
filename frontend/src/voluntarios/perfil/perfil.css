@@ -116,18 +116,30 @@
 }
 
 .card-custom.profile {
-    min-height: 400px;
-    justify-content: flex-start;
+    min-height: 500px;
+    min-width: 230px;
 }
 
 .card-custom.profile h3 {
     text-align: center;
 }
-.row.form{
+
+.card-custom.profile .card-buttons {
+    margin-top: auto;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.row.form {
     display: flex;
     align-items: center;
 }
 
-.row form.hide{
+.row form.hide {
     display: none;
+}
+
+#columnCard {
+    justify-items: center;
 }

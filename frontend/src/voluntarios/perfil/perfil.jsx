@@ -197,8 +197,7 @@ export default class profile extends Component {
 
                     <div className="row">
 
-
-                        <div className="col-md-12 col-lg-4 ">
+                        <div className="col-xs-12 col-md-12 col-lg-4">
                             <div className="panel panel-default " id="panel-content" style={{ marginBottom: '15px', }}>
                                 <div className="panel-body text-center">
                                     <img src={Logo} alt="Admin" className="img-circle" width="150" />
@@ -401,7 +400,7 @@ export default class profile extends Component {
 
 
                         </div>
-                        <div className="col-md-12 col-lg-8">
+                        <div className="col-xs-12 col-md-12 col-lg-8">
                             <div className="panel panel-default " id="panel-content" style={{ marginBottom: '15px', }}>
                                 <div className="panel-body text-center">
                                     <div className="col-md-12">
@@ -412,7 +411,7 @@ export default class profile extends Component {
                                             this.state.user.applications.map((application, index) => {
 
                                                 return (
-                                                    <div className="col-xs-12 col-sm-6 col-md-5 col-lg-4" key={index}>
+                                                    <div className="col-xs-12 col-md-6 col-lg-4" id="columnCard" key={index}>
                                                         <div className="card-custom profile">
                                                             <div>
                                                                 <div className="card-header">
@@ -457,6 +456,7 @@ export default class profile extends Component {
 
                                                                     )}
                                                                 </div>
+                                                                
                                                             </div>
 
                                                         </div>
