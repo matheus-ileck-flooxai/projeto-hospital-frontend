@@ -37,7 +37,7 @@ class Pedidos extends Component {
     getApplications() {
         const token = localStorage.getItem('token');
 
-        Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/applications`, {
+        Axios.get(`https://backend-hospital-production.up.railway.app/api/applications`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -53,7 +53,7 @@ class Pedidos extends Component {
     }
     onDelete(applicationId) {
         const token = localStorage.getItem('token');
-        Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/applications/${applicationId}`, {
+        Axios.delete(`https://backend-hospital-production.up.railway.app/api/applications/${applicationId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -72,7 +72,7 @@ class Pedidos extends Component {
         id;
 
 
-        Axios.put(`https://projeto-hospital-backend-production.up.railway.app/api/applications/${id}`, {}, {
+        Axios.put(`https://backend-hospital-production.up.railway.app/api/applications/${id}`, {}, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

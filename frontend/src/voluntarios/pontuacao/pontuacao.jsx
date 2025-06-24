@@ -34,7 +34,7 @@ export default class leaderboard extends Component {
     }
     componentDidMount() {
 
-        Axios.get('https://projeto-hospital-backend-production.up.railway.app/api/leaderboard')
+        Axios.get('https://backend-hospital-production.up.railway.app/api/leaderboard')
             .then(resp => {
                 this.setState({ leaderboard: resp.data.users })
             })

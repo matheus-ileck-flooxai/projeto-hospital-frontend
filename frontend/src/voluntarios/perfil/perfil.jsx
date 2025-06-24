@@ -62,7 +62,7 @@ export default class profile extends Component {
 
             const id = decoded.userid;
 
-            Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/volunteer/${id}`, {
+            Axios.get(`https://backend-hospital-production.up.railway.app/api/volunteer/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -122,7 +122,7 @@ export default class profile extends Component {
 
 
         if (id) {
-            Axios.put(`https://projeto-hospital-backend-production.up.railway.app/api/volunteer/${id}`, User, {
+            Axios.put(`https://backend-hospital-production.up.railway.app/api/volunteer/${id}`, User, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -156,7 +156,7 @@ export default class profile extends Component {
 
         const token = localStorage.getItem('token');
 
-        Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/volunteer/cancelapplication/${applicationId}`, {
+        Axios.delete(`https://backend-hospital-production.up.railway.app/api/volunteer/cancelapplication/${applicationId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

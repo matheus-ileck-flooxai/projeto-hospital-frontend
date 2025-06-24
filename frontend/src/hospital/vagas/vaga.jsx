@@ -42,7 +42,7 @@ class vacancies extends Component {
     getVacancies() {
         const token = localStorage.getItem('token');
 
-        Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/hospital/vacancies`, {
+        Axios.get(`https://backend-hospital-production.up.railway.app/api/hospital/vacancies`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -75,7 +75,7 @@ class vacancies extends Component {
         }
 
         if (this.state.Vacancy.id) {
-            Axios.put(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies/${this.state.Vacancy.id}`, vacancy, {
+            Axios.put(`https://backend-hospital-production.up.railway.app/api/vacancies/${this.state.Vacancy.id}`, vacancy, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -90,7 +90,7 @@ class vacancies extends Component {
             })
         }
         else {
-            Axios.post(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies`, vacancy, {
+            Axios.post(`https://backend-hospital-production.up.railway.app/api/vacancies`, vacancy, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -117,7 +117,7 @@ class vacancies extends Component {
     onDelete(id) {
         const token = localStorage.getItem('token');
 
-        Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies/${id}`, {
+        Axios.delete(`https://backend-hospital-production.up.railway.app/api/vacancies/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -135,7 +135,7 @@ class vacancies extends Component {
         const token = localStorage.getItem('token');
 
 
-        Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies/${id}/conclude`, {
+        Axios.delete(`https://backend-hospital-production.up.railway.app/api/vacancies/${id}/conclude`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

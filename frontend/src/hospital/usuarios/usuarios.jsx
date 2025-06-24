@@ -3,6 +3,7 @@ import Axios from "axios";
 import './usuarios.css'
 import { jwtDecode } from "jwt-decode";
 import Alert from "react-s-alert"
+import InputMask from 'react-input-mask';
 
 
 class users extends Component {
@@ -49,7 +50,7 @@ class users extends Component {
     getusers() {
         const token = localStorage.getItem('token')
 
-        Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/hospital/users`, {
+        Axios.get(`https://backend-hospital-production.up.railway.app/api/hospital/users`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -76,7 +77,7 @@ class users extends Component {
 
         const User = {
             name: formData.get('name'),
-            phone_number: formData.get('phone'),
+            phone_number: formData.get('phone_number'),
             email: formData.get('email'),
             password: formData.get('password'),
             age: new Date(formData.get('age')),
@@ -84,7 +85,7 @@ class users extends Component {
             hospitalId: hospitalid
         };
         if (this.state.User.id) {
-            Axios.put(`https://projeto-hospital-backend-production.up.railway.app/api/users/${this.state.User.id}`, User, {
+            Axios.put(`https://backend-hospital-production.up.railway.app/api/users/${this.state.User.id}`, User, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -101,7 +102,7 @@ class users extends Component {
             });
         }
         else {
-            Axios.post(`https://projeto-hospital-backend-production.up.railway.app/api/users`, User, {
+            Axios.post(`https://backend-hospital-production.up.railway.app/api/users`, User, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -124,7 +125,7 @@ class users extends Component {
     onDelete(id) {
         const token = localStorage.getItem('token')
 
-        Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/users/${id}`, {
+        Axios.delete(`https://backend-hospital-production.up.railway.app/api/users/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -214,12 +215,12 @@ class users extends Component {
 
                         <div className="grupo-inputs">
                             <label className="label">Telefone:</label>
-                            <input
+                            <InputMask
+                                mask="(99) 99999-9999"
+                                maskChar=""
                                 type="tel"
-                                name="phone"
-                                placeholder="Digite seu telefone"
-                                required
-                                pattern="\d{10,11}"
+                                name="phone_number"
+                                placeholder="(99) 99999-9999"
                                 value={this.state.User ? this.state.User.phone_number : ''}
                                 onChange={e => this.setState({
                                     User: {
@@ -227,7 +228,8 @@ class users extends Component {
                                         phone_number: e.target.value.replace(/\D/g, "")
                                     }
                                 })}
-                            />
+                                required
+                                                        />
                         </div>
 
                         <div className="grupo-inputs">

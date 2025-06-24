@@ -93,7 +93,7 @@ export default class volunteerAuth extends Component {
         const { name, address, email, age, password, role, phone_number } = this.state;
         const newUser = { name, address, age, email, role, password, phone_number };
 
-        const url = `https://projeto-hospital-backend-production.up.railway.app/api/user/register`;
+        const url = `https://backend-hospital-production.up.railway.app/api/user/register`;
         axios.post(url, newUser)
             .then(resp => {
                 this.setState({ showForm: false });

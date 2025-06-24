@@ -60,7 +60,7 @@ export default class Vagas extends Component {
             const decoded = jwt_decode.jwtDecode(token);
             const userId = decoded.userid;
 
-            Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies?userId=${userId}`)
+            Axios.get(`https://backend-hospital-production.up.railway.app/api/vacancies?userId=${userId}`)
                 .then(resp => {
                     this.setState({ vacancies: resp.data });
 
@@ -70,7 +70,7 @@ export default class Vagas extends Component {
 
                 });
         } else {
-            Axios.get(`https://projeto-hospital-backend-production.up.railway.app/api/vacancies`)
+            Axios.get(`https://backend-hospital-production.up.railway.app/api/vacancies`)
                 .then(resp => {
                     this.setState({ vacancies: resp.data });
                 })
@@ -100,7 +100,7 @@ export default class Vagas extends Component {
                 const idApplication = application.id
 
 
-                Axios.delete(`https://projeto-hospital-backend-production.up.railway.app/api/volunteer/cancelapplication/${idApplication}`, {
+                Axios.delete(`https://backend-hospital-production.up.railway.app/api/volunteer/cancelapplication/${idApplication}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -113,7 +113,7 @@ export default class Vagas extends Component {
                     })
             }
             else {
-                Axios.post(`https://projeto-hospital-backend-production.up.railway.app/api/volunteer/newapplication`, { userId, vacancyId }, {
+                Axios.post(`https://backend-hospital-production.up.railway.app/api/volunteer/newapplication`, { userId, vacancyId }, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
